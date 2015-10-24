@@ -59,9 +59,13 @@ class Download():
         timeArray = Download.getToday(self)
         today = time.strftime("%y%m%d", timeArray)
         otherStyleTime = time.strftime("%m.%d", timeArray)
+        writetime = time.strftime("%Y-%m-%d %H:%M:%S",timeArray)
+        txtfile = file("writeTime.txt",'w')
+        txtfile.write(writetime)
+
         csvfile = file(today+'.csv', 'wb')
         writer = csv.writer(csvfile)
-        writer.writerow(['NAME','GDP'+otherStyleTime])
+        writer.writerow(['NAME','NEWS'+otherStyleTime])
         data = [
             ("北京", list["北京"]),
             ("天津",list["天津"]),
