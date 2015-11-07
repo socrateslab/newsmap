@@ -63,7 +63,7 @@ class Download():
         txtfile = file("writeTime.txt",'w')
         txtfile.write(writetime)
 
-        csvfile = file(today+'.csv', 'wb')
+        csvfile = file('getData/'+today+'.csv', 'wb')
         writer = csv.writer(csvfile)
         writer.writerow(['NAME','NEWS'+otherStyleTime])
         data = [

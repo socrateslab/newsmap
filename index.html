@@ -145,11 +145,11 @@
             return function(n) { return fmt(n) + "%"; };
           })(),
           fields = [
-            {name: "(no scale)", id: "none"},
+            
             {name: "每日新闻数", id: "NEWS", key: "NEWS%d"},
            
           ],
-          years = [10.23, 10.24, 10.25, 10.26],
+          years = [11.01, 11.02, 11.03, 11.04, 11.05, 11.06, 11.07],
           fieldsById = d3.nest()
             .key(function(d) { return d.id; })
             .rollup(function(d) { return d[0]; })

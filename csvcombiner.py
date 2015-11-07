@@ -6,9 +6,7 @@ for i in os.walk('getData'):
 
 numOfFiles = len(filenames)
 files = [0 for i in range(numOfFiles)]
-
 for i in range(1,numOfFiles):
-	#in mac OS X , from "1" because of DS.store ,in linux or win ,use from "0"
     print filenames[i]
     fileAddress = "getData/"+filenames[i]
     files[i] = pd.read_csv(fileAddress)
