@@ -1,25 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="free-educational-responsive-web-template-webEdu">
-	<meta name="author" content="webThemez.com">
-	<title>Agency</title>
-	<link rel="favicon" href="assets/images/favicon.png">
-	<link rel="stylesheet" media="screen" href="assets/css/useso.css">
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="assets/css/font-awesome.min.css"> 
-	<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen"> 
-	<link rel="stylesheet" href="assets/css/style.css">
-    <link rel='stylesheet' id='camera-css'  href='assets/css/camera.css' type='text/css' media='all'> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="free-educational-responsive-web-template-webEdu">
+    <meta name="author" content="webThemez.com">
+    <title>Agency</title>
+    <link rel="favicon" href="assets/images/favicon.png">
+    <link rel="stylesheet" media="screen" href="assets/css/useso.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel='stylesheet' id='camera-css'  href='assets/css/camera.css' type='text/css' media='all'>
     <script type="text/javascript" src="assets/js/jquery-1.8.2.min.js"></script>
 
     <script src="highcharts/js/highcharts.js"></script>
     <script src="highcharts/js/modules/exporting.js"></script>
 
-
-<script type="text/javascript">
+    <script type="text/javascript">
 $(function () {
     $('#piechart').highcharts({
         chart: {
@@ -76,7 +75,7 @@ $(function () {
 });
         </script>
 
-<script type="text/javascript">
+    <script type="text/javascript">
   $(function () {
     $('#dotchart').highcharts({
         chart: {
@@ -251,8 +250,8 @@ $(function () {
 });
 
 </script>
-   
-   <script type="text/javascript">
+
+    <script type="text/javascript">
 $(function () {
     $(document).ready(function () {
 
@@ -338,201 +337,209 @@ $(function () {
 });
     </script>
 
-     
-	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-	<script src="assets/js/html5shiv.js"></script>
-	<script src="assets/js/respond.min.js"></script>
-	<![endif]-->
+    <script type="text/javascript">
+$(function () {
+    $('#barchart').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: '主要区域新闻数量对比'
+        },
+        subtitle: {
+            text: '数据来源: <a href="http://www.gdeltproject.org">The GDELT Project</a>'
+        },
+        xAxis: {
+            categories: ['北京', '江苏', '上海', '浙江', '广东'],
+            title: {
+                text: null
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '新闻数量',
+                align: 'high'
+            },
+            labels: {
+                overflow: 'justify'
+            }
+        },
+        tooltip: {
+            valueSuffix: ' millions'
+        },
+        plotOptions: {
+            bar: {
+                dataLabels: {
+                    enabled: true
+                }
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            x: -40,
+            y: 80,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+            shadow: true
+        },
+        credits: {
+            enabled: true
+        },
+        series: [{
+            name: '11月',
+            data: [1107, 831, 1235, 1203, 892]
+        }, {
+            name: '10月',
+            data: [1133, 956, 1047, 908, 988]
+        }, {
+            name: '9月',
+            data: [1052, 954, 1250, 940, 1038]
+        }]
+    });
+});
+        </script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="assets/js/html5shiv.js"></script>
+    <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
 
-
-	<!-- Fixed navbar -->
-  <div class="logo">
-    <a href="index.html"><img src="assets/images/Awsome-agency-logo5.png" width="300" align="center"></a>
-  </div>
-	<div class="navbar navbar-inverse">
-		<div class="container">
-			<div class="navbar-header">
-				<!-- Button for smallest screens -->
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-				
-			</div>
-			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav  mainNav">
-					<li class="active"><a href="index.html">首页</a></li>
-					<li><a href="about.html">分析</a></li>
-					<li><a href="testimonial.html">关于</a></li>
-					<li><a href="contact.html">联系我们</a></li>
-
-				</ul>
-			</div>
-			<!--/.nav-collapse -->
-		</div>
-	</div>
-	<!-- /.navbar -->
-
-	<!-- Header -->
-
-	<!-- /Header -->
-
-<div class="container">
-<div id="dynamicchart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-<br>
-  <div class="row">
-    <div class="col-md-8">
-    <DIV align=center><IFRAME src="newsmap.html" frameBorder=0 marginwidth=0 marginheight=0 scrolling=no style="width:1000px;height:900px;" width=1000  height=1000 scrolling="yes" ALLOWTRANSPARENCY="true"></IFRAME></DIV>
-
-
-
-      
+    <!-- Fixed navbar -->
+    <div class="logo">
+        <a href="index.html">
+            <img src="assets/images/Awsome-agency-logo5.png" width="300" align="center"></a>
     </div>
-    <div class="col-md-4">
-      <br>
+    <div class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <!-- Button for smallest screens -->
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
 
-  <div id="dotchart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-  <br>
-  <div id="piechart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav  mainNav">
+                    <li class="active">
+                        <a href="index.html">首页</a>
+                    </li>
+                    <li>
+                        <a href="about.html">分析</a>
+                    </li>
+                    <li>
+                        <a href="testimonial.html">关于</a>
+                    </li>
+                    <li>
+                        <a href="contact.html">联系我们</a>
+                    </li>
 
+                </ul>
+            </div>
+            <!--/.nav-collapse --> </div>
     </div>
-     
+    <!-- /.navbar -->
 
+    <!-- Header -->
 
-  </div>
-  <div class="row">
-      
-  </div>
+    <!-- /Header -->
 
+    <div class="container">
+        <div id="dynamicchart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        <br>
+        <div class="row">
+            <div class="col-md-8">
+                <DIV align=center>
+                    <IFRAME src="newsmap.html" frameBorder=0 marginwidth=0 marginheight=0 scrolling=no style="width:1000px;height:900px;" width=1000  height=1000 scrolling="yes" ALLOWTRANSPARENCY="true"></IFRAME>
+                </DIV>
 
-  
-  
-  </div>
-        <section class="contacts container">
-        <div class="contact-form-full col-md-offset-1 col-md-5 col-sm-6 col-xs-12">
+            </div>
+            <div class="col-md-4">
+                <br>
 
-              <div class="inner contact">
-                <!-- Form Area -->
-                <div class="contact-form">
-                    <!-- Form -->
-                    <form id="contact-us" method="post" action="#">
-                    <h3>&nbsp&nbsp&nbsp&nbsp联系我们</h3>
-                        <!-- Left Inputs -->
-                        <div class="col-xs-12 wow animated slideInLeft" data-wow-delay=".5s">
-                            <!-- Name -->
-                            <input type="text" name="name" id="name" required="required" class="form" placeholder="Name" />
-                            <!-- Email -->
-                            <input type="email" name="mail" id="mail" required="required" class="form" placeholder="Email" />
+                <div id="dotchart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                <br>
+                <div id="piechart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
-                        </div><!-- End Left Inputs -->
-                        <!-- Right Inputs -->
-                        <div class="col-xs-12 wow animated slideInRight" data-wow-delay=".5s">
-                            <!-- Message -->
-                            <textarea name="message" id="message" class="form textarea"  placeholder="Message"></textarea>
-                        </div><!-- End Right Inputs -->
-                        <!-- Bottom Submit -->
-                        <div class="relative fullwidth col-xs-12">
-                            <!-- Send Button -->
-                            <button type="submit" id="submit" name="submit" class="form-btn semibold">Send Message</button>
-                        </div><!-- End Bottom Submit -->
-                        <!-- Clear -->
-                        <div class="clear"></div>
-                    </form>
+            </div>
 
-                    <!-- Your Mail Message -->
-                    <div class="mail-message-area">
-                        <!-- Message -->
-                        
-                    </div>
-
-                </div><!-- End Contact Form Area -->
-            </div><!-- End Inner -->
-          </div>
-          <div class="contact-form-text col-md-6 col-sm-6 col-xs-12">
-              <p class="contact-form-texts">
-              <h3>项目简介</h3>
-        
-        <p>新闻地图建立在
-        <a href="cartogram.js">cartogram.js</a> (一个应用
-        <a href="http://lambert.nico.free.fr/tp/biblio/Dougeniketal1985.pdf">算法构建连续性区域统计地图的javascript库</a> &copy;1985)、 <a href="http://d3js.org">d3.js</a> 和 <a href="http://colorbrewer2.org">colorbrewer</a>。它综合了
-        <a href="http://github.com/mbostock/topojson">TopoJSON</a>和国家统计局的
-        <a href="http://www.stats.gov.cn/">分省统计数据</a>
-        来按比例调整各个省份的大小。新闻地图是由王成军和陈志聪搭建，&copy;南京大学新闻传播学院，
-        <a href="http://ccc.nju.edu.cn:8089/">计算传播学实验中心</a></p>
-        <h3>About us </h3>
-        <p>News Map is built upon 
-        <a href="cartogram.js">cartogram.js</a> (a JavaScript implementation of
-        <a href="http://lambert.nico.free.fr/tp/biblio/Dougeniketal1985.pdf">an algoritm to construct continuous area cartograms</a> &copy;1985), <a href="http://d3js.org">d3.js</a> and <a href="http://colorbrewer2.org">colorbrewer</a>.
-        This visualization combines
-        <a href="http://github.com/mbostock/topojson">TopoJSON</a>-encoded 
-        boundaries of the Chinese provinces with GDP data from
-        <a href="http://www.stats.gov.cn/">National Bureau Statistics of the People's Republic of China</a>
-        to size each province proportionally.
-
-        Designed and built by Chengjun Wang and Zhicong Chen at
-        <a href="http://ccc.nju.edu.cn:8089/">Computational Communication Collaboratory</a>, School of Journalism and Communication, Nanjing University.</p>              
-
-              </p>
-          </div>
-      </section>
-
-
-    
-
-  
-
- 
-        
-  <footer>
-    <div class="footer-section ">
-      <div class="container">
-        <div class="social pull-left">
-          <p><i class="fa fa-phone"></i>025-88888888 <i class="fa fa-envelope-o"></i>datalab@nju.edu.cn</p>
         </div>
-        <div class="navigation">
-          <ul class="pull-right">
-            <li><a href="index.html">首页</a></li>
-            <li><a href="about.html">分析</a></li>
-            <li><a href="testimonial.html">关于</a></li>
-            <li><a href="contact.html">联系我们</a></li>
-          </ul>
-        </div> 
-      </div>
-    </div>
-   
-  </footer>
+        <div class="row">
+            <div class="col-md-4">
+                <div id="barchart" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4"></div>
+        </div>
 
-	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
-    <script src="assets/js/modernizr-latest.js"></script> 
+    </div>
+
+    <footer>
+        <div class="footer-section ">
+            <div class="container">
+                <div class="social pull-left">
+                    <p> <i class="fa fa-phone"></i>
+                        025-88888888 <i class="fa fa-envelope-o"></i>
+                        datalab@nju.edu.cn
+                    </p>
+                </div>
+                <div class="navigation">
+                    <ul class="pull-right">
+                        <li>
+                            <a href="index.html">首页</a>
+                        </li>
+                        <li>
+                            <a href="about.html">分析</a>
+                        </li>
+                        <li>
+                            <a href="testimonial.html">关于</a>
+                        </li>
+                        <li>
+                            <a href="contact.html">联系我们</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+    <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+    <script src="assets/js/modernizr-latest.js"></script>
     <script type='text/javascript' src='assets/js/jquery.min.js'></script>
     <script type='text/javascript' src='assets/js/jquery.mobile.customized.min.js'></script>
-    <script type='text/javascript' src='assets/js/jquery.easing.1.3.js'></script> 
-    <script type='text/javascript' src='assets/js/camera.min.js'></script> 
-    <script src="assets/js/bootstrap.min.js"></script> 
+    <script type='text/javascript' src='assets/js/jquery.easing.1.3.js'></script>
+    <script type='text/javascript' src='assets/js/camera.min.js'></script>
+    <script src="assets/js/bootstrap.min.js"></script>
 
-    
-
-    
     <script>
-		jQuery(function(){
-			
-			jQuery('#camera_wrap_4').camera({
+        jQuery(function(){
+            
+            jQuery('#camera_wrap_4').camera({
                 transPeriod: 500,
                 time: 3000,
-				height: '600',
-				loader: 'false',
-				pagination: true,
-				thumbnails: false,
-				hover: false,
+                height: '600',
+                loader: 'false',
+                pagination: true,
+                thumbnails: false,
+                hover: false,
                 playPause: false,
                 navigation: false,
-				opacityOnGrid: false,
-				imagePath: 'assets/images/'
-			});
+                opacityOnGrid: false,
+                imagePath: 'assets/images/'
+            });
 
-		});
+        });
       
-	</script>
-    
+    </script>
+
 </body>
 </html>
