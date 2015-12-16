@@ -473,11 +473,10 @@ $(function () {
 
         </div>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div id="barchart" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
             </div>
-            <div class="col-md-4"></div>
-            <div class="col-md-4"></div>
+            <div class="col-md-6"></div>
         </div>
                 <div id="ebarchart" style="min-width: 310px; max-width: 1600px; height: 400px; margin: 0 auto"></div>
 
@@ -580,28 +579,7 @@ $(function () {
         });
         
         // --- 地图 ---
-        var myChart2 = echarts.init(document.getElementById('mainMap'));
-        myChart2.setOption({
-            tooltip : {
-                trigger: 'item',
-                formatter: '{b}'
-            },
-            series : [
-                {
-                    name: '中国',
-                    type: 'map',
-                    mapType: 'china',
-                    selectedMode : 'multiple',
-                    itemStyle:{
-                        normal:{label:{show:true}},
-                        emphasis:{label:{show:true}}
-                    },
-                    data:[
-                        {name:'广东',selected:true}
-                    ]
-                }
-            ]
-        });
+
     </script>
 
     <script src="assets/js/modernizr-latest.js"></script>
