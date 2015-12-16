@@ -479,6 +479,8 @@ $(function () {
             <div class="col-md-4"></div>
             <div class="col-md-4"></div>
         </div>
+                <div id="ebarchart" style="min-width: 310px; max-width: 1600px; height: 400px; margin: 0 auto"></div>
+
 
     </div>
 
@@ -513,6 +515,95 @@ $(function () {
     </footer>
 
     <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+    <script src="js/echarts-all.js"></script>
+    <script type="text/javascript">
+        // Step:3 echarts & zrender as a Global Interface by the echarts-plain.js.
+        // Step:3 echarts和zrender被echarts-plain.js写入为全局接口
+        var myChart = echarts.init(document.getElementById('ebarchart'));
+        myChart.setOption({
+            tooltip : {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['北京','江苏','A','B','C']
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    mark : {show: true},
+                    dataView : {show: true, readOnly: false},
+                    magicType : {show: true, type: ['line', 'bar']},
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            calculable : true,
+            xAxis : [
+                {
+                    type : 'category',
+                    data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value',
+                    splitArea : {show : true}
+                }
+            ],
+            series : [
+                {
+                    name:'北京',
+                    type:'bar',
+                    data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
+                },
+                {
+                    name:'江苏',
+                    type:'bar',
+                    data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
+                },
+                {
+                    name:'A',
+                    type:'bar',
+                    data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
+                },
+                {
+                    name:'B',
+                    type:'bar',
+                    data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
+                },
+                {
+                    name:'C',
+                    type:'bar',
+                    data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
+                }
+            ]
+        });
+        
+        // --- 地图 ---
+        var myChart2 = echarts.init(document.getElementById('mainMap'));
+        myChart2.setOption({
+            tooltip : {
+                trigger: 'item',
+                formatter: '{b}'
+            },
+            series : [
+                {
+                    name: '中国',
+                    type: 'map',
+                    mapType: 'china',
+                    selectedMode : 'multiple',
+                    itemStyle:{
+                        normal:{label:{show:true}},
+                        emphasis:{label:{show:true}}
+                    },
+                    data:[
+                        {name:'广东',selected:true}
+                    ]
+                }
+            ]
+        });
+    </script>
+
     <script src="assets/js/modernizr-latest.js"></script>
     <script type='text/javascript' src='assets/js/jquery.min.js'></script>
     <script type='text/javascript' src='assets/js/jquery.mobile.customized.min.js'></script>
