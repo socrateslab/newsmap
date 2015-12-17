@@ -17,7 +17,20 @@
 
     <script src="highcharts/js/highcharts.js"></script>
     <script src="highcharts/js/modules/exporting.js"></script>
-   
+    
+    <script type="text/javascript" id="init">
+        $(document).ready(function() { 
+            setYearData();
+        });
+        
+        function setYearData(){
+            $.get("admin/getdata.php?type=yearbar",function(data){
+                var jsondata = $.parseJSON(data);
+                setebarchart(jsondata);
+            }); 
+        }
+    </script>
+    
     <script type="text/javascript">
         $(function () {
             $('#piechart').highcharts({
@@ -71,56 +84,56 @@
             });
         });
     </script>
-   <script type="text/javascript">
-    $(function () {
-    $('#dual').highcharts({
-        title: {
-            text: '主要省市一周变化趋势',
-            x: -20 //center
-        },
-        subtitle: {
-            text: '数据来源: <a href="http://www.gdeltproject.org">The GDELT Project</a>',
-            x: -20
-        },
-        xAxis: {
-            categories: ['11-10', '11-11', '11-12', '11-13', '11-14', '11-15',
-                '11-16']
-        },
-        yAxis: {
+    <script type="text/javascript">
+        $(function () {
+        $('#dual').highcharts({
             title: {
-                text: '事件数'
+                text: '主要省市一周变化趋势',
+                x: -20 //center
             },
-            plotLines: [{
-                value: 0,
-                width: 1,
-                color: '#808080'
+            subtitle: {
+                text: '数据来源: <a href="http://www.gdeltproject.org">The GDELT Project</a>',
+                x: -20
+            },
+            xAxis: {
+                categories: ['11-10', '11-11', '11-12', '11-13', '11-14', '11-15',
+                    '11-16']
+            },
+            yAxis: {
+                title: {
+                    text: '事件数'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valueSuffix: '件'
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: [{
+                name: '北京',
+                data: [3202, 5403, 4503, 4800, 3120, 3500, 2800]
+            },{
+                name: '江苏',
+                data: [4202, 2433, 2303, 3100, 2420, 3300, 2500]
+            },{
+                name: '上海',
+                data: [2602, 2803, 3203, 2500, 3890, 2391, 2200]
+            },{
+                name: '浙江',
+                data: [2402, 3123, 2303, 3120, 2680, 3310, 2900]
             }]
-        },
-        tooltip: {
-            valueSuffix: '件'
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle',
-            borderWidth: 0
-        },
-        series: [{
-            name: '北京',
-            data: [3202, 5403, 4503, 4800, 3120, 3500, 2800]
-        },{
-            name: '江苏',
-            data: [4202, 2433, 2303, 3100, 2420, 3300, 2500]
-        },{
-            name: '上海',
-            data: [2602, 2803, 3203, 2500, 3890, 2391, 2200]
-        },{
-            name: '浙江',
-            data: [2402, 3123, 2303, 3120, 2680, 3310, 2900]
-        }]
+        });
     });
-});
-   </script>
+    </script>
 
     <script type="text/javascript">
         $(function () {
@@ -560,67 +573,71 @@
     <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
     <script src="js/echarts-all.js"></script>
     <script type="text/javascript">
-        // Step:3 echarts & zrender as a Global Interface by the echarts-plain.js.
-        // Step:3 echarts和zrender被echarts-plain.js写入为全局接口
-        var myChart = echarts.init(document.getElementById('ebarchart'));
-        myChart.setOption({
-            tooltip : {
-                trigger: 'axis'
-            },
-            legend: {
-                data:['北京','江苏','上海','浙江','广东']
-            },
-            toolbox: {
-                show : true,
-                feature : {
-                    mark : {show: true},
-                    dataView : {show: true, readOnly: false},
-                    magicType : {show: true, type: ['line', 'bar']},
-                    restore : {show: true},
-                    saveAsImage : {show: true}
-                }
-            },
-            calculable : true,
-            xAxis : [
-                {
-                    type : 'category',
-                    data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
-                }
-            ],
-            yAxis : [
-                {
-                    type : 'value',
-                    splitArea : {show : true}
-                }
-            ],
-            series : [
-                {
-                    name:'北京',
-                    type:'bar',
-                    data:[15210, 12031, 13212, 12322, 12526, 17627, 13526, 16222 , 13226, 12020, 16224, 7323]
+        function setebarchart(data){
+            // Step:3 echarts & zrender as a Global Interface by the echarts-plain.js.
+            // Step:3 echarts和zrender被echarts-plain.js写入为全局接口
+            alert("set");
+            alert(data);
+            var myChart = echarts.init(document.getElementById('ebarchart'));
+            myChart.setOption({
+                tooltip : {
+                    trigger: 'axis'
                 },
-                {
-                    name:'江苏',
-                    type:'bar',
-                    data:[13121, 14219, 14210, 12312, 12526, 17627, 13526, 16232, 13216, 12030, 16214, 6333]
+                legend: {
+                    data:['北京','江苏','上海','浙江','广东']
                 },
-                {
-                    name:'上海',
-                    type:'bar',
-                    data:[12203, 14978, 17201, 12322, 12526, 17627, 13526, 16222, 13256, 12040, 16314, 6543]
+                toolbox: {
+                    show : true,
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: false},
+                        magicType : {show: true, type: ['line', 'bar']},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
                 },
-                {
-                    name:'浙江',
-                    type:'bar',
-                    data:[12304, 14319, 12130, 12332, 12536, 12767, 13526, 16222, 13336, 12020, 16234, 7533]
-                },
-                {
-                    name:'广东',
-                    type:'bar',
-                    data:[12346, 15219, 12340, 12614, 12837, 13707, 12756, 12822, 14837, 11828, 13240, 6423]
-                }
-            ]
-        });
+                calculable : true,
+                xAxis : [
+                    {
+                        type : 'category',
+                        data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+                        splitArea : {show : true}
+                    }
+                ],
+                series : [
+                    {
+                        name:'北京',
+                        type:'bar',
+                        data:data['beijing'].split(",")
+                    },
+                    {
+                        name:'江苏',
+                        type:'bar',
+                        data:data['jiangsu'].split(",")
+                    },
+                    {
+                        name:'上海',
+                        type:'bar',
+                        data:data['shanghai'].split(",")
+                    },
+                    {
+                        name:'浙江',
+                        type:'bar',
+                        data:data['zhejiang'].split(",")
+                    },
+                    {
+                        name:'广东',
+                        type:'bar',
+                        data:data['guangdong'].split(",")
+                    }
+                ]
+            });
+        }
     </script>
     
 

@@ -2,7 +2,7 @@
     require('constants.php');
 
     $type = $_GET['type'];
-    if($type=='bar')
+    if($type=='yearbar')
         setYearChina();
 
     function setYearChina(){
@@ -61,9 +61,9 @@
             $day="01";
             $beginDate=$_date = date("Ymd",mktime(0,0,0,$month,$day,$year));
             $endDate = date('Ymd', strtotime("$beginDate +1 month"));
-            $sql1 = "Select ActionGeo_ADM1Code,count(*) as newsnum from test.new_table where ActionGeo_CountryCode='CH' and DATEADDED>='$beginDate' and DATEADDED<'$endDate' group by ActionGeo_ADM1Code";
+            $sql1 = "Select ActionGeo_ADM1Code,count(*) as newsnum from chinadata where ActionGeo_CountryCode='CH' and DATEADDED>='$beginDate' and DATEADDED<'$endDate' group by ActionGeo_ADM1Code";
             $result1 = mysql_query($sql1);
-            $sql2 = "Select ActionGeo_CountryCode,count(*) as newsnum from new_table where (ActionGeo_CountryCode='MC' or ActionGeo_CountryCode='HK' or ActionGeo_CountryCode='TW') and DATEADDED>='$beginDate' and DATEADDED<'$endDate' group by ActionGeo_CountryCode";
+            $sql2 = "Select ActionGeo_CountryCode,count(*) as newsnum from chinadata where (ActionGeo_CountryCode='MC' or ActionGeo_CountryCode='HK' or ActionGeo_CountryCode='TW') and DATEADDED>='$beginDate' and DATEADDED<'$endDate' group by ActionGeo_CountryCode";
             $result2 = mysql_query($sql2);
             //验证数据库操作是否成功
             if($result1===FALSE||$result2===FALSE)
