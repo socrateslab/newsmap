@@ -21,16 +21,44 @@
     <script type="text/javascript" id="init">
         $(document).ready(function() { 
             setYearData();
+            setWeekData();
         });
         
         function setYearData(){
             $.get("admin/getdata.php?type=yearbar",function(data){
-                var jsondata = $.parseJSON(data);
+                var jsondata = $.parseJSON(data); 
                 setebarchart(jsondata);
+                setMainComparation(jsondata);
+            }); 
+        }
+        function setWeekData(){
+            $.get("admin/getdata.php?type=weekline",function(data){
+                var jsondata = $.parseJSON(data); 
+                setWeekLine(jsondata);
             }); 
         }
     </script>
-    
+    <script type="text/javascript">
+        Date.prototype.Format = function(fmt)   
+        { //author: meizz   
+            var o = {   
+                "M+" : this.getMonth()+1,                 //月份   
+                "d+" : this.getDate(),                    //日   
+                "h+" : this.getHours(),                   //小时   
+                "m+" : this.getMinutes(),                 //分   
+                "s+" : this.getSeconds(),                 //秒   
+                "q+" : Math.floor((this.getMonth()+3)/3), //季度   
+                "S"  : this.getMilliseconds()             //毫秒   
+            };   
+            if(/(y+)/.test(fmt))   
+                fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));   
+            for(var k in o)   
+                if(new RegExp("("+ k +")").test(fmt))   
+                    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
+            return fmt;   
+        }  
+        
+    </script>
     <script type="text/javascript">
         $(function () {
             $('#piechart').highcharts({
@@ -85,54 +113,60 @@
         });
     </script>
     <script type="text/javascript">
-        $(function () {
-        $('#dual').highcharts({
-            title: {
-                text: '主要省市一周变化趋势',
-                x: -20 //center
-            },
-            subtitle: {
-                text: '数据来源: <a href="http://www.gdeltproject.org">The GDELT Project</a>',
-                x: -20
-            },
-            xAxis: {
-                categories: ['11-10', '11-11', '11-12', '11-13', '11-14', '11-15',
-                    '11-16']
-            },
-            yAxis: {
-                title: {
-                    text: '事件数'
-                },
-                plotLines: [{
-                    value: 0,
-                    width: 1,
-                    color: '#808080'
-                }]
-            },
-            tooltip: {
-                valueSuffix: '件'
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle',
-                borderWidth: 0
-            },
-            series: [{
-                name: '北京',
-                data: [3202, 5403, 4503, 4800, 3120, 3500, 2800]
-            },{
-                name: '江苏',
-                data: [4202, 2433, 2303, 3100, 2420, 3300, 2500]
-            },{
-                name: '上海',
-                data: [2602, 2803, 3203, 2500, 3890, 2391, 2200]
-            },{
-                name: '浙江',
-                data: [2402, 3123, 2303, 3120, 2680, 3310, 2900]
-            }]
-        });
-    });
+        function setWeekLine(data){
+            var beijing = data['beijing'].split(",");
+            var jiangsu = data['jiangsu'].split(",");
+            var shanghai = data['shanghai'].split(",");
+            var zhejiang = data['zhejiang'].split(",");
+            var date = data['date'].split(",");
+            $(function () {
+                $('#dual').highcharts({
+                    title: {
+                        text: '主要省市一周变化趋势',
+                        x: -20 //center
+                    },
+                    subtitle: {
+                        text: '数据来源: <a href="http://www.gdeltproject.org">The GDELT Project</a>',
+                        x: -20
+                    },
+                    xAxis: {
+                        categories: [date[6],date[5],date[4],date[3],date[2],date[1],date[0]]
+                    },
+                    yAxis: {
+                        title: {
+                            text: '事件数'
+                        },
+                        plotLines: [{
+                            value: 0,
+                            width: 1,
+                            color: '#808080'
+                        }]
+                    },
+                    tooltip: {
+                        valueSuffix: '件'
+                    },
+                    legend: {
+                        layout: 'vertical',
+                        align: 'right',
+                        verticalAlign: 'middle',
+                        borderWidth: 0
+                    },
+                    series: [{
+                        name: '北京',
+                        data: [parseInt(beijing[6],10),parseInt(beijing[5],10),parseInt(beijing[4],10),parseInt(beijing[3],10),parseInt(beijing[2],10),parseInt(beijing[1],10),parseInt(beijing[0],10)]
+                    },{
+                        name: '江苏',
+                        data: [parseInt(jiangsu[6],10),parseInt(jiangsu[5],10),parseInt(jiangsu[4],10),parseInt(jiangsu[3],10),parseInt(jiangsu[2],10),parseInt(jiangsu[5],10),parseInt(jiangsu[0],10)]
+                    },{
+                        name: '上海',
+                        data: [parseInt(shanghai[6],10),parseInt(shanghai[5],10),parseInt(shanghai[4],10),parseInt(shanghai[3],10),parseInt(shanghai[2],10),parseInt(shanghai[5],10),parseInt(shanghai[0],10)]
+                    },{
+                        name: '浙江',
+                        data: [parseInt(zhejiang[6],10),parseInt(zhejiang[5],10),parseInt(zhejiang[4],10),parseInt(zhejiang[3],10),parseInt(zhejiang[2],10),parseInt(zhejiang[5],10),parseInt(zhejiang[0],10)]
+                    }]
+                });
+            });
+        }
     </script>
 
     <script type="text/javascript">
@@ -320,7 +354,17 @@
                         useUTC: false
                     }
                 });
+                var datatest = [],
+                    time = (new Date()).getTime(),
+                    i;
 
+                for (i = -19; i <= 0; i += 1) {
+                    datatest.push({
+                        x: i,
+                        y: Math.random()*1000
+                    })
+                };
+                    
                 $('#dynamicchart').highcharts({
                     chart: {
                         type: 'spline',
@@ -371,7 +415,7 @@
                     },
                     series: [{
                         name: 'Random data',
-                        data: (function () {
+                        /*data: (function () {
                             // generate an array of random data
                             var data = [],
                                 time = (new Date()).getTime(),
@@ -388,7 +432,8 @@
                             //alert (data[0]['y']);
                             return data;
 
-                        }())
+                        }())*/
+                        data:datatest
                     }]
 
                 });
@@ -398,69 +443,80 @@
     </script>
 
     <script type="text/javascript">
-        $(function () {
-            $('#barchart').highcharts({
-                chart: {
-                    type: 'bar'
-                },
-                title: {
-                    text: '主要区域新闻数量对比'
-                },
-                subtitle: {
-                    text: '数据来源: <a href="http://www.gdeltproject.org">The GDELT Project</a>'
-                },
-                xAxis: {
-                    categories: ['北京', '江苏', '上海', '浙江', '广东'],
-                    title: {
-                        text: null
-                    }
-                },
-                yAxis: {
-                    min: 0,
-                    title: {
-                        text: '新闻数量',
-                        align: 'high'
+        function setMainComparation(data){
+            var myDate = new Date();
+            var month = myDate.getMonth()-1;
+            var month1 = month-2;
+            var month2 = month-3;
+            var beijing = data['beijing'].split(",");
+            var jiangsu = data['jiangsu'].split(",");
+            var shanghai = data['shanghai'].split(",");
+            var zhejiang = data['zhejiang'].split(",");
+            var guangdong = data['guangdong'].split(",");
+            $(function () {
+                $('#barchart').highcharts({
+                    chart: {
+                        type: 'bar'
                     },
-                    labels: {
-                        overflow: 'justify'
-                    }
-                },
-                tooltip: {
-                    valueSuffix: ' millions'
-                },
-                plotOptions: {
-                    bar: {
-                        dataLabels: {
-                            enabled: true
+                    title: {
+                        text: '主要区域新闻数量对比'
+                    },
+                    subtitle: {
+                        text: '数据来源: <a href="http://www.gdeltproject.org">The GDELT Project</a>'
+                    },
+                    xAxis: {
+                        categories: ['北京', '江苏', '上海', '浙江', '广东'],
+                        title: {
+                            text: null
                         }
-                    }
-                },
-                legend: {
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'top',
-                    x: -40,
-                    y: 80,
-                    floating: true,
-                    borderWidth: 1,
-                    backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
-                    shadow: true
-                },
-                credits: {
-                    enabled: true
-                },
-                series: [{
-                    name: '11月',
-                    data: [11072, 9831, 11235, 12303, 9892]
-                }, {
-                    name: '10月',
-                    data: [12133, 8956, 12047, 9908, 10988]
-                }, {
-                    name: '9月',
-                    data: [12052, 8954, 11250, 8940, 12038]
-                }]
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: '新闻数量',
+                            align: 'high'
+                        },
+                        labels: {
+                            overflow: 'justify'
+                        }
+                    },
+                    tooltip: {
+                        valueSuffix: ' '
+                    },
+                    plotOptions: {
+                        bar: {
+                            dataLabels: {
+                                enabled: true
+                            }
+                        }
+                    },
+                    legend: {
+                        layout: 'vertical',
+                        align: 'right',
+                        verticalAlign: 'top',
+                        x: -40,
+                        y: 80,
+                        floating: true,
+                        borderWidth: 1,
+                        backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+                        shadow: true
+                    },
+                    credits: {
+                        enabled: true
+                    },
+                    series: [{
+                        name: month+1+'月',
+                        data: [beijing[month]*10, jiangsu[month]*10, shanghai[month]*10, zhejiang[month]*10, guangdong[month]*10]
+                    }, {
+                        name: month+'月',
+                        data: [beijing[month1]*10, jiangsu[month1]*10, shanghai[month1]*10, zhejiang[month1]*10, guangdong[month1]*10]
+                    }, {
+                        name: month1+'月',
+                        data: [beijing[month2]*10, jiangsu[month2]*10, shanghai[month2]*10, zhejiang[month2]*10, guangdong[month2]*10]
+                    }]
+                });
             });
-        });
+        }
     </script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -576,15 +632,16 @@
         function setebarchart(data){
             // Step:3 echarts & zrender as a Global Interface by the echarts-plain.js.
             // Step:3 echarts和zrender被echarts-plain.js写入为全局接口
-            alert("set");
-            alert(data);
             var myChart = echarts.init(document.getElementById('ebarchart'));
             myChart.setOption({
                 tooltip : {
                     trigger: 'axis'
                 },
                 legend: {
-                    data:['北京','江苏','上海','浙江','广东']
+                    data:['北京','江苏','上海','浙江','广东'],
+                    selected:{  '北京':false,
+                                '上海':false
+                             }
                 },
                 toolbox: {
                     show : true,

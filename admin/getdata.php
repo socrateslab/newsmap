@@ -4,6 +4,62 @@
     $type = $_GET['type'];
     if($type=='yearbar')
         setYearChina();
+    if($type=='weekline')
+        setRecentWeekChina();
+
+    function setRecentWeekChina(){
+         if(($con=mysql_connect(dbServer,dbUserName,dbPassword))===FALSE)
+            die("could not connect to database");
+
+        //验证服务器连接
+        if(mysql_select_db(database)===FALSE)
+            die("could not connect to database");
+        $beijing="";$jiangsu="";$shanghai="";$zhejiang="";$date="";
+        $sql="Select ActionGeo_ADM1Code,count(*) as newsnum,DATEADDED from chinadata where ActionGeo_ADM1Code='CH22' or ActionGeo_ADM1Code='CH23' or ActionGeo_ADM1Code='CH04' or ActionGeo_ADM1Code='CH02' group by ActionGeo_ADM1Code,DATEADDED order by DATEADDED desc limit 28";
+        $result = mysql_query($sql);
+        if($result===FALSE)
+            die("could not query database");
+        $i=0;
+        while($row = mysql_fetch_array($result)){
+            switch($row['ActionGeo_ADM1Code']){
+                case 'CH02':
+                    $zhejiang=$zhejiang.$row['newsnum'];
+                    if($i<24)
+                        $zhejiang=$zhejiang.",";
+                    break;
+                case 'CH04':
+                    $jiangsu=$jiangsu.$row['newsnum'];
+                    if($i<24)
+                        $jiangsu=$jiangsu.",";
+                    break;
+                case 'CH22':
+                    $beijing=$beijing.$row['newsnum'];
+                    if($i<24)
+                        $beijing=$beijing.",";
+                    break;
+                case 'CH23':
+                    $shanghai=$shanghai.$row['newsnum'];
+                    if($i<24)
+                        $shanghai=$shanghai.",";
+                    break;
+            }
+            if($i%4==0){
+                $str = $row['DATEADDED'];
+                $str1 = substr($str,4,2);
+                $str2 = substr($str,6,2);
+                $date=$date.$str1."-".$str2;
+            }
+            if($i%4==0&&$i<24)
+                $date=$date.",";
+            $i=$i+1;
+        }
+        $return=array("beijing"=>$beijing,"shanghai"=>$shanghai,"jiangsu"=>$jiangsu,"zhejiang"=>$zhejiang,"date"=>$date);
+        
+        foreach ( $return as $key => $value ) {  
+            $return[$key] = urlencode ( $value );  
+        }
+        echo urldecode(json_encode($return));
+    }
 
     function setYearChina(){
         //验证数据库服务器连接
