@@ -29,6 +29,10 @@
                 setebarchart(jsondata);
                 setMainComparation(jsondata);
             }); 
+            $.get("admin/getdata.php?type=month",function(data){
+                var jsondata = $.parseJSON(data);
+                setMainComparation(jsondata);
+            });
             $.get("admin/getdata.php?type=weekline",function(data){
                 var jsondata = $.parseJSON(data); 
                 setWeekLine(jsondata);
@@ -199,7 +203,7 @@
                     xAxis: {
                         title: {
                             enabled: true,
-                            text: '数量'
+                            text: 'log(数量)'
                         },
                         startOnTick: true,
                         endOnTick: true,
@@ -247,22 +251,22 @@
                     series: [{
                         name: 'South',
                         color: 'rgba(223, 83, 83, .5)',
-                        data: [[parseInt(data['jiangsu'],10), 32.03], [parseInt(data['zhejiang'],10), 30.16], [parseInt(data['hubei'],10), 30.35], 
-                               [parseInt(data['hunan'],10), 28.12],[parseInt(data['sichuan'],10), 30.4],[parseInt(data['chongqing'],10), 29.35],
-                               [parseInt(data['guizhou'],10), 26.35], [parseInt(data['yunnan'],10), 25.04], [parseInt(data['guangxi'],10), 22.48],
-                               [parseInt(data['jiangxi'],10), 28.4],[parseInt(data['fujian'],10), 26.05], [parseInt(data['guangdong'],10), 23.08], 
-                               [parseInt(data['hainan'],10), 20.02], [parseInt(data['xizang'],10), 29.39], [parseInt(data['hongkong'],10), 21.23],
-                               [parseInt(data['macau'],10), 21.33],[parseInt(data['taiwan'],10),25.03]]
+                        data: [[Math.log(parseInt(data['jiangsu'],10)), 32.03], [Math.log(parseInt(data['zhejiang'],10)), 30.16], [Math.log(parseInt(data['hubei'],10)), 30.35], 
+                               [Math.log(parseInt(data['hunan'],10)), 28.12],[Math.log(parseInt(data['sichuan'],10)), 30.4],[Math.log(parseInt(data['chongqing'],10)), 29.35],
+                               [Math.log(parseInt(data['guizhou'],10)), 26.35], [Math.log(parseInt(data['yunnan'],10)), 25.04], [Math.log(parseInt(data['guangxi'],10)), 22.48],
+                               [Math.log(parseInt(data['jiangxi'],10)), 28.4],[Math.log(parseInt(data['fujian'],10)), 26.05], [Math.log(parseInt(data['guangdong'],10)), 23.08], 
+                               [Math.log(parseInt(data['hainan'],10)), 20.02], [Math.log(parseInt(data['xizang'],10)), 29.39], [Math.log(parseInt(data['hongkong'],10)), 21.23],
+                               [Math.log(parseInt(data['macau'],10)), 21.33],[Math.log(parseInt(data['taiwan'],10)),25.03]]
 
                     }, {
                         name: 'North',
                         color: 'rgba(119, 152, 191, .5)',
-                        data: [ [parseInt(data['tianjin'],10), 39.02], [parseInt(data['neimeng'],10), 40.82], 
-                               [parseInt(data['xinjiang'],10), 43.45],[parseInt(data['hebei'],10), 38.02],[parseInt(data['gansu'],10), 36.04],
-                               [parseInt(data['ningxia'],10), 38.27], [parseInt(data['shanxi'],10), 37.54],[parseInt(data['shannxi'],10), 34.17],
-                               [parseInt(data['qinghai'],10), 36.38],[parseInt(data['shandong'],10), 36.4], [parseInt(data['henan'],10), 34.46], 
-                               [parseInt(data['anhui'],10), 31.52], [parseInt(data['liaoning'],10), 41.48], [parseInt(data['jilin'],10), 43.54],
-                               [parseInt(data['heilongjiang'],10), 47.8]]
+                        data: [[Math.log(parseInt(data['beijing'],10)), 39.02],[Math.log(parseInt(data['tianjin'],10)), 39.02], [Math.log(parseInt(data['neimeng'],10)), 40.82], 
+                               [Math.log(parseInt(data['xinjiang'],10)), 43.45],[Math.log(parseInt(data['hebei'],10)), 38.02],[Math.log(parseInt(data['gansu'],10)), 36.04],
+                               [Math.log(parseInt(data['ningxia'],10)), 38.27], [Math.log(parseInt(data['shanxi'],10)), 37.54],[Math.log(parseInt(data['shannxi'],10)), 34.17],
+                               [Math.log(parseInt(data['qinghai'],10)), 36.38],[Math.log(parseInt(data['shandong'],10)), 36.4], [Math.log(parseInt(data['henan'],10)), 34.46], 
+                               [Math.log(parseInt(data['anhui'],10)), 31.52], [Math.log(parseInt(data['liaoning'],10)), 41.48], [Math.log(parseInt(data['jilin'],10)), 43.54],
+                               [Math.log(parseInt(data['heilongjiang'],10)), 47.8]]
                     }]
                 });
             });
@@ -430,13 +434,13 @@
                     },
                     series: [{
                         name: month+1+'月',
-                        data: [beijing[month]*10, jiangsu[month]*10, shanghai[month]*10, zhejiang[month]*10, guangdong[month]*10]
+                        data: [beijing[0]*10, jiangsu[0]*10, shanghai[0]*10, zhejiang[0]*10, guangdong[0]*10]
                     }, {
                         name: month+'月',
-                        data: [beijing[month1]*10, jiangsu[month1]*10, shanghai[month1]*10, zhejiang[month1]*10, guangdong[month1]*10]
+                        data: [beijing[1]*10, jiangsu[1]*10, shanghai[1]*10, zhejiang[1]*10, guangdong[1]*10]
                     }, {
                         name: month1+'月',
-                        data: [beijing[month2]*10, jiangsu[month2]*10, shanghai[month2]*10, zhejiang[month2]*10, guangdong[month2]*10]
+                        data: [beijing[2]*10, jiangsu[2]*10, shanghai[2]*10, zhejiang[2]*10, guangdong[2]*10]
                     }]
                 });
             });

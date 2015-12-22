@@ -10,8 +10,72 @@
         setLastMonthChina();
     if($type=='dot')
         setAllChina();
+    if($type=='month')
+        setRecentMonthChina();
     
     function setRecentMonthChina(){
+        if(($con=mysql_connect(dbServer,dbUserName,dbPassword))===FALSE)
+            die("could not connect to database");
+
+        //验证服务器连接
+        if(mysql_select_db(database)===FALSE)
+            die("could not connect to database");
+        $beijing="";$jiangsu="";$shanghai="";$zhejiang="";$guangdong="";
+        for($i=1;$i<4;$i++){
+            $month = date('m',time());
+            $year = date('Y',time());
+            $month = $month-$i;
+            if($month==0){
+                $month=12;
+                $year=$year-1;
+            }
+            if($month<0){
+                $month=11;
+                $year=$year-1;
+            }
+            $day="01";
+            $beginDate=$_date = date("Ymd",mktime(0,0,0,$month,$day,$year));
+            $endDate = date('Ymd', strtotime("$beginDate +1 month"));
+            echo $beginDate." ".$endDate;
+            
+            $sql="Select ActionGeo_ADM1Code,count(*) as newsnum,DATEADDED from chinadata where (ActionGeo_ADM1Code='CH22' or ActionGeo_ADM1Code='CH23' or ActionGeo_ADM1Code='CH04' or ActionGeo_ADM1Code='CH02' or ActionGeo_ADM1Code='CH30') and DATEADDED>='$beginDate' and DATEADDED<'$endDate' group by ActionGeo_ADM1Code";
+            $result = mysql_query($sql);
+            if($result===FALSE)
+                die("could not query database");
+            while($row = mysql_fetch_array($result)){
+                echo $row['newsnum']." ";
+                switch($row['ActionGeo_ADM1Code']){
+                    case 'CH02':
+                        $zhejiang=$zhejiang.$row['newsnum'];
+                        break;
+                    case 'CH04':
+                        $jiangsu=$jiangsu.$row['newsnum'];
+                        break;
+                    case 'CH22':
+                        $beijing=$beijing.$row['newsnum'];
+                        break;
+                    case 'CH23':
+                        $shanghai=$shanghai.$row['newsnum'];
+                        break;
+                    case 'CH30':
+                        $guangdong=$guangdong.$row['newsnum'];
+                        break;
+                }
+            }
+            if($i<3){
+                $zhejiang=$zhejiang.",";
+                $jiangsu=$jiangsu.",";
+                $beijing=$beijing.",";
+                $shanghai=$shanghai.",";
+                $guangdong=$guangdong.",";
+            }
+        }
+        $return=array("beijing"=>$beijing,"shanghai"=>$shanghai,"jiangsu"=>$jiangsu,"zhejiang"=>$zhejiang,"guangdong"=>$guangdong);
+        
+        foreach ( $return as $key => $value ) {  
+            $return[$key] = urlencode ( $value );  
+        }
+        echo urldecode(json_encode($return));
         
     }
 
