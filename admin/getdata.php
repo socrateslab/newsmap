@@ -367,7 +367,9 @@
         if(mysql_select_db(database)===FALSE)
             die("could not connect to database");
         $beijing="";$jiangsu="";$shanghai="";$zhejiang="";$date="";
-        $sql="Select ActionGeo_ADM1Code,count(*) as newsnum,DATEADDED from chinadata where ActionGeo_ADM1Code='CH22' or ActionGeo_ADM1Code='CH23' or ActionGeo_ADM1Code='CH04' or ActionGeo_ADM1Code='CH02' group by ActionGeo_ADM1Code,DATEADDED order by DATEADDED desc limit 28";
+        $endDate = date('Ymd');
+        $beginDate=date("Ymd",strtotime("$endDate -1 week"));
+        $sql="Select ActionGeo_ADM1Code,count(*) as newsnum,DATEADDED from chinadata where (ActionGeo_ADM1Code='CH22' or ActionGeo_ADM1Code='CH23' or ActionGeo_ADM1Code='CH04' or ActionGeo_ADM1Code='CH02') and DATEADDED>='$beginDate' and DATEADDED<'$endDate' group by ActionGeo_ADM1Code,DATEADDED order by DATEADDED desc";
         $result = mysql_query($sql);
         if($result===FALSE)
             die("could not query database");
