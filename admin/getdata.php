@@ -36,7 +36,6 @@
             $day="01";
             $beginDate=$_date = date("Ymd",mktime(0,0,0,$month,$day,$year));
             $endDate = date('Ymd', strtotime("$beginDate +1 month"));
-            echo $beginDate." ".$endDate;
             
             $sql="Select ActionGeo_ADM1Code,count(*) as newsnum,DATEADDED from chinadata where (ActionGeo_ADM1Code='CH22' or ActionGeo_ADM1Code='CH23' or ActionGeo_ADM1Code='CH04' or ActionGeo_ADM1Code='CH02' or ActionGeo_ADM1Code='CH30') and DATEADDED>='$beginDate' and DATEADDED<'$endDate' group by ActionGeo_ADM1Code";
             $result = mysql_query($sql);
@@ -368,7 +367,7 @@
             die("could not connect to database");
         $beijing="";$jiangsu="";$shanghai="";$zhejiang="";$date="";
         $endDate = date('Ymd');
-        $beginDate=date("Ymd",strtotime("$endDate -1 week"));
+        $beginDate=date("Ymd",strtotime("$endDate -2 week"));
         $sql="Select ActionGeo_ADM1Code,count(*) as newsnum,DATEADDED from chinadata where (ActionGeo_ADM1Code='CH22' or ActionGeo_ADM1Code='CH23' or ActionGeo_ADM1Code='CH04' or ActionGeo_ADM1Code='CH02') and DATEADDED>='$beginDate' and DATEADDED<'$endDate' group by ActionGeo_ADM1Code,DATEADDED order by DATEADDED desc";
         $result = mysql_query($sql);
         if($result===FALSE)
@@ -378,24 +377,24 @@
             switch($row['ActionGeo_ADM1Code']){
                 case 'CH02':
                     $zhejiang=$zhejiang.$row['newsnum'];
-                    if($i<24)
+                    //if($i<24)
                         $zhejiang=$zhejiang.",";
-                    break;
+                    //break;
                 case 'CH04':
                     $jiangsu=$jiangsu.$row['newsnum'];
-                    if($i<24)
+                    //if($i<24)
                         $jiangsu=$jiangsu.",";
-                    break;
+                    //break;
                 case 'CH22':
                     $beijing=$beijing.$row['newsnum'];
-                    if($i<24)
+                    //if($i<24)
                         $beijing=$beijing.",";
-                    break;
+                    //break;
                 case 'CH23':
                     $shanghai=$shanghai.$row['newsnum'];
-                    if($i<24)
+                    //if($i<24)
                         $shanghai=$shanghai.",";
-                    break;
+                    //break;
             }
             if($i%4==0){
                 $str = $row['DATEADDED'];
@@ -403,7 +402,7 @@
                 $str2 = substr($str,6,2);
                 $date=$date.$str1."-".$str2;
             }
-            if($i%4==0&&$i<24)
+            if($i%4==0)
                 $date=$date.",";
             $i=$i+1;
         }

@@ -27,7 +27,6 @@
             $.get("admin/getdata.php?type=yearbar",function(data){
                 var jsondata = $.parseJSON(data);
                 setebarchart(jsondata);
-                setMainComparation(jsondata);
             }); 
             $.get("admin/getdata.php?type=month",function(data){
                 var jsondata = $.parseJSON(data);
