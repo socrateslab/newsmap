@@ -42,7 +42,7 @@
             if($result===FALSE)
                 die("could not query database");
             while($row = mysql_fetch_array($result)){
-                echo $row['newsnum']." ";
+                //echo $row['newsnum']." ";
                 switch($row['ActionGeo_ADM1Code']){
                     case 'CH02':
                         $zhejiang=$zhejiang.$row['newsnum'];
