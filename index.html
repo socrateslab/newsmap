@@ -124,6 +124,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <span>数量分析</span>
             </a>
           </li>
+          <li>
+            <a href="link2.html">
+              <i class="fa fa-link"></i>
+              <span>事件分析</span>
+            </a>
+          </li>
+          <li>
+            <a href="link3.html">
+              <i class="fa fa-link"></i>
+              <span>影响力分析</span>
+            </a>
+          </li>
           <li class="treeview">
             <a href="#">
               <i class="fa fa-link"></i>
@@ -165,7 +177,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Main content -->
       <section class="content">
         <div class="row">
-          <div class="col-md-8">
+          <div class="col-md-12">
             <div class="box box-primary box-solid">
               <div class="box-header with-border">
                 <h3 class="box-title">80年代至今全球新闻变化趋势</h3>
@@ -177,30 +189,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </div>
               <!-- /.box-body --> </div>
             <!-- /.box --> </div>
-          <div class="col-md-4">
-            <div class="nav-tabs-custom">
-              <ul class="nav nav-tabs">
-                <li class="active">
-                  <a href="#tab_1" data-toggle="tab">新闻热力图</a>
-                </li>
-                <li>
-                  <a href="#tab_2" data-toggle="tab">上月数量统计</a>
-                </li>
-
-              </ul>
-              <div class="tab-content">
-                <div class="tab-pane active" id="tab_1">
-                  <div id="map1" style="min-width: 310px; max-width: 1600px; height: 400px; margin: 0 auto"></div>
-
-                </div>
-                <!-- /.tab-pane -->
-                <div class="tab-pane" id="tab_2"></div>
-                <!-- /.tab-pane -->
-
-                <!-- /.tab-pane --> </div>
-              <!-- /.tab-content --> </div>
-
-          </div>
+         
         </div>
       </section>
       <section class="invoice">
@@ -363,108 +352,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- ./wrapper -->
 
   <!-- REQUIRED JS SCRIPTS -->
-  <script src="js/echarts-all.js"></script>
 
-  <script type="text/javascript">
-        // Step:3 echarts & zrender as a Global Interface by the echarts-plain.js.
-        // Step:3 echarts和zrender被echarts-plain.js写入为全局接口
-        var myChart = echarts.init(document.getElementById('map1'));
-       
-
-        myChart.setOption({
-
-    backgroundColor: '#1b1b1b',
-    color: [
-        'rgba(255, 255, 255, 0.8)',
-        'rgba(14, 241, 242, 0.8)',
-        'rgba(37, 140, 249, 0.8)'
-    ],
-    title : {
-        text: '大规模MarkPoint特效',
-        subtext: '纯属虚构',
-        x:'center',
-        textStyle : {
-            color: '#fff'
-        }
-    },
-    legend: {
-        orient: 'vertical',
-        x:'left',
-        data:['pm2.5']
-    },
-    dataRange: {
-        min : 0,
-        max : 500,
-        calculable : true,
-        color: ['maroon','purple','red','orange','yellow','lightgreen']
-    },
-    toolbox: {
-        show : true,
-        orient : 'vertical',
-        x: 'right',
-        y: 'center',
-        feature : {
-            mark : {show: true},
-            dataView : {show: true, readOnly: false},
-            restore : {show: true},
-            saveAsImage : {show: true}
-        }
-    },
-    series : [
-        {
-            name: 'pm2.5',
-            type: 'map',
-            mapType: 'china',
-            hoverable: false,
-            roam:true,
-            itemStyle:{
-                normal:{
-                    borderColor:'rgba(100,149,237,1)',
-                    borderWidth:1.5,
-                    areaStyle:{
-                        color: '#1b1b1b'
-                    }
-                }
-            },
-            data : [],
-            markPoint : {
-              symbolSize: 2, 
-              //large: true,
-              effect : {
-                    show: true
-               },
-              itemStyle: {
-                    normal: {
-                       // borderColor: '#87cefa',
-                      //  borderWidth: 1,            // 标注边线线宽，单位px，默认为1
-                        label: {
-                            show: false
-                        }
-                    },
-                    emphasis: {
-                        borderColor: '#1e90ff',
-                        borderWidth: 5,
-                        label: {
-                            show: false
-                        }
-                    }
-                },
-                
-                data : [
-                    {name:'海门', geoCoord:[121.15, 31.89],value:12},
-    {name:'鄂尔多斯', geoCoord:[109.781327, 39.608266],value:23},
-    {name:'招远', geoCoord:[120.38, 37.35],value:44},
-    {name:'舟山', geoCoord:[122.207216, 29.985295],value:300},
-    {name:'齐齐哈尔', geoCoord:[123.97, 47.33],value:410}]
-            }
-        }
-        
-    ]
-
-
-
-        });
-    </script>
 
   <script src="js/echarts.min.js"></script>
 
