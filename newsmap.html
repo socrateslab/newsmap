@@ -19,12 +19,8 @@
       }
 
       #container {
-        position: relative;
-        top: 5px;
-        margin-left:auto;
-        margin-right:auto;
-        width:100%;
-
+        width: 1000px;
+        margin: 20px auto;
       }
 
       h1 {
@@ -51,11 +47,10 @@
 
       #map-container {
         height: 700px;
-        width: 800px;
+        width: 1000px;
         text-align: center;
         position: relative;
-        top: 5px;
-        margin: 10px;
+        margin: 10px 0;
       }
 
       #map {
@@ -96,8 +91,8 @@
   </head>
   <body>
     <div id="container">
-      <h2>中国新闻地图</h2>
-      
+      <h1>中国新闻地图</h1>
+      <h3>News Map of China</h3>
       <form>
         <p>
           <label>Scale by <select id="field"></select></label>
@@ -113,8 +108,6 @@
       
 
     </div>
-
-
     <script>
 
       // hide the form if the browser doesn't do SVG,
@@ -130,11 +123,11 @@
             return function(n) { return fmt(n) + "%"; };
           })(),
           fields = [
-            
+            {name: "(no scale)", id: "none"},
             {name: "每日新闻数", id: "NEWS", key: "NEWS%d"},
            
           ],
-          years = [12.13, 12.14, 12.15, 12.16],
+          years = [10.23, 10.24, 10.25, 10.26],
           fieldsById = d3.nest()
             .key(function(d) { return d.id; })
             .rollup(function(d) { return d[0]; })

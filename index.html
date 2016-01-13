@@ -1,808 +1,558 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="free-educational-responsive-web-template-webEdu">
-    <meta name="author" content="webThemez.com">
-    <title>新闻地图|新闻传播学院</title>
-    <link rel="favicon" href="assets/images/favicon.png">
-    <link rel="stylesheet" media="screen" href="assets/css/useso.css">
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel='stylesheet' id='camera-css'  href='assets/css/camera.css' type='text/css' media='all'>
-    <script type="text/javascript" src="assets/js/jquery-1.8.2.min.js"></script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>新闻地图|新闻传播学院</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.5 -->
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+          page. However, you can choose any other skin. Make sure you
+          apply the skin class to the body tag so the changes take effect.
+    -->
+  <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
 
-    <script src="highcharts/js/highcharts.js"></script>
-    <script src="highcharts/js/modules/exporting.js"></script>
-    
-    <script type="text/javascript" id="init">
-        $(document).ready(function() { 
-            setData();
-        });
-        
-        function setData(){
-            $.get("admin/getdata.php?type=yearbar",function(data){
-                var jsondata = $.parseJSON(data);
-                setebarchart(jsondata);
-//setMainComparation(jsondata);
-            }); 
-            $.get("admin/getdata.php?type=month",function(data){
-                var jsondata = $.parseJSON(data);
-                setMainComparation(jsondata);
-            });
-            $.get("admin/getdata.php?type=weekline",function(data){
-                var jsondata = $.parseJSON(data); 
-                setWeekLine(jsondata);
-            }); 
-            $.get("admin/getdata.php?type=monthpie",function(data){
-                var jsondata = $.parseJSON(data); 
-                setMonthPie(jsondata);
-            }); 
-            $.get("admin/getdata.php?type=dot",function(data){
-                var jsondata = $.parseJSON(data); 
-                setDot(jsondata);
-            });
-        }
-    </script>
-    <script type="text/javascript">
-        Date.prototype.Format = function(fmt)   
-        { //author: meizz   
-            var o = {   
-                "M+" : this.getMonth()+1,                 //月份   
-                "d+" : this.getDate(),                    //日   
-                "h+" : this.getHours(),                   //小时   
-                "m+" : this.getMinutes(),                 //分   
-                "s+" : this.getSeconds(),                 //秒   
-                "q+" : Math.floor((this.getMonth()+3)/3), //季度   
-                "S"  : this.getMilliseconds()             //毫秒   
-            };   
-            if(/(y+)/.test(fmt))   
-                fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));   
-            for(var k in o)   
-                if(new RegExp("("+ k +")").test(fmt))   
-                    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
-            return fmt;   
-        }  
-        
-    </script>
-    <script type="text/javascript">
-        function setMonthPie(data){
-            var myDate = new Date();
-            var month = myDate.getMonth()+1;
-            var year = myDate.getFullYear();
-            var province = data['province'].split(",");
-            var pdata = data['data'].split(",");
-            var sum = data['sum'];
-            $(function () {
-                $('#piechart').highcharts({
-                chart: {
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false,
-                    type: 'pie'
-                },
-                title: {
-                    text: year+'年'+month+'月新闻数量统计'
-                },
-                tooltip: {
-                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                },
-                plotOptions: {
-                    pie: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        dataLabels: {
-                            enabled: false
-                        },
-                        showInLegend: true
-                    }
-                },
-                    series: [{
-                        name: "省份",
-                        colorByPoint: true,
-                        data: [{
-                            name: province[0],
-                            y: pdata[0]/sum*100,
-                            sliced: true,
-                            selected: true
-                        }, {
-                            name: province[1],
-                            y: pdata[1]/sum*100
-                        }, {
-                            name: province[2],
-                            y: pdata[2]/sum*100
-                        }, {
-                            name: province[3],
-                            y: pdata[3]/sum*100
-                        }, {
-                            name: province[4],
-                            y: pdata[4]/sum*100
-                        }, {
-                            name: "其他",
-                            y: (sum-pdata[0]-pdata[1]-pdata[2]-pdata[3]-pdata[4])/sum*100
-                        }]
-                    }]
-                });
-            });
-        }
-    </script>
-    <script type="text/javascript">
-        function setWeekLine(data){
-            var beijing = data['beijing'].split(",");
-            var jiangsu = data['jiangsu'].split(",");
-            var shanghai = data['shanghai'].split(",");
-            var zhejiang = data['zhejiang'].split(",");
-            var date = data['date'].split(",");
-            $(function () {
-                $('#dual').highcharts({
-                    title: {
-                        text: '主要省市一周变化趋势',
-                        x: -20 //center
-                    },
-                    subtitle: {
-                        text: '数据来源: <a href="http://www.gdeltproject.org">The GDELT Project</a>',
-                        x: -20
-                    },
-                    xAxis: {
-                        categories: [date[6],date[5],date[4],date[3],date[2],date[1],date[0]]
-                    },
-                    yAxis: {
-                        title: {
-                            text: '事件数'
-                        },
-                        plotLines: [{
-                            value: 0,
-                            width: 1,
-                            color: '#808080'
-                        }]
-                    },
-                    tooltip: {
-                        valueSuffix: '件'
-                    },
-                    legend: {
-                        layout: 'vertical',
-                        align: 'right',
-                        verticalAlign: 'middle',
-                        borderWidth: 0
-                    },
-                    series: [{
-                        name: '北京',
-                        data: [parseInt(beijing[6],10),parseInt(beijing[5],10),parseInt(beijing[4],10),parseInt(beijing[3],10),parseInt(beijing[2],10),parseInt(beijing[1],10),parseInt(beijing[0],10)]
-                    },{
-                        name: '江苏',
-                        data: [parseInt(jiangsu[6],10),parseInt(jiangsu[5],10),parseInt(jiangsu[4],10),parseInt(jiangsu[3],10),parseInt(jiangsu[2],10),parseInt(jiangsu[5],10),parseInt(jiangsu[0],10)]
-                    },{
-                        name: '上海',
-                        data: [parseInt(shanghai[6],10),parseInt(shanghai[5],10),parseInt(shanghai[4],10),parseInt(shanghai[3],10),parseInt(shanghai[2],10),parseInt(shanghai[5],10),parseInt(shanghai[0],10)]
-                    },{
-                        name: '浙江',
-                        data: [parseInt(zhejiang[6],10),parseInt(zhejiang[5],10),parseInt(zhejiang[4],10),parseInt(zhejiang[3],10),parseInt(zhejiang[2],10),parseInt(zhejiang[5],10),parseInt(zhejiang[0],10)]
-                    }]
-                });
-            });
-        }
-    </script>
-
-    <script type="text/javascript">
-        function setDot(data){
-            $(function () {
-                $('#dotchart').highcharts({
-                    chart: {
-                        type: 'scatter',
-                        zoomType: 'xy'
-                    },
-                    title: {
-                        text: '新闻数量在南北地理的分布'
-                    },
-                    subtitle: {
-                        text: '数据来源: gdeltproject'
-                    },
-                    xAxis: {
-                        title: {
-                            enabled: true,
-                            text: 'log(数量)'
-                        },
-                        startOnTick: true,
-                        endOnTick: true,
-                        showLastLabel: true
-                    },
-                    yAxis: {
-                        title: {
-                            text: '纬度'
-                        }
-                    },
-                    legend: {
-                        layout: 'vertical',
-                        align: 'left',
-                        verticalAlign: 'top',
-                        x: 100,
-                        y: 70,
-                        floating: true,
-                        backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
-                        borderWidth: 1
-                    },
-                    plotOptions: {
-                        scatter: {
-                            marker: {
-                                radius: 5,
-                                states: {
-                                    hover: {
-                                        enabled: true,
-                                        lineColor: 'rgb(100,100,100)'
-                                    }
-                                }
-                            },
-                            states: {
-                                hover: {
-                                    marker: {
-                                        enabled: false
-                                    }
-                                }
-                            },
-                            tooltip: {
-                                headerFormat: '<b>{series.name}</b><br>',
-                                pointFormat: '{point.x} , {point.y} '
-                            }
-                        }
-                    },
-                    series: [{
-                        name: 'South',
-                        color: 'rgba(223, 83, 83, .5)',
-                        data: [[Math.log(parseInt(data['jiangsu'],10)), 32.03], [Math.log(parseInt(data['zhejiang'],10)), 30.16], [Math.log(parseInt(data['hubei'],10)), 30.35], 
-                               [Math.log(parseInt(data['hunan'],10)), 28.12],[Math.log(parseInt(data['sichuan'],10)), 30.4],[Math.log(parseInt(data['chongqing'],10)), 29.35],
-                               [Math.log(parseInt(data['guizhou'],10)), 26.35], [Math.log(parseInt(data['yunnan'],10)), 25.04], [Math.log(parseInt(data['guangxi'],10)), 22.48],
-                               [Math.log(parseInt(data['jiangxi'],10)), 28.4],[Math.log(parseInt(data['fujian'],10)), 26.05], [Math.log(parseInt(data['guangdong'],10)), 23.08], 
-                               [Math.log(parseInt(data['hainan'],10)), 20.02], [Math.log(parseInt(data['xizang'],10)), 29.39], [Math.log(parseInt(data['hongkong'],10)), 21.23],
-                               [Math.log(parseInt(data['macau'],10)), 21.33],[Math.log(parseInt(data['taiwan'],10)),25.03]]
-
-                    }, {
-                        name: 'North',
-                        color: 'rgba(119, 152, 191, .5)',
-                        data: [[Math.log(parseInt(data['beijing'],10)), 39.02],[Math.log(parseInt(data['tianjin'],10)), 39.02], [Math.log(parseInt(data['neimeng'],10)), 40.82], 
-                               [Math.log(parseInt(data['xinjiang'],10)), 43.45],[Math.log(parseInt(data['hebei'],10)), 38.02],[Math.log(parseInt(data['gansu'],10)), 36.04],
-                               [Math.log(parseInt(data['ningxia'],10)), 38.27], [Math.log(parseInt(data['shanxi'],10)), 37.54],[Math.log(parseInt(data['shannxi'],10)), 34.17],
-                               [Math.log(parseInt(data['qinghai'],10)), 36.38],[Math.log(parseInt(data['shandong'],10)), 36.4], [Math.log(parseInt(data['henan'],10)), 34.46], 
-                               [Math.log(parseInt(data['anhui'],10)), 31.52], [Math.log(parseInt(data['liaoning'],10)), 41.48], [Math.log(parseInt(data['jilin'],10)), 43.54],
-                               [Math.log(parseInt(data['heilongjiang'],10)), 47.8]]
-                    }]
-                });
-            });
-        }
-    </script>
-
-    <script type="text/javascript">
-        $(function () {
-            $(document).ready(function () {
-
-                Highcharts.setOptions({
-                    global: {
-                        useUTC: false
-                    }
-                });
-                var datatest = [],
-                    time = (new Date()).getTime(),
-                    i;
-
-                for (i = -19; i <= 0; i += 1) {
-                    datatest.push({
-                        x: i,
-                        y: Math.random()*1000
-                    })
-                };
-                    
-                $('#dynamicchart').highcharts({
-                    chart: {
-                        type: 'spline',
-                        animatizon: Highcharts.svg, // don't animate in old IE
-                        marginRight: 10,
-                        events: {
-                            load: function () {
-
-                                // set up the updating of the chart each second
-                                var series = this.series[0];
-                                setInterval(function () {
-                                    var x = (new Date()).getTime(), // current time
-                                        y = Math.random()*1000;
-                                    series.addPoint([x, y], true, true);
-                                }, 1000);
-                            }
-                        }
-                    },
-                    title: {
-                        text: '此刻正在发生'
-                    },
-                    xAxis: {
-                        type: 'datetime',
-                        tickPixelInterval: 150
-                    },
-                    yAxis: {
-                        title: {
-                            text: '新闻数'
-                        },
-                        plotLines: [{
-                            value: 0,
-                            width: 1,
-                            color: '#808080'
-                        }]
-                    },
-                    tooltip: {
-                        formatter: function () {
-                            return '<b>' + this.series.name + '</b><br/>' +
-                                Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
-                                Highcharts.numberFormat(this.y, 2);
-                        }
-                    },
-                    legend: {
-                        enabled: false
-                    },
-                    exporting: {
-                        enabled: false
-                    },
-                    series: [{
-                        name: 'Random data',
-                        /*data: (function () {
-                            // generate an array of random data
-                            var data = [],
-                                time = (new Date()).getTime(),
-                                i;
-
-                            for (i = -19; i <= 0; i += 1) {
-                                data.push({
-                                    x: time + i * 1000,
-                                    y: Math.random()*1000
-                                });
-                            }
-                            //alert (data[0]['x']);
-
-                            //alert (data[0]['y']);
-                            return data;
-
-                        }())*/
-                        data:datatest
-                    }]
-
-                });
-
-            });
-        });
-    </script>
-
-    <script type="text/javascript">
-        function setMainComparation(data){
-            var myDate = new Date();
-            var month = myDate.getMonth();
-	    if(month==0)
-		month = 12;
-            var month1 = month-1;
-	    if(month1==0)
-		month1 = 12;
-            var month2 = month-2;
-	    if(month2==0)
-		month2 = 12;
-            var beijing = data['beijing'].split(",");
-            var jiangsu = data['jiangsu'].split(",");
-            var shanghai = data['shanghai'].split(",");
-            var zhejiang = data['zhejiang'].split(",");
-            var guangdong = data['guangdong'].split(",");
-            $(function () {
-                $('#barchart').highcharts({
-                    chart: {
-                        type: 'bar'
-                    },
-                    title: {
-                        text: '主要区域新闻数量对比'
-                    },
-                    subtitle: {
-                        text: '数据来源: <a href="http://www.gdeltproject.org">The GDELT Project</a>'
-                    },
-                    xAxis: {
-                        categories: ['北京', '江苏', '上海', '浙江', '广东'],
-                        title: {
-                            text: null
-                        }
-                    },
-                    yAxis: {
-                        min: 0,
-                        title: {
-                            text: '新闻数量',
-                            align: 'high'
-                        },
-                        labels: {
-                            overflow: 'justify'
-                        }
-                    },
-                    tooltip: {
-                        valueSuffix: ' '
-                    },
-                    plotOptions: {
-                        bar: {
-                            dataLabels: {
-                                enabled: true
-                            }
-                        }
-                    },
-                    legend: {
-                        layout: 'vertical',
-                        align: 'right',
-                        verticalAlign: 'top',
-                        x: -40,
-                        y: 80,
-                        floating: true,
-                        borderWidth: 1,
-                        backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
-                        shadow: true
-                    },
-                    credits: {
-                        enabled: true
-                    },
-                    series: [{
-                        name: month+'月',
-                        data: [parseInt(beijing[0],10), parseInt(jiangsu[0],10), parseInt(shanghai[0],10), parseInt(zhejiang[0],10), parseInt(guangdong[0],10)]
-                    }, {
-                        name: month1+'月',
-                        data: [parseInt(beijing[1],10), parseInt(jiangsu[1],10), parseInt(shanghai[1],10), parseInt(zhejiang[1],10), parseInt(guangdong[1],10)]
-                    }, {
-                        name: month2+'月',
-                        data: [parseInt(beijing[2],10), parseInt(jiangsu[2],10), parseInt(shanghai[2],10), parseInt(zhejiang[2],10), parseInt(guangdong[2],10)]
-                    }]
-                });
-            });
-        }
-    </script>
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="assets/js/html5shiv.js"></script>
-    <script src="assets/js/respond.min.js"></script>
-    <![endif]-->
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
 </head>
-<body>
+  <!--
+  BODY TAG OPTIONS:
+  =================
+  Apply one or more of the following classes to get the
+  desired effect
+  |---------------------------------------------------------|
+  | SKINS         | skin-blue                               |
+  |               | skin-black                              |
+  |               | skin-purple                             |
+  |               | skin-yellow                             |
+  |               | skin-red                                |
+  |               | skin-green                              |
+  |---------------------------------------------------------|
+  |LAYOUT OPTIONS | fixed                                   |
+  |               | layout-boxed                            |
+  |               | layout-top-nav                          |
+  |               | sidebar-collapse                        |
+  |               | sidebar-mini                            |
+  |---------------------------------------------------------|
+  -->
+<body class="hold-transition skin-blue sidebar-mini">
+  <div class="wrapper">
 
-    <!-- Fixed navbar -->
-    <div class="logo">
-        <a href="index.html">
-            <img src="assets/images/Awsome-agency-logo5.png" width="300" align="center"></a>
-    </div>
-    <div class="navbar navbar-inverse">
-        <div class="container">
-            <div class="navbar-header">
-                <!-- Button for smallest screens -->
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+    <!-- Main Header -->
+    <header class="main-header">
 
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav  mainNav">
-                    <li class="active">
-                        <a href="index.html">新闻地图</a>
-                    </li>
-                    
-                    
-                    <li><a href="http://computational-communication.com">计算传播网</a></li>
-                    <li>
-                        <a href="contact.html">联系我们</a>
-                    </li>
+      <!-- Logo -->
+      <a href="index2.html" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"> <b>A</b>
+          LT
+        </span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"> <b>News</b>
+          MAP
+        </span>
+      </a>
 
-                </ul>
-            </div>
-            <!--/.nav-collapse --> </div>
-    </div>
-    <!-- /.navbar -->
+      <!-- Header Navbar -->
+      <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+          <span class="sr-only">Toggle navigation</span>
+        </a>
+        <!-- Navbar Right Menu -->
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
 
-    <!-- Header -->
+            <!-- /.messages-menu -->
 
-    <!-- /Header -->
+            <!-- Control Sidebar Toggle Button -->
+            <li>
+              <a href="#" data-toggle="control-sidebar"> <i class="fa fa-gears"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
 
-    <div class="container">
-        <div id="dynamicchart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-        <br>
+      <!-- sidebar: style can be found in sidebar.less -->
+      <section class="sidebar">
+
+        <!-- search form (Optional) -->
+        <form action="#" method="get" class="sidebar-form">
+          <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="Search...">
+            <span class="input-group-btn">
+              <button type="submit" name="search" id="search-btn" class="btn btn-flat"> <i class="fa fa-search"></i>
+              </button>
+            </span>
+          </div>
+        </form>
+        <!-- /.search form -->
+
+        <!-- Sidebar Menu -->
+        <ul class="sidebar-menu">
+          <li class="header">HEADER</li>
+          <!-- Optionally, you can add icons to the links -->
+          <li class="active">
+            <a href="#">
+              <i class="fa fa-link"></i>
+              <span>首页</span>
+            </a>
+          </li>
+          <li>
+            <a href="link1.html">
+              <i class="fa fa-link"></i>
+              <span>数量分析</span>
+            </a>
+          </li>
+          <li class="treeview">
+            <a href="#">
+              <i class="fa fa-link"></i>
+              <span>Multilevel</span>
+              <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+              <li>
+                <a href="#">Link in level 2</a>
+              </li>
+              <li>
+                <a href="#">Link in level 2</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <!-- /.sidebar-menu --> </section>
+      <!-- /.sidebar --> </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1>
+          新闻地图
+          <small>南京大学新闻传播学院</small>
+        </h1>
+        <ol class="breadcrumb">
+          <li>
+            <a href="#">
+              <i class="fa fa-dashboard"></i>
+              Level
+            </a>
+          </li>
+          <li class="active">Here</li>
+        </ol>
+      </section>
+
+      <!-- Main content -->
+      <section class="content">
         <div class="row">
-            <div class="col-md-8">
+          <div class="col-md-8">
+            <div class="box box-primary box-solid">
+              <div class="box-header with-border">
+                <h3 class="box-title">80年代至今全球新闻变化趋势</h3>
+                
+                <!-- /.box-tools --> </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <div id="mixchart" style="min-width: 310px; max-width: 1600px; height: 400px; margin: 0 auto"></div>
+              </div>
+              <!-- /.box-body --> </div>
+            <!-- /.box --> </div>
+          <div class="col-md-4">
+            <div class="nav-tabs-custom">
+              <ul class="nav nav-tabs">
+                <li class="active">
+                  <a href="#tab_1" data-toggle="tab">新闻热力图</a>
+                </li>
+                <li>
+                  <a href="#tab_2" data-toggle="tab">上月数量统计</a>
+                </li>
 
-                <DIV align=center>
-                    <IFRAME src="newsmap.html" frameBorder=0 marginwidth=0 marginheight=0 scrolling=no style="width:1000px;height:900px;" width=1000  height=1000 scrolling="yes" ALLOWTRANSPARENCY="true"></IFRAME>
-                </DIV>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane active" id="tab_1">
+                  <div id="map1" style="min-width: 310px; max-width: 1600px; height: 400px; margin: 0 auto"></div>
 
-            </div>
-            <div class="col-md-4">
-                <br>
+                </div>
+                <!-- /.tab-pane -->
+                <div class="tab-pane" id="tab_2"></div>
+                <!-- /.tab-pane -->
 
-                <div id="dotchart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-                <br>
-                <div id="piechart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                <!-- /.tab-pane --> </div>
+              <!-- /.tab-content --> </div>
 
-            </div>
-
+          </div>
         </div>
+      </section>
+      <section class="invoice">
+        <!-- title row -->
         <div class="row">
+          <div class="col-xs-12">
+            <h2 class="page-header">
+              <i class="fa fa-globe"></i>
+              计算传播网, Inc.
+              <small class="pull-right">Date: 11/01/2016</small>
+            </h2>
+          </div>
+          <!-- /.col --> </div>
+        <!-- info row -->
+        <div class="row invoice-info"></div>
+        <!-- /.row -->
 
-            <div class="col-md-6">
-                <div id="barchart" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
-            </div>
-            <div class="col-md-6">
-                <div id="dual" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
-            </div>
+        <!-- Table row -->
+        <div class="row">
+          <div class="col-xs-4">
+            <b>简介</b>
+            <br>
+            新闻地图建立在 cartogram.js (一个应用 算法构建连续性区域统计地图的javascript库 ©1985)、 d3.js 和 colorbrewer 。它综合了 TopoJSON 和国家统计局的 分省统计数据 来按比例调整各个省份的大小。新闻地图是由王成军和陈志聪搭建，©南京大学新闻传播学院， 计算传播学实验中心.
+            <br>
+            <b>About Us</b>
+            <br>
+            News Map is built upon cartogram.js (a JavaScript implementation of an algoritm to construct continuous area cartograms ©1985), d3.js and colorbrewer . This visualization combines TopoJSON -encoded boundaries of the Chinese provinces with GDP data from National Bureau Statistics of the People's Republic of China to size each province proportionally. Designed and built by Chengjun Wang and Zhicong Chen at Computational Communication Collaboratory , School of Journalism and Communication, Nanjing University.
+          </div>
+          <div class="col-xs-8 table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>NO</th>
+                  <th>引用来源</th>
+                  <th>链接</th>
+                  <th>类型</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>gdelt</td>
+                  <td>
+                    <a href="http://data.gdeltproject.org/events/index.html">http://data.gdeltproject.org/events/index.html</a>
+                  </td>
+                  <td>数据源</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Echarts</td>
+                  <td>
+                    <a href="http://echarts.baidu.com/index.html">http://echarts.baidu.com/index.html</a>
+                  </td>
+                  <td>数据可视化</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Highcharts</td>
+                  <td>
+                    <a href="http://www.highcharts.com">http://www.highcharts.com</a>
+                  </td>
+                  <td>数据可视化</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>d3.js</td>
+                  <td>
+                    <a href="http://d3js.org">http://d3js.org</a>
+                  </td>
+                  <td>扭曲地图</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.col --> </div>
+        <!-- /.row --> </section>
+      <!-- /.content -->
+      <section class="content">
+        <div class="row">
+          <div class="col-md-8"></div>
         </div>
-        <h3>
-            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp2015年度中国新闻数量统计
-        </h3>
-        <div id="ebarchart" style="min-width: 310px; max-width: 1600px; height: 400px; margin: 0 auto"></div>
+      </section>
 
-    </div>
+      <!-- Your Page Content Here -->
 
-    <footer>
-        <div class="footer-section ">
-            <div class="container">
-                <div class="social pull-left">
-                    <p> <i class="fa fa-phone"></i>
-                        025-88888888 <i class="fa fa-envelope-o"></i>
-                        datalab@nju.edu.cn
-                    </p>
+      <!-- /.content --> </div>
+    <!-- /.content-wrapper -->
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+      <!-- Create the tabs -->
+      <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+        <li class="active">
+          <a href="#control-sidebar-home-tab" data-toggle="tab">
+            <i class="fa fa-home"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#control-sidebar-settings-tab" data-toggle="tab">
+            <i class="fa fa-gears"></i>
+          </a>
+        </li>
+      </ul>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <!-- Home tab content -->
+        <div class="tab-pane active" id="control-sidebar-home-tab">
+          <h3 class="control-sidebar-heading">Recent Activity</h3>
+          <ul class="control-sidebar-menu">
+            <li>
+              <a href="javascript::;">
+                <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+                <div class="menu-info">
+                  <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+                  <p>Will be 23 on April 24th</p>
                 </div>
-                <div class="navigation">
-                    <ul class="pull-right">
-                        <li>
-                            <a href="index.html">新闻地图</a>
-                        </li>
-                        <li><a href="http://computational-communication.com">计算传播网</a></li>
-                        <li class="active"><a href="contact.html">联系我们</a></li>
-          
-                    </ul>
+              </a>
+            </li>
+          </ul>
+          <!-- /.control-sidebar-menu -->
+
+          <h3 class="control-sidebar-heading">Tasks Progress</h3>
+          <ul class="control-sidebar-menu">
+            <li>
+              <a href="javascript::;">
+                <h4 class="control-sidebar-subheading">
+                  Custom Template Design
+                  <span class="label label-danger pull-right">70%</span>
+                </h4>
+                <div class="progress progress-xxs">
+                  <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
                 </div>
+              </a>
+            </li>
+          </ul>
+          <!-- /.control-sidebar-menu --> </div>
+        <!-- /.tab-pane -->
+        <!-- Stats tab content -->
+        <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+        <!-- /.tab-pane -->
+        <!-- Settings tab content -->
+        <div class="tab-pane" id="control-sidebar-settings-tab">
+          <form method="post">
+            <h3 class="control-sidebar-heading">General Settings</h3>
+            <div class="form-group">
+              <label class="control-sidebar-subheading">
+                Report panel usage
+                <input type="checkbox" class="pull-right" checked></label>
+              <p>Some information about this general settings option</p>
             </div>
+            <!-- /.form-group --> </form>
         </div>
+        <!-- /.tab-pane --> </div>
+    </aside>
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+           immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+  </div>
+  <!-- ./wrapper -->
 
-    </footer>
+  <!-- REQUIRED JS SCRIPTS -->
+  <script src="js/echarts-all.js"></script>
 
-    <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
-    <script src="js/echarts-all.js"></script>
-    <script type="text/javascript">
-        function setebarchart(data){
-            // Step:3 echarts & zrender as a Global Interface by the echarts-plain.js.
-            // Step:3 echarts和zrender被echarts-plain.js写入为全局接口
-            var myChart = echarts.init(document.getElementById('ebarchart'));
-            myChart.setOption({
-                tooltip : {
-                    trigger: 'axis'
-                },
-                legend: {
-                    data:['北京','江苏','上海','浙江','广东','天津','重庆','河北','山西','辽宁','吉林','黑龙江','安徽','福建','江西','山东','河南','湖北','湖南','海南','四川','贵州','云南'/*,'陕西','甘肃','青海','内蒙古','新疆','宁夏','西藏','广西','香港','澳门','台湾'*/],
-                    selected:{'北京':false,'江苏':true,'上海':true,'浙江':true,'广东':true,'天津':false,'重庆':false,'河北':false,'山西':false,'辽宁':false,'吉林':false,'黑龙江':false,'安徽':false,'福建':false,'江西':false,'山东':false,'河南':false,'湖北':false,'湖南':false,'海南':false,'四川':false,'贵州':false,'云南':false/*,'陕西':false,'甘肃':false,'青海':false,'内蒙古':false,'新疆':false,'宁夏':false,'西藏':false,'广西':false,'香港':false,'澳门':false,'台湾':false*/}
-                        
-                },
-                toolbox: {
-                    show : true,
-                    feature : {
-                        mark : {show: false},
-                        dataView : {show: false, readOnly: false},
-                        magicType : {show: true, type: ['line', 'bar']},
-                        restore : {show: false},
-                        saveAsImage : {show: false}
-                    }
-                },
-                calculable : true,
-                xAxis : [
-                    {
-                        type : 'category',
-                        data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
-                    }
-                ],
-                yAxis : [
-                    {
-                        type : 'value',
-                        splitArea : {show : true}
-                    }
-                ],
-                series : [
-                    {
-                        name:'北京',
-                        type:'bar',
-                        data:data['beijing'].split(",")
-                    },
-                    {
-                        name:'江苏',
-                        type:'bar',
-                        data:data['jiangsu'].split(",")
-                    },
-                    {
-                        name:'上海',
-                        type:'bar',
-                        data:data['shanghai'].split(",")
-                    },
-                    {
-                        name:'浙江',
-                        type:'bar',
-                        data:data['zhejiang'].split(",")
-                    },
-                    {
-                        name:'广东',
-                        type:'bar',
-                        data:data['guangdong'].split(",")
-                    },
-                    {
-                        name:'天津',
-                        type:'bar',
-                        data:data['tianjin'].split(",")
-                    },
-                    {
-                        name:'重庆',
-                        type:'bar',
-                        data:data['chongqing'].split(",")
-                    },
-                    {
-                        name:'河北',
-                        type:'bar',
-                        data:data['hebei'].split(",")
-                    },
-                    {
-                        name:'山西',
-                        type:'bar',
-                        data:data['shanxi'].split(",")
-                    },
-                    {
-                        name:'辽宁',
-                        type:'bar',
-                        data:data['liaoning'].split(",")
-                    },
-                    {
-                        name:'吉林',
-                        type:'bar',
-                        data:data['jilin'].split(",")
-                    },
-                    {
-                        name:'黑龙江',
-                        type:'bar',
-                        data:data['heilongjiang'].split(",")
-                    },
-                    {
-                        name:'安徽',
-                        type:'bar',
-                        data:data['anhui'].split(",")
-                    },
-                    {
-                        name:'福建',
-                        type:'bar',
-                        data:data['fujian'].split(",")
-                    },
-                    {
-                        name:'江西',
-                        type:'bar',
-                        data:data['jiangxi'].split(",")
-                    },
-                    {
-                        name:'山东',
-                        type:'bar',
-                        data:data['shandong'].split(",")
-                    },
-                    {
-                        name:'河南',
-                        type:'bar',
-                        data:data['henan'].split(",")
-                    },
-                    {
-                        name:'湖北',
-                        type:'bar',
-                        data:data['hubei'].split(",")
-                    },
-                    {
-                        name:'湖南',
-                        type:'bar',
-                        data:data['hunan'].split(",")
-                    },
-                    {
-                        name:'海南',
-                        type:'bar',
-                        data:data['hainan'].split(",")
-                    },
-                    {
-                        name:'四川',
-                        type:'bar',
-                        data:data['sichuan'].split(",")
-                    },
-                    {
-                        name:'贵州',
-                        type:'bar',
-                        data:data['guizhou'].split(",")
-                    },
-                    {
-                        name:'云南',
-                        type:'bar',
-                        data:data['yunnan'].split(",")
-                    }/*,
-                    {
-                        name:'陕西',
-                        type:'bar',
-                        data:data['shannxi'].split(",")
-                    },
-                    {
-                        name:'甘肃',
-                        type:'bar',
-                        data:data['gansu'].split(",")
-                    },
-                    {
-                        name:'青海',
-                        type:'bar',
-                        data:data['qinghai'].split(",")
-                    },
-                    {
-                        name:'内蒙古',
-                        type:'bar',
-                        data:data['neimeng'].split(",")
-                    },
-                    {
-                        name:'新疆',
-                        type:'bar',
-                        data:data['xinjiang'].split(",")
-                    },
-                    {
-                        name:'宁夏',
-                        type:'bar',
-                        data:data['ningxia'].split(",")
-                    },
-                    {
-                        name:'西藏',
-                        type:'bar',
-                        data:data['xizang'].split(",")
-                    },
-                    {
-                        name:'广西',
-                        type:'bar',
-                        data:data['guangxi'].split(",")
-                    },
-                    {
-                        name:'香港',
-                        type:'bar',
-                        data:data['hongkong'].split(",")
-                    },
-                    {
-                        name:'澳门',
-                        type:'bar',
-                        data:data['macau'].split(",")
-                    },
-                    {
-                        name:'台湾',
-                        type:'bar',
-                        data:data['taiwan'].split(",")
-                    }*/
-                ]
-            });
+  <script type="text/javascript">
+        // Step:3 echarts & zrender as a Global Interface by the echarts-plain.js.
+        // Step:3 echarts和zrender被echarts-plain.js写入为全局接口
+        var myChart = echarts.init(document.getElementById('map1'));
+       
+
+        myChart.setOption({
+
+    backgroundColor: '#1b1b1b',
+    color: [
+        'rgba(255, 255, 255, 0.8)',
+        'rgba(14, 241, 242, 0.8)',
+        'rgba(37, 140, 249, 0.8)'
+    ],
+    title : {
+        text: '大规模MarkPoint特效',
+        subtext: '纯属虚构',
+        x:'center',
+        textStyle : {
+            color: '#fff'
         }
-    </script>
-    
+    },
+    legend: {
+        orient: 'vertical',
+        x:'left',
+        data:['pm2.5']
+    },
+    dataRange: {
+        min : 0,
+        max : 500,
+        calculable : true,
+        color: ['maroon','purple','red','orange','yellow','lightgreen']
+    },
+    toolbox: {
+        show : true,
+        orient : 'vertical',
+        x: 'right',
+        y: 'center',
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    series : [
+        {
+            name: 'pm2.5',
+            type: 'map',
+            mapType: 'china',
+            hoverable: false,
+            roam:true,
+            itemStyle:{
+                normal:{
+                    borderColor:'rgba(100,149,237,1)',
+                    borderWidth:1.5,
+                    areaStyle:{
+                        color: '#1b1b1b'
+                    }
+                }
+            },
+            data : [],
+            markPoint : {
+              symbolSize: 2, 
+              //large: true,
+              effect : {
+                    show: true
+               },
+              itemStyle: {
+                    normal: {
+                       // borderColor: '#87cefa',
+                      //  borderWidth: 1,            // 标注边线线宽，单位px，默认为1
+                        label: {
+                            show: false
+                        }
+                    },
+                    emphasis: {
+                        borderColor: '#1e90ff',
+                        borderWidth: 5,
+                        label: {
+                            show: false
+                        }
+                    }
+                },
+                
+                data : [
+                    {name:'海门', geoCoord:[121.15, 31.89],value:12},
+    {name:'鄂尔多斯', geoCoord:[109.781327, 39.608266],value:23},
+    {name:'招远', geoCoord:[120.38, 37.35],value:44},
+    {name:'舟山', geoCoord:[122.207216, 29.985295],value:300},
+    {name:'齐齐哈尔', geoCoord:[123.97, 47.33],value:410}]
+            }
+        }
+        
+    ]
 
-    <script src="assets/js/modernizr-latest.js"></script>
-    <script type='text/javascript' src='assets/js/jquery.min.js'></script>
-    <script type='text/javascript' src='assets/js/jquery.mobile.customized.min.js'></script>
-    <script type='text/javascript' src='assets/js/jquery.easing.1.3.js'></script>
-    <script type='text/javascript' src='assets/js/camera.min.js'></script>
-    <script src="assets/js/bootstrap.min.js"></script>
 
-    <script>
-        jQuery(function(){
-            
-            jQuery('#camera_wrap_4').camera({
-                transPeriod: 500,
-                time: 3000,
-                height: '600',
-                loader: 'false',
-                pagination: true,
-                thumbnails: false,
-                hover: false,
-                playPause: false,
-                navigation: false,
-                opacityOnGrid: false,
-                imagePath: 'assets/images/'
-            });
 
         });
-      
     </script>
 
+  <script src="js/echarts.min.js"></script>
+
+  <script type="text/javascript">
+        // Step:3 echarts & zrender as a Global Interface by the echarts-plain.js.
+        // Step:3 echarts和zrender被echarts-plain.js写入为全局接口
+        var myChart = echarts.init(document.getElementById('mixchart'));
+       
+
+        myChart.setOption({
+
+    tooltip : {
+        trigger: 'axis'
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType: {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    legend: {
+        data:['蒸发量','降水量','平均温度']
+    },
+    xAxis : [
+        {
+            type : 'category',
+            data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月','1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月', '1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            name : '水量',
+            min: 0,
+            max: 250,
+            interval: 50,
+            axisLabel : {
+                formatter: '{value} '
+            }
+        },
+        {
+            type : 'value',
+            name : '温度',
+            min: 0,
+            max: 250,
+            interval: 50,
+            axisLabel : {
+                formatter: '{value} '
+            }
+        }
+    ],
+    series : [
+
+        {
+            name:'全球',
+            type:'bar',
+            data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3, 2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3 ,2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
+        },
+        {
+            name:'中国',
+            type:'bar',
+            data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3, 2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3 ,2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
+        },
+        {
+            name:'全球',
+            type:'line',
+            yAxisIndex: 1,
+            data:[2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2, 2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3, 2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
+        }
+    ]
+        });
+    </script>
+
+  <!-- jQuery 2.1.4 -->
+  <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
+  <!-- Bootstrap 3.3.5 -->
+  <script src="bootstrap/js/bootstrap.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="dist/js/app.min.js"></script>
+
+  <!-- Optionally, you can add Slimscroll and FastClick plugins.
+         Both of these plugins are recommended to enhance the
+         user experience. Slimscroll is required when using the
+         fixed layout. -->
 </body>
 </html>
