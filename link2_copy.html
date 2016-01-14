@@ -143,7 +143,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <span>全球分析</span>
             </a>
           </li>
-          
+
         </ul>
         <!-- /.sidebar-menu --> </section>
       <!-- /.sidebar --> </aside>
@@ -179,7 +179,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <a href="#tab_1" data-toggle="tab">2015年主要分类事件变化趋势(堆叠区域图)</a>
                 </li>
                 <li>
-                  <a href="#tab_2" data-toggle="tab"></a>
+                  <a href="#tab_2" data-toggle="tab">详细事件类型矩阵图(matrix diagram)</a>
                 </li>
 
               </ul>
@@ -189,7 +189,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                 </div>
                 <!-- /.tab-pane -->
-                <div class="tab-pane" id="tab_2"></div>
+                <div class="tab-pane" id="tab_2">
+                  <div id="matrix" style="min-width: 310px; max-width: 1600px; height: 400px; margin: 0 auto"></div>
+                </div>
                 <!-- /.tab-pane -->
 
                 <!-- /.tab-pane --> </div>
@@ -228,43 +230,37 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <p>对数量的统计可以看出某些热门省市可能存在突发或持续性事件。</p>
                 <br>
 
-              
-
                 <!-- Social sharing buttons --> </div>
               <!-- /.box-body --> </div>
             <!-- /.box --> </div>
 
         </div>
         <div class="row">
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">详细事件类型桑基图(sankey diagram)</h3>
-              <div class="box-tools pull-right">
-                <button class="btn btn-box-tool" data-widget="collapse">
-                  <i class="fa fa-minus"></i>
-                </button>
-              </div>
-              <!-- /.box-tools --> </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <div id="sankey_diagram" style="min-width: 310px; max-width: 1600px; height: 400px; margin: 0 auto"></div>
-            </div>
-            <!-- /.box-body --> </div>
-            <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">详细事件类型矩阵图(matrix diagram)</h3>
-              <div class="box-tools pull-right">
-                <button class="btn btn-box-tool" data-widget="collapse">
-                  <i class="fa fa-minus"></i>
-                </button>
-              </div>
-              <!-- /.box-tools --> </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <div id="matrix" style="min-width: 310px; max-width: 1600px; height: 400px; margin: 0 auto"></div>
-            </div>
-            <!-- /.box-body --> </div>
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active">
+                <a href="#tab_1" data-toggle="tab">详细事件类型桑基图(sankey diagram)</a>
+              </li>
+              <li>
+                <a href="#tab_2" data-toggle="tab"></a>
+              </li>
 
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="tab_1">
+                <div id="sankey_diagram" style="min-width: 310px; max-width: 1600px; height: 400px; margin: 0 auto"></div>
+
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="tab_2">
+                
+              </div>
+              <!-- /.tab-pane -->
+
+              <!-- /.tab-pane --> </div>
+            <!-- /.tab-content --> </div>
+          
+        
         </div>
         <!-- main row end--> </section>
 
@@ -282,7 +278,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         .</strong> 
       All rights reserved.
     </footer>
-    
+
     <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <script src="js/echarts.min.js"></script>
 
@@ -353,8 +349,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     ]
         });
     </script>
-
-
 
     <script type="text/javascript">
 
