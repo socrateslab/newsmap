@@ -16,6 +16,7 @@
         line-height: 1.4em;
         padding: 0;
         margin: 0;
+        zoom:80%;
       }
 
       #container {
@@ -46,11 +47,11 @@
       }
 
       #map-container {
-        height: 700px;
+        height: 600px;
         width: 760px;
         text-align: center;
         position: relative;
-        margin: 10px 0;
+        margin: 0px 0;
       }
 
       #map {
@@ -121,7 +122,7 @@
             return function(n) { return fmt(n) + "%"; };
           })(),
           fields = [
-            {name: "(no scale)", id: "none"},
+            //{name: "(no scale)", id: "none"},
             {name: "每日新闻数", id: "NEWS", key: "NEWS%d"},
            
           ],
@@ -188,7 +189,7 @@
       }
       
       var width  = 1000;
-      var height = 1000;
+      var height = 700;
 
       //var proj = d3.geo.albersUsa(),
       var proj = d3.geo.mercator()

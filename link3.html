@@ -225,10 +225,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- /.box-header -->
             <div class='box-body'>
               <!-- post text -->
-              <p>gdelt关于事件影响力的介绍</p>
-              <p>分析影响力可以研究什么什么。</p>
-              <p>我们还需要再写一些文字。</p>
-              <p>这样看上去才比较满。</p>
+              <p>gdelt提供了几种机制来评估事件的重要性和其造成的短期影响。</p>
+              <p>其中一项字段为NumMentions，该属性值为数据库内所有文章提及该事件的次数。这可以用作评估事件的重要性的方法:讨论该事件越多,越有可能是重要的。</p>
+              <p>我们选取每个地理坐标上所有事件该字段取值的平均值，用以衡量各省市新闻事件的重要性和影响力</p>
+              <p></p>
 
               <br>
 
@@ -245,7 +245,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="nav-tabs-custom">
               <ul class="nav nav-tabs">
                 <li class="active">
-                  <a href="#tab_1" data-toggle="tab">热点城市2015年新闻数量与影响力关系图</a>
+                  <a href="#tab_1" data-toggle="tab">2015年各省市新闻数量与影响力关系图</a>
                 </li>
                 <li>
                   <a href="#tab_2" data-toggle="tab"></a>
@@ -255,7 +255,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </ul>
               <div class="tab-content">
                 <div class="tab-pane active" id="tab_1">
-                  <div id="fullchart" style="min-width: 310px; max-width: 1600px; height: 400px; margin: 0 auto"></div>
+                  <div id="fullchart" style="min-width: 310px; max-width: 1600px; height: 600px; margin: 0 auto"></div>
 
                 </div>
                 <!-- /.tab-pane -->
@@ -290,322 +290,510 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </footer>
 
     <script src="js/echarts-all.js"></script>
-
+    <!-- jQuery 2.1.4 -->
+    <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <script type="text/javascript">
         // Step:3 echarts & zrender as a Global Interface by the echarts-plain.js.
         // Step:3 echarts和zrender被echarts-plain.js写入为全局接口
         var myChart = echarts.init(document.getElementById('map1'));
-       
-
-        myChart.setOption({
-
-    backgroundColor: '#1b1b1b',
-    color: [
-        'rgba(255, 255, 255, 0.8)',
-        'rgba(14, 241, 242, 0.8)',
-        'rgba(37, 140, 249, 0.8)'
-    ],
-    title : {
-        text: '大规模MarkPoint特效',
-        subtext: '纯属虚构',
-        x:'center',
-        textStyle : {
-            color: '#fff'
-        }
-    },
-    legend: {
-        orient: 'vertical',
-        x:'left',
-        data:['pm2.5']
-    },
-    dataRange: {
-        min : 0,
-        max : 500,
-        calculable : true,
-        color: ['maroon','purple','red','orange','yellow','lightgreen']
-    },
-    toolbox: {
-        show : true,
-        orient : 'vertical',
-        x: 'right',
-        y: 'center',
-        feature : {
-            mark : {show: true},
-            dataView : {show: true, readOnly: false},
-            restore : {show: true},
-            saveAsImage : {show: true}
-        }
-    },
-    series : [
-        {
-            name: 'pm2.5',
-            type: 'map',
-            mapType: 'china',
-            hoverable: false,
-            roam:true,
-            itemStyle:{
-                normal:{
-                    borderColor:'rgba(100,149,237,1)',
-                    borderWidth:1.5,
-                    areaStyle:{
-                        color: '#1b1b1b'
-                    }
-                }
-            },
-            data : [],
-            markPoint : {
-              symbolSize: 2, 
-              //large: true,
-              effect : {
-                    show: true
-               },
-              itemStyle: {
-                    normal: {
-                       // borderColor: '#87cefa',
-                      //  borderWidth: 1,            // 标注边线线宽，单位px，默认为1
-                        label: {
-                            show: false
+        myChart.showLoading();
+        $.get('data/china_influence_dot_2015.json', function (data) {
+            myChart.hideLoading();
+            myChart.setOption(option = {
+                    backgroundColor: '#1b1b1b',
+                    color: [
+                        'rgba(255, 255, 255, 0.8)',
+                        'rgba(14, 241, 242, 0.8)',
+                        'rgba(37, 140, 249, 0.8)'
+                    ],
+                    title : {
+                        text: '2015中国各地新闻影响力',
+                        x:'center',
+                        textStyle : {
+                            color: '#fff'
                         }
                     },
-                    emphasis: {
-                        borderColor: '#1e90ff',
-                        borderWidth: 5,
-                        label: {
-                            show: false
+                    legend: {
+                        orient: 'vertical',
+                        x:'left',
+                        data:['强','中','弱'],
+                        textStyle : {
+                            color: '#fff'
+                        }
+                    },
+                    toolbox: {
+                        show : true,
+                        orient : 'vertical',
+                        x: 'right',
+                        y: 'center',
+                        feature : {
+                            mark : {show: true},
+                            dataView : {show: true, readOnly: false},
+                            restore : {show: true},
+                            saveAsImage : {show: true}
+                        }
+                    },
+                    series : [
+                        {
+                            name: '弱',
+                            type: 'map',
+                            mapType: 'china',
+                            itemStyle:{
+                                normal:{
+                                    borderColor:'rgba(100,149,237,1)',
+                                    borderWidth:1.5,
+                                    areaStyle:{
+                                        color: '#1b1b1b'
+                                    }
+                                }
+                            },
+                            data : [],
+                            markPoint : {
+                                symbolSize: 2,
+                                large: true,
+                                effect : {
+                                    show: true
+                                },
+                                data : (function(){
+                                    var datalist = [];
+                                    var len = data["value"].length;
+                                    var geoCoord
+                                    while(len>=0) {
+                                        len--;
+                                        if(data["value"][len]<10){
+                                            datalist.push({
+                                                name : data["names"][len],
+                                                value : data["value"][len],
+                                                geoCoord : data["geo"][len]
+                                            })
+                                        }
+                                    }
+                                    return datalist;
+                                })()
+                            }
+                        },
+                        {
+                            name: '中',
+                            type: 'map',
+                            mapType: 'china',
+                            data : [],
+                            markPoint : {
+                                symbolSize: 3,
+                                large: true,
+                                effect : {
+                                    show: true
+                                },
+                                data : (function(){
+                                    var datalist = [];
+                                    var len = data["value"].length;
+                                    var geoCoord
+                                    while(len>=0) {
+                                        len--;
+                                        if(data["value"][len]<=20&&data["value"][len]>=10){
+                                            
+                                            datalist.push({
+                                                name : data["names"][len],
+                                                value : data["value"][len],
+                                                geoCoord : data["geo"][len]
+                                            })
+                                        }
+                                    }
+                                    return datalist;
+                                })()
+                            }
+                        },
+                        {
+                            name: '强',
+                            type: 'map',
+                            mapType: 'china',
+                            hoverable: false,
+                            roam:true,
+                            data : [],
+                            markPoint : {
+                                symbol : 'diamond',
+                                symbolSize: 6,
+                                large: true,
+                                effect : {
+                                    show: true
+                                },
+                                data : (function(){
+                                    var datalist = [];
+                                    var len = data["value"].length;
+                                    var geoCoord
+                                    while(len>=0) {
+                                        len--;
+                                        if(data["value"][len]>30){
+                                            datalist.push({
+                                                name : data["names"][len],
+                                                value : data["value"][len],
+                                                geoCoord : data["geo"][len]
+                                            })
+                                        }
+                                    }
+                                    return datalist;
+                                })()
+                            }
+                        }
+                    ]
+        
+            });
+        });
+    </script>
+    
+    <script src="js/echarts.min.js"></script>
+    <script type="text/javascript">
+        var dotChart = echarts.init(document.getElementById('fullchart'));
+
+        var schema = [
+            {name: 'date', index: 0, text: '月'},
+            {name: 'NumOfNews', index: 1, text: '新闻总数'},
+            {name: 'Effect', index: 2, text: '影响力'}
+        ];
+        var itemStyle = {
+            normal: {
+                opacity: 0.8,
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowOffsetY: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+        };
+        $.get('data/china_influence_province_2015.json', function (data) {
+            //data = $.parseJSON(odata);
+            dotChart.setOption({
+                backgroundColor: '#222d32',
+                color: [
+                    '#dd4444', '#fec42c', '#80F1BE'
+                ],
+                legend: {
+                    y: 'top',
+                    data:['北京','江苏','上海','浙江','广东','天津','重庆','河北','山西','辽宁','吉林','黑龙江','安徽','福建','江西','山东','河南','湖北','湖南','海南','四川','贵州','云南','陕西','甘肃','青海','内蒙古','新疆','宁夏','西藏','广西','香港','澳门','台湾'],
+                    selected:{'北京':false,'江苏':true,'上海':true,'浙江':true,'广东':false,'天津':false,'重庆':false,'河北':false,'山西':false,'辽宁':false,'吉林':false,'黑龙江':false,'安徽':false,'福建':false,'江西':false,'山东':false,'河南':false,'湖北':false,'湖南':false,'海南':false,'四川':false,'贵州':false,'云南':false,'陕西':false,'甘肃':false,'青海':false,'内蒙古':false,'新疆':false,'宁夏':false,'西藏':false,'广西':false,'香港':false,'澳门':false,'台湾':false},
+                    textStyle: {
+                        color: '#fff',
+                        fontSize: 14
+                    }
+                },
+                grid: {
+                    x: '10%',
+                    x2: 150,
+                    y: '18%',
+                    y2: '10%'
+                },
+                tooltip: {
+                    padding: 10,
+                    backgroundColor: '#222',
+                    borderColor: '#777',
+                    borderWidth: 1,
+                    formatter: function (obj) {
+                        var value = obj.value;
+                        return '<div style="border-bottom: 1px solid rgba(255,255,255,.3); font-size: 18px;padding-bottom: 7px;margin-bottom: 7px">'
+                            + obj.seriesName + ' ' + value[0] + '月'
+
+                            + '</div>'
+                            + schema[1].text + '：' + value[1] + '<br>'
+                            + schema[2].text + '：' + value[2] + '<br>'
+                           ;
+                    }
+                },
+                xAxis: {
+                    type: 'value',
+                    name: '月份',
+                    nameGap: 16,
+                    nameTextStyle: {
+                        color: '#fff',
+                        fontSize: 14
+                    },
+                    max: 12,
+                    splitLine: {
+                        show: false
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#777'
+                        }
+                    },
+                    axisTick: {
+                        lineStyle: {
+                            color: '#777'
+                        }
+                    },
+                    axisLabel: {
+                        formatter: '{value}',
+                        textStyle: {
+                            color: '#fff'
                         }
                     }
                 },
-                
-                data : [
-                    {name:'海门', geoCoord:[121.15, 31.89],value:12},
-    {name:'鄂尔多斯', geoCoord:[109.781327, 39.608266],value:23},
-    {name:'招远', geoCoord:[120.38, 37.35],value:44},
-    {name:'舟山', geoCoord:[122.207216, 29.985295],value:300},
-    {name:'齐齐哈尔', geoCoord:[123.97, 47.33],value:410}]
-            }
-        }
-        
-    ]
-
-
-
-        });
-    </script>
-
-    <script src="js/echarts.min.js"></script>
-      <script type="text/javascript">
-        // Step:3 echarts & zrender as a Global Interface by the echarts-plain.js.
-        // Step:3 echarts和zrender被echarts-plain.js写入为全局接口
-        var myChart = echarts.init(document.getElementById('fullchart'));
-        var dataBJ = [
-    [1,55,9],
-    [2,75,9],
-    [3,15,59],
-    [4,23,9],
-    [5,33,9],
-    [6,63,9],
-    [7,89,9],
-    [8,81,9],
-    [9,50,9],
-    [10,80,9],
-    [11,72,9],
-    [12,91,9]
-];
-
-var dataGZ = [
-    [1,26,37],
-    [2,55,40],
-    [3,25,29],
-    [4,35,49],
-    [5,45,59],
-    [6,35,39],
-    [7,75,29],
-    [8,75,49],
-    [9,35,49],
-    [10,15,29],
-    [11,25,59],
-    [12,45,19]
-];
-
-var dataSH = [
-    [1,91,45],
-    [2,10,40],
-    [3,30,29],
-    [4,25,49],
-    [5,30,59],
-    [6,60,39],
-    [7,70,29],
-    [8,78,49],
-    [9,33,49],
-    [10,45,29],
-    [11,85,59],
-    [12,41,19]
-];
-
-var schema = [
-    {name: 'date', index: 0, text: '日'},
-    {name: 'NumOfNews', index: 1, text: '新闻总数'},
-    {name: 'Effect', index: 2, text: '影响力'}
-];
-
-
-var itemStyle = {
-    normal: {
-        opacity: 0.8,
-        shadowBlur: 10,
-        shadowOffsetX: 0,
-        shadowOffsetY: 0,
-        shadowColor: 'rgba(0, 0, 0, 0.5)'
-    }
-};
-
-        myChart.setOption({
-
-    backgroundColor: '#222d32',
-    color: [
-        '#dd4444', '#fec42c', '#80F1BE'
-    ],
-    legend: {
-        y: 'top',
-        data: ['北京', '上海', '广州'],
-        textStyle: {
-            color: '#fff',
-            fontSize: 16
-        }
-    },
-    grid: {
-        x: '10%',
-        x2: 150,
-        y: '18%',
-        y2: '10%'
-    },
-    tooltip: {
-        padding: 10,
-        backgroundColor: '#222',
-        borderColor: '#777',
-        borderWidth: 1,
-        formatter: function (obj) {
-            var value = obj.value;
-            return '<div style="border-bottom: 1px solid rgba(255,255,255,.3); font-size: 18px;padding-bottom: 7px;margin-bottom: 7px">'
-                + obj.seriesName + ' ' + value[0] + '月'
-                
-                + '</div>'
-                + schema[1].text + '：' + value[1] + '<br>'
-                + schema[2].text + '：' + value[2] + '<br>'
-               ;
-        }
-    },
-    xAxis: {
-        type: 'value',
-        name: '日期',
-        nameGap: 16,
-        nameTextStyle: {
-            color: '#fff',
-            fontSize: 14
-        },
-        max: 12,
-        splitLine: {
-            show: false
-        },
-        axisLine: {
-            lineStyle: {
-                color: '#777'
-            }
-        },
-        axisTick: {
-            lineStyle: {
-                color: '#777'
-            }
-        },
-        axisLabel: {
-            formatter: '{value}',
-            textStyle: {
-                color: '#fff'
-            }
-        }
-    },
-    yAxis: {
-        type: 'value',
-        name: '新闻事件数',
-        nameLocation: 'end',
-        nameGap: 20,
-        nameTextStyle: {
-            color: '#fff',
-            fontSize: 16
-        },
-        axisLine: {
-            lineStyle: {
-                color: '#777'
-            }
-        },
-        axisTick: {
-            lineStyle: {
-                color: '#777'
-            }
-        },
-        splitLine: {
-            show: false
-        },
-        axisLabel: {
-            textStyle: {
-                color: '#fff'
-            }
-        }
-    },
-    visualMap: [
-        {
-            left: 'right',
-            top: '10%',
-            dimension: 2,
-            min: 0,
-            max: 250,
-            itemWidth: 30,
-            itemHeight: 120,
-            calculable: true,
-            precision: 0.1,
-            text: ['圆形大小：影响力'],
-            textGap: 30,
-            textStyle: {
-                color: '#fff'
-            },
-            inRange: {
-                symbolSize: [10, 70]
-            },
-            outOfRange: {
-                symbolSize: [10, 70],
-                color: ['rgba(255,255,255,.2)']
-            },
-            controller: {
-                inRange: {
-                    color: ['#c23531']
+                yAxis: {
+                    type: 'value',
+                    name: '新闻事件数',
+                    nameLocation: 'end',
+                    nameGap: 20,
+                    nameTextStyle: {
+                        color: '#fff',
+                        fontSize: 16
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#777'
+                        }
+                    },
+                    axisTick: {
+                        lineStyle: {
+                            color: '#777'
+                        }
+                    },
+                    splitLine: {
+                        show: false
+                    },
+                    axisLabel: {
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    }
                 },
-                outOfRange: {
-                    color: ['#444']
-                }
-            }
-        }
-    ],
-    series: [
-        {
-            name: '北京',
-            type: 'scatter',
-            itemStyle: itemStyle,
-            data: dataBJ
-        },
-        {
-            name: '上海',
-            type: 'scatter',
-            itemStyle: itemStyle,
-            data: dataSH
-        },
-        {
-            name: '广州',
-            type: 'scatter',
-            itemStyle: itemStyle,
-            data: dataGZ
-        }
-    ]
-        });
+                visualMap: [
+                    {
+                        left: 'right',
+                        top: '10%',
+                        dimension: 2,
+                        min: 0,
+                        max: 50,
+                        itemWidth: 30,
+                        itemHeight: 120,
+                        calculable: true,
+                        precision: 0.1,
+                        text: ['圆形大小：影响力'],
+                        textGap: 30,
+                        textStyle: {
+                            color: '#fff'
+                        },
+                        inRange: {
+                            symbolSize: [10, 70]
+                        },
+                        outOfRange: {
+                            symbolSize: [10, 70],
+                            color: ['rgba(255,255,255,.2)']
+                        },
+                        controller: {
+                            inRange: {
+                                color: ['#c23531']
+                            },
+                            outOfRange: {
+                                color: ['#444']
+                            }
+                        }
+                    }
+                ],
+                series: [
+                    {
+                        name: '北京',
+                        type: 'scatter',
+                        itemStyle: itemStyle,
+                        data: data['beijing']
+                    },
+                    {
+                        name: '上海',
+                        type: 'scatter',
+                        itemStyle: itemStyle,
+                        data: data['shanghai']
+                    },
+                    {
+                        name: '江苏',
+                        type: 'scatter',
+                        itemStyle: itemStyle,
+                        data: data['jiangsu']
+                    },
+                    {
+                        name:'浙江',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['zhejiang']
+                    },
+                    {
+                        name:'广东',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['guangdong']
+                    },
+                    {
+                        name:'天津',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['tianjin']
+                    },
+                    {
+                        name:'重庆',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['chongqing'] 
+                    },
+                    {
+                        name:'河北',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['hebei'] 
+                    },
+                    {
+                        name:'山西',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['shanxi'] 
+                    },
+                    {
+                        name:'辽宁',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['liaoning'] 
+                    },
+                    {
+                        name:'吉林',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['jilin'] 
+                    },
+                    {
+                        name:'黑龙江',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['heilongjiang'] 
+                    },
+                    {
+                        name:'安徽',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['anhui'] 
+                    },
+                    {
+                        name:'福建',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['fujian'] 
+                    },
+                    {
+                        name:'江西',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['jiangxi'] 
+                    },
+                    {
+                        name:'山东',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['shandong'] 
+                    },
+                    {
+                        name:'河南',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['henan'] 
+                    },
+                    {
+                        name:'湖北',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['hubei'] 
+                    },
+                    {
+                        name:'湖南',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['hunan'] 
+                    },
+                    {
+                        name:'海南',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['hainan'] 
+                    },
+                    {
+                        name:'四川',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['sichuan'] 
+                    },
+                    {
+                        name:'贵州',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['guizhou'] 
+                    },
+                    {
+                        name:'云南',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['yunnan'] 
+                    },
+                    {
+                        name:'陕西',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['shaanxi'] 
+                    },
+                    {
+                        name:'甘肃',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['gansu'] 
+                    },
+                    {
+                        name:'青海',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['qinghai'] 
+                    },
+                    {
+                        name:'内蒙古',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['neimeng'] 
+                    },
+                    {
+                        name:'新疆',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['xinjiang'] 
+                    },
+                    {
+                        name:'宁夏',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['ningxia'] 
+                    },
+                    {
+                        name:'西藏',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['xizang'] 
+                    },
+                    {
+                        name:'广西',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['guangxi'] 
+                    },
+                    {
+                        name:'香港',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['hongkong'] 
+                    },
+                    {
+                        name:'澳门',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['macau'] 
+                    },
+                    {
+                        name:'台湾',
+                        type:'scatter',
+                        itemStyle: itemStyle,
+                        data:data['taiwan'] 
+                    }
+                ]
+            });
+        });    
     </script>
 
     <!-- Control Sidebar -->
@@ -683,9 +871,6 @@ var itemStyle = {
 
   <!-- REQUIRED JS SCRIPTS -->
 
-  <!-- jQuery 2.1.4 -->
-
-  <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
   <!-- Bootstrap 3.3.5 -->
   <script src="bootstrap/js/bootstrap.min.js"></script>
   <!-- AdminLTE App -->

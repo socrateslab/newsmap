@@ -183,14 +183,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
               </ul>
               <div class="tab-content">
-                <div class="tab-pane active" id="tab_1">
+                <div class="tab-pane" id="tab_2">
                   <div id="chinamap" style="min-width: 310px; max-width: 1600px; height: 400px; margin: 0 auto"></div>
 
                 </div>
                 <!-- /.tab-pane -->
-                <div class="tab-pane" id="tab_2">
+                <div class="tab-pane active" id="tab_1">
                   <DIV align=center>
-                    <IFRAME src="newsmap.html" frameBorder=0 marginwidth=0 marginheight=0 scrolling=no style="width:1000px;height:900px;" width=1000  height=1000 scrolling="yes" ALLOWTRANSPARENCY="true"></IFRAME>
+                    <IFRAME src="newsmap.html" frameBorder=0 marginwidth=0 marginheight=0 scrolling=no style="width:800px;height:500px;" width=1600  height=400 scrolling="yes" ALLOWTRANSPARENCY="true"></IFRAME>
                   </DIV>
                 </div>
                 <!-- /.tab-pane -->
@@ -227,23 +227,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </section>
           </div>
         </div>
-
-                <div class="row">
+    <!--
+        <div class="row">
 
           <div class="col-md-12">
             <div class="box box-primary box-solid">
               <div class="box-header with-border">
                 <h3 class="box-title">80年代至今全球新闻变化趋势</h3>
-
-                <!-- /.box-tools --> </div>
+                </div>
+                <!-- /.box-tools --> 
               <!-- /.box-header -->
+              <!--
               <div class="box-body">
                 <div id="mixchart" style="min-width: 310px; max-width: 1600px; height: 400px; margin: 0 auto"></div>
               </div>
-              <!-- /.box-body --> </div>
-            <!-- /.box --> </div>
+              <!-- /.box-body --> <!--</div>
+            <!-- /.box --> <!--</div>
 
-        </div>
+        </div>-->
       </section>
      
       <!-- /.content -->
@@ -328,87 +329,72 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- ./wrapper -->
 
   <!-- REQUIRED JS SCRIPTS -->
-
+  <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
   <script src="js/echarts.min.js"></script>
 
   <script type="text/javascript">
         // Step:3 echarts & zrender as a Global Interface by the echarts-plain.js.
         // Step:3 echarts和zrender被echarts-plain.js写入为全局接口
-        var myChart = echarts.init(document.getElementById('mixchart'));
-       
-
-        myChart.setOption({
-
-    tooltip : {
-        trigger: 'axis'
-    },
-    toolbox: {
-        show : true,
-        feature : {
-            mark : {show: true},
-            dataView : {show: true, readOnly: false},
-            magicType: {show: true, type: ['line', 'bar']},
-            restore : {show: true},
-            saveAsImage : {show: true}
-        }
-    },
-    calculable : true,
-    legend: {
-        data:['蒸发量','降水量','平均温度']
-    },
-    xAxis : [
-        {
-            type : 'category',
-            data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月','1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月', '1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
-        }
-    ],
-    yAxis : [
-        {
-            type : 'value',
-            name : '水量',
-            min: 0,
-            max: 250,
-            interval: 50,
-            axisLabel : {
-                formatter: '{value} '
-            }
-        },
-        {
-            type : 'value',
-            name : '温度',
-            min: 0,
-            max: 250,
-            interval: 50,
-            axisLabel : {
-                formatter: '{value} '
-            }
-        }
-    ],
-    series : [
-
-        {
-            name:'全球',
-            type:'bar',
-            data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3, 2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3 ,2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
-        },
-        {
-            name:'中国',
-            type:'bar',
-            data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3, 2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3 ,2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
-        },
-        {
-            name:'全球',
-            type:'line',
-            yAxisIndex: 1,
-            data:[2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2, 2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3, 2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
-        }
-    ]
-        });
+      /*
+      var allChart = echarts.init(document.getElementById('mixchart'));
+      
+      $.get('data/all_year_news.json', function (data) {
+          allChart.setOption(option = {
+              tooltip : {
+                  trigger: 'axis'
+              },
+              toolbox: {
+                  show : true,
+                  feature : {
+                      mark : {show: true},
+                      dataView : {show: true, readOnly: false},
+                      magicType: {show: true, type: ['line', 'bar']},
+                      restore : {show: true},
+                      saveAsImage : {show: true}
+                  }
+              },
+              calculable : true,
+              legend: {
+                  data:['中国新闻','世界新闻']
+              },
+              xAxis : [
+                  {
+                      type : 'category',
+                      name : '年度',
+                      data : ['1980','1981','1982','1983','1984','1985','1986','1987','1988','1989','1990','1991','1992','1993','1994','1995','1996','1997','1998','1999','2000','2001','2002', '2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015']
+                  }
+              ],
+              yAxis : [
+                  {
+                      type : 'value',
+                      name : '新闻数',
+                      axisLabel : {
+                          formatter: '{value} '
+                      }   
+                  }
+              ],
+              series : [
+                  
+                  {
+                      name:'中国',
+                      type:'bar',
+                      data:data.china
+                  },
+                  {
+                      name:'世界',
+                      type:'bar',
+                      data:data.world
+                  },
+          
+              ]
+          });
+      });*/
     </script>
 
   <script type="text/javascript">
         // Step:3 echarts & zrender as a Global Interface by the echarts-plain.js.
         // Step:3 echarts和zrender被echarts-plain.js写入为全局接口
+      /*
         var myChart = echarts.init(document.getElementById('chinamap'));
         var data = [
      {name: '海门', value: 9},
@@ -912,7 +898,7 @@ var convertData = function (data) {
     ]
 
    
-        });
+        });*/
     </script>
 
   <!-- jQuery 2.1.4 -->

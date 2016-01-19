@@ -181,9 +181,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <li>
                   <a href="#tab_2" data-toggle="tab"></a>
                 </li>
-                
-
               </ul>
+              
               <div class="tab-content">
                 <div class="tab-pane active" id="tab_1">
                   <div id="piechart" style="min-width: 310px; max-width: 1600px; height: 400px; margin: 0 auto"></div>
@@ -191,7 +190,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
                 <!-- /.tab-pane -->
                 <div class="tab-pane" id="tab_2">
-                                    <table class="table table-condensed">
+                    <table class="table table-condensed">
                     <tr>
                       <th style="width: 10px">NO</th>
                       <th>省市</th>
@@ -240,7 +239,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </tr>
                     <tr>
                       <td>5.</td>
-                      <td>其他</td>
+                      <td></td>
                       <td>
                         <div class="progress progress-xs progress-striped active">
                           <div class="progress-bar progress-bar-success" style="width: 20%"></div>
@@ -252,45 +251,46 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
                 <!-- /.tab-pane -->
                 
-                <!-- /.tab-pane --> </div>
+                <!-- /.tab-pane --> 
+                </div>
               <!-- /.tab-content --> </div>
             <!-- nav-tabs-custom -->
 
             <!-- /.box --> </div>
           <div class="col-md-4">
-<div class="box box-widget">
-                <div class='box-header with-border'>
-                  <div class='user-block'>
-                    <img class='img-circle' src='dist/img/user1-128x128.jpg' alt='user image'>
-                    <span class='username'><a href="#">Jonathan Burke Jr.</a></span>
-                    <span class='description'>Shared publicly </span>
-                  </div><!-- /.user-block -->
-                  <div class='box-tools'>
-                    <button class='btn btn-box-tool' data-toggle='tooltip' title='Mark as read'><i class='fa fa-circle-o'></i></button>
-                    <button class='btn btn-box-tool' data-widget='collapse'><i class='fa fa-minus'></i></button>
-                    <button class='btn btn-box-tool' data-widget='remove'><i class='fa fa-times'></i></button>
-                  </div><!-- /.box-tools -->
-                </div><!-- /.box-header -->
-                <div class='box-body'>
-                  <!-- post text -->
-                  <p>gdelt提供的数据中有一项:Actor1CountryCode，它标识了受到该事件影响的地理区域。</p>
-                  <p>通过对这个字段进行筛选，可以得到每个月中国地区每个省市的所有的新闻条目。</p>
-                  <p>对数量的统计可以看出某些热门省市可能存在突发或持续性事件。</p>
-                  <br>
+               <div class="box box-widget">
+                    <div class='box-header with-border'>
+                      <div class='user-block'>
+                        <img class='img-circle' src='dist/img/user1-128x128.jpg' alt='user image'>
+                        <span class='username'><a href="#">Jonathan Burke Jr.</a></span>
+                        <span class='description'>Shared publicly </span>
+                      </div><!-- /.user-block -->
+                      <div class='box-tools'>
+                        <button class='btn btn-box-tool' data-toggle='tooltip' title='Mark as read'><i class='fa fa-circle-o'></i></button>
+                        <button class='btn btn-box-tool' data-widget='collapse'><i class='fa fa-minus'></i></button>
+                        <button class='btn btn-box-tool' data-widget='remove'><i class='fa fa-times'></i></button>
+                      </div><!-- /.box-tools -->
+                    </div><!-- /.box-header -->
+                    <div class='box-body'>
+                      <!-- post text -->
+                          <p>gdelt提供的数据中有一项:ActionGeo_ADM1Code，它标识了该事件的行政区划地理信息。</p>
+                          <p>通过对这个字段进行筛选，可以得到每个月中国地区每个省市的所有的新闻条目。</p>
+                          <p>对数量的统计可以看出某些热门省市可能存在突发或持续性事件。</p>
+                          <br>
              
 
                   <!-- Social sharing buttons -->
                   
-                </div><!-- /.box-body -->
+                    </div><!-- /.box-body -->
                 
               </div><!-- /.box -->
-          </div>
+        </div>
 
         </div>
         <div class="row">
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">主要区域新闻数量</h3>
+              <h3 class="box-title">2015年度中国新闻数量</h3>
               <div class="box-tools pull-right">
                 <button class="btn btn-box-tool" data-widget="collapse">
                   <i class="fa fa-minus"></i>
@@ -320,144 +320,286 @@ scratch. This page gets rid of all links and provides the needed markup only.
         .</strong> 
       All rights reserved.
     </footer>
+    <!-- jQuery 2.1.4 -->
+    <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <script src="js/echarts.min.js"></script>
+    
+    <script type="text/javascript" id="init">
+         $(document).ready(function() { 
+             setData();
+         });
+        
+         function setData(){
+            $.get("admin/getdata.php?type=monthpie",function(data){
+                var jsondata = $.parseJSON(data);
+                setPie(jsondata);
+            });
+         }
+    </script>
+    
     <script type="text/javascript">
-        // Step:3 echarts & zrender as a Global Interface by the echarts-plain.js.
-        // Step:3 echarts和zrender被echarts-plain.js写入为全局接口
+        
         var myChart = echarts.init(document.getElementById('ebarchart'));
-        myChart.setOption({
-            tooltip : {
-                trigger: 'axis'
-            },
-            legend: {
-                data:['北京','江苏','上海','浙江','广东']
-            },
-            toolbox: {
-                show : true,
-                feature : {
-                    mark : {show: true},
-                    dataView : {show: true, readOnly: false},
-                    magicType : {show: true, type: ['line', 'bar']},
-                    restore : {show: true},
-                    saveAsImage : {show: true}
-                }
-            },
-            calculable : true,
-            xAxis : [
-                {
-                    type : 'category',
-                    data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
-                }
-            ],
-            yAxis : [
-                {
-                    type : 'value',
-                    splitArea : {show : true}
-                }
-            ],
-            series : [
-                {
-                    name:'北京',
-                    type:'bar',
-                    data:[15210, 12031, 13212, 12322, 12526, 17627, 13526, 16222 , 13226, 12020, 16224, 7323]
+        myChart.showLoading();
+        $.get('data/china_2015.json', function (data) {
+            myChart.hideLoading();
+            myChart.setOption({
+                tooltip : {
+                    trigger: 'axis'
                 },
-                {
-                    name:'江苏',
-                    type:'bar',
-                    data:[13121, 14219, 14210, 12312, 12526, 17627, 13526, 16232, 13216, 12030, 16214, 6333]
+                legend: {
+                    data:['北京','江苏','上海','浙江','广东','天津','重庆','河北','山西','辽宁','吉林','黑龙江','安徽','福建','江西','山东','河南','湖北','湖南','海南','四川','贵州','云南','陕西','甘肃','青海','内蒙古','新疆','宁夏','西藏','广西','香港','澳门','台湾'],
+                    selected:{'北京':false,'江苏':true,'上海':true,'浙江':true,'广东':true,'天津':false,'重庆':false,'河北':false,'山西':false,'辽宁':false,'吉林':false,'黑龙江':false,'安徽':false,'福建':false,'江西':false,'山东':false,'河南':false,'湖北':false,'湖南':false,'海南':false,'四川':false,'贵州':false,'云南':false,'陕西':false,'甘肃':false,'青海':false,'内蒙古':false,'新疆':false,'宁夏':false,'西藏':false,'广西':false,'香港':false,'澳门':false,'台湾':false}
+                        
                 },
-                {
-                    name:'上海',
-                    type:'bar',
-                    data:[12203, 14978, 17201, 12322, 12526, 17627, 13526, 16222, 13256, 12040, 16314, 6543]
+                toolbox: {
+                    show : false,
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: false},
+                        magicType : {show: true, type: ['line', 'bar']},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
                 },
-                {
-                    name:'浙江',
-                    type:'bar',
-                    data:[12304, 14319, 12130, 12332, 12536, 12767, 13526, 16222, 13336, 12020, 16234, 7533]
-                },
-                {
-                    name:'广东',
-                    type:'bar',
-                    data:[12346, 15219, 12340, 12614, 12837, 13707, 12756, 12822, 14837, 11828, 13240, 6423]
-                }
-            ]
+                calculable : true,
+                xAxis : [
+                    {
+                        type : 'category',
+                        data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+                        splitArea : {show : true}
+                    }
+                ],
+                series : [
+                    {
+                        name:'北京',
+                        type:'bar',
+                        data:data.beijing
+                    },
+                    {
+                        name:'江苏',
+                        type:'bar',
+                        data:data.jiangsu
+                    },
+                    {
+                        name:'上海',
+                        type:'bar',
+                        data:data['shanghai']
+                    },
+                    {
+                        name:'浙江',
+                        type:'bar',
+                        data:data.zhejiang
+                    },
+                    {
+                        name:'广东',
+                        type:'bar',
+                        data:data.guangdong
+                    },
+                    {
+                        name:'天津',
+                        type:'bar',
+                        data:data['tianjin']
+                    },
+                    {
+                        name:'重庆',
+                        type:'bar',
+                        data:data['chongqing'] 
+                    },
+                    {
+                        name:'河北',
+                        type:'bar',
+                        data:data['hebei'] 
+                    },
+                    {
+                        name:'山西',
+                        type:'bar',
+                        data:data['shanxi'] 
+                    },
+                    {
+                        name:'辽宁',
+                        type:'bar',
+                        data:data['liaoning'] 
+                    },
+                    {
+                        name:'吉林',
+                        type:'bar',
+                        data:data['jilin'] 
+                    },
+                    {
+                        name:'黑龙江',
+                        type:'bar',
+                        data:data['heilongjiang'] 
+                    },
+                    {
+                        name:'安徽',
+                        type:'bar',
+                        data:data['anhui'] 
+                    },
+                    {
+                        name:'福建',
+                        type:'bar',
+                        data:data['fujian'] 
+                    },
+                    {
+                        name:'江西',
+                        type:'bar',
+                        data:data['jiangxi'] 
+                    },
+                    {
+                        name:'山东',
+                        type:'bar',
+                        data:data['shandong'] 
+                    },
+                    {
+                        name:'河南',
+                        type:'bar',
+                        data:data['henan'] 
+                    },
+                    {
+                        name:'湖北',
+                        type:'bar',
+                        data:data['hubei'] 
+                    },
+                    {
+                        name:'湖南',
+                        type:'bar',
+                        data:data['hunan'] 
+                    },
+                    {
+                        name:'海南',
+                        type:'bar',
+                        data:data['hainan'] 
+                    },
+                    {
+                        name:'四川',
+                        type:'bar',
+                        data:data['sichuan'] 
+                    },
+                    {
+                        name:'贵州',
+                        type:'bar',
+                        data:data['guizhou'] 
+                    },
+                    {
+                        name:'云南',
+                        type:'bar',
+                        data:data['yunnan'] 
+                    },
+                    {
+                        name:'陕西',
+                        type:'bar',
+                        data:data['shaanxi'] 
+                    },
+                    {
+                        name:'甘肃',
+                        type:'bar',
+                        data:data['gansu'] 
+                    },
+                    {
+                        name:'青海',
+                        type:'bar',
+                        data:data['qinghai'] 
+                    },
+                    {
+                        name:'内蒙古',
+                        type:'bar',
+                        data:data['neimeng'] 
+                    },
+                    {
+                        name:'新疆',
+                        type:'bar',
+                        data:data['xinjiang'] 
+                    },
+                    {
+                        name:'宁夏',
+                        type:'bar',
+                        data:data['ningxia'] 
+                    },
+                    {
+                        name:'西藏',
+                        type:'bar',
+                        data:data['xizang'] 
+                    },
+                    {
+                        name:'广西',
+                        type:'bar',
+                        data:data['guangxi'] 
+                    },
+                    {
+                        name:'香港',
+                        type:'bar',
+                        data:data['hongkong'] 
+                    },
+                    {
+                        name:'澳门',
+                        type:'bar',
+                        data:data['macau'] 
+                    },
+                    {
+                        name:'台湾',
+                        type:'bar',
+                        data:data['taiwan'] 
+                    }
+                ]
+            });
         });
     </script>
 
     <script type="text/javascript">
+        function setPie(data){
         // Step:3 echarts & zrender as a Global Interface by the echarts-plain.js.
         // Step:3 echarts和zrender被echarts-plain.js写入为全局接口
-        var myChart = echarts.init(document.getElementById('piechart'));
+            var pieChart = echarts.init(document.getElementById('piechart'));
       
+            var myDate = new Date();
+            var month = myDate.getMonth()+1;
+            var year = myDate.getFullYear();
+            var province = data['province'].split(",");
+            var pdata = data['data'].split(",");
+            var sum = parseInt(data['sum'],10);
+            pieChart.setOption({
+                backgroundColor: '#2c343c',
 
-        myChart.setOption({
-
-    backgroundColor: '#2c343c',
-
-    title: {
-        text: '2015年12月',
-        left: 'center',
-        top: 20,
-        textStyle: {
-            color: '#ccc'
-        }
-    },
-
-    tooltip : {
-        trigger: 'item',
-        formatter: "{a} <br/>{b} : {c} ({d}%)"
-    },
-
-    visualMap: {
-        show: false,
-        min: 80,
-        max: 600,
-        inRange: {
-            colorLightness: [0, 1]
-        }
-    },
-    series : [
-        {
-            name:'访问来源',
-            type:'pie',
-            radius : '55%',
-            center: ['50%', '50%'],
-            data:[
-                {value:335, name:'上海'},
-                {value:310, name:'江苏'},
-                {value:274, name:'其他'},
-                {value:235, name:'浙江'},
-                {value:400, name:'北京'}
-            ].sort(function (a, b) { return a.value - b.value}),
-            roseType: 'angle',
-            label: {
-                normal: {
+                title: {
+                    text: year+'年'+month+'月',
+                    left: 'center',
+                    top: 20,
                     textStyle: {
-                        color: 'rgba(255, 255, 255, 0.3)'
+                        color: '#ccc'
                     }
-                }
-            },
-            labelLine: {
-                normal: {
-                    lineStyle: {
-                        color: 'rgba(255, 255, 255, 0.3)'
-                    },
-                    smooth: 0.2,
-                    length: 10,
-                    length2: 20
-                }
-            },
-            itemStyle: {
-                normal: {
-                    color: '#c23531',
-                    shadowBlur: 200,
-                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-                }
-            }
+                },
+
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                calculable : true,
+                series : [
+                    {
+                        name:'新闻事件',
+                        type:'pie',
+                        radius : [30, 110],
+                        center : ['50%', '50%'],
+                        roseType : 'area',
+                        data:[
+                            {value:parseInt(pdata[0],10), name:province[0]},
+                            {value:parseInt(pdata[1],10), name:province[1]},
+                            {value:parseInt(pdata[2],10), name:province[2]},
+                            {value:parseInt(pdata[3],10), name:province[3]},
+                            {value:parseInt(pdata[4],10), name:province[4]},
+                            {value:sum-(parseInt(pdata[0],10)+parseInt(pdata[1],10)+parseInt(pdata[2],10)+parseInt(pdata[3],10)+parseInt(pdata[4],10)), name:'其他'}
+                        ]
+                    }
+                ]
+            });
         }
-    ]
-        });
+        
     </script>
 
 
@@ -538,9 +680,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- REQUIRED JS SCRIPTS -->
 
-  <!-- jQuery 2.1.4 -->
-
-  <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
+  
   <!-- Bootstrap 3.3.5 -->
   <script src="bootstrap/js/bootstrap.min.js"></script>
 

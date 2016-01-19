@@ -176,7 +176,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="nav-tabs-custom">
               <ul class="nav nav-tabs">
                 <li class="active">
-                  <a href="#tab_1" data-toggle="tab">2015年主要分类事件变化趋势(堆叠区域图)</a>
+                  <a href="#tab_1" data-toggle="tab">2015年主要分类事件变化趋势</a>
                 </li>
                 <li>
                   <a href="#tab_2" data-toggle="tab"></a>
@@ -223,9 +223,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <!-- /.box-header -->
               <div class='box-body'>
                 <!-- post text -->
-                <p>gdelt提供的数据中有一项:Actor1CountryCode，它标识了受到该事件影响的地理区域。</p>
-                <p>通过对这个字段进行筛选，可以得到每个月中国地区每个省市的所有的新闻条目。</p>
-                <p>对数量的统计可以看出某些热门省市可能存在突发或持续性事件。</p>
+                <p>gdelt提供的数据中QuadClass字段指定事件类型主要分类，所有事件将被划分为以下四个分类之一：1=口头合作，2=物质合作，3=口头冲突，4=物质冲突。</p>
+                <p>另外每个事件还拥有一个由三级分类法标识的CAMEO码,事件分类可参考：</p>
+                <a href="http://gdeltproject.org/data/lookups/CAMEO.eventcodes.txt">Event Codes</a>
+                <p>通过对事件类型的分类筛选和统计，可以看出世界范围内发生的重要事件所集中的领域</p>
                 <br>
 
               
@@ -236,6 +237,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         </div>
         <div class="row">
+         <!--
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">详细事件类型桑基图(sankey diagram)</h3>
@@ -244,15 +246,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <i class="fa fa-minus"></i>
                 </button>
               </div>
-              <!-- /.box-tools --> </div>
+              <!-- /.box-tools --> <!--</div>
             <!-- /.box-header -->
-            <div class="box-body">
+            <!--<div class="box-body">
               <div id="sankey_diagram" style="min-width: 310px; max-width: 1600px; height: 400px; margin: 0 auto"></div>
             </div>
-            <!-- /.box-body --> </div>
+            <!-- /.box-body --> <!--</div>-->
+            
             <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">详细事件类型矩阵图(matrix diagram)</h3>
+              <h3 class="box-title">2015详细事件类型矩阵图</h3>
               <div class="box-tools pull-right">
                 <button class="btn btn-box-tool" data-widget="collapse">
                   <i class="fa fa-minus"></i>
@@ -289,68 +292,69 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script type="text/javascript">
         // Step:3 echarts & zrender as a Global Interface by the echarts-plain.js.
         // Step:3 echarts和zrender被echarts-plain.js写入为全局接口
-        var myChart = echarts.init(document.getElementById('typechart'));
-        myChart.setOption({
-
-    tooltip : {
-        trigger: 'axis'
-    },
-    legend: {
-        data:['口头合作','物质合作','口头冲突','物质冲突']
-    },
-    toolbox: {
-        feature: {
-            saveAsImage: {}
-        }
-    },
-    grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-    },
-    xAxis : [
-        {
-            type : 'category',
-            boundaryGap : false,
-            data : ['一','二','三','四','五','六','七','八','9','10','11','12']
-        }
-    ],
-    yAxis : [
-        {
-            type : 'value'
-        }
-    ],
-    series : [
-        {
-            name:'口头合作',
-            type:'line',
-            stack: '总量',
-            areaStyle: {normal: {}},
-            data:[120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90]
-        },
-        {
-            name:'物质合作',
-            type:'line',
-            stack: '总量',
-            areaStyle: {normal: {}},
-            data:[220, 182, 191, 234, 290, 330, 310,220, 182, 191, 234, 290]
-        },
-        {
-            name:'口头冲突',
-            type:'line',
-            stack: '总量',
-            areaStyle: {normal: {}},
-            data:[150, 232, 201, 154, 190, 330, 410, 150, 232, 201, 154, 190]
-        },
-        {
-            name:'物质冲突',
-            type:'line',
-            stack: '总量',
-            areaStyle: {normal: {}},
-            data:[320, 332, 301, 334, 390, 330, 320,320, 332, 301, 334, 390]
-        }
-    ]
+        var lineChart = echarts.init(document.getElementById('typechart'));
+        $.get('data/world_event_class_2015.json', function (data) {
+            lineChart.setOption(option = {
+                tooltip : {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:['Verbal Cooperation','Material Cooperation','Verbal Conflict','Material Conflict']
+                },
+                toolbox: {
+                    feature: {
+                        saveAsImage: {}
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : false,
+                        data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value'
+                    }
+                ],
+                series : [
+                    {
+                        name:'Verbal Cooperation',
+                        type:'line',
+                        stack: '总量',
+                        areaStyle: {normal: {}},
+                        data:data["Verbal Cooperation"]
+                    },
+                    {
+                        name:'Material Cooperation',
+                        type:'line',
+                        stack: '总量',
+                        areaStyle: {normal: {}},
+                        data:data['Material Cooperation']
+                    },
+                    {
+                        name:'Verbal Conflict',
+                        type:'line',
+                        stack: '总量',
+                        areaStyle: {normal: {}},
+                        data:data['Verbal Conflict']
+                    },
+                    {
+                        name:'Material Conflict',
+                        type:'line',
+                        stack: '总量',
+                        areaStyle: {normal: {}},
+                        data:data['Material Conflict']
+                    }
+                ]
+            });
         });
     </script>
 
@@ -358,221 +362,134 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <script type="text/javascript">
 
-        var myChart = echarts.init(document.getElementById('sankey_diagram'));
-        myChart.showLoading();
-$.get('data/product.json', function (data) {
-    myChart.hideLoading();
+        var myChart1 = echarts.init(document.getElementById('sankey_diagram'));
+        myChart1.showLoading();
+        $.get('data/world_event_flow_2015.json', function (data) {
+            myChart1.hideLoading();
 
-    myChart.setOption(option = {
-       
-        tooltip: {
-            trigger: 'item',
-            triggerOn: 'mousemove'
+            myChart1.setOption(option = {
 
-        },
-        series: [
-            {
-                type: 'sankey',
-                layout:'none',
-                data: data.nodes,
-                links: data.links,
-                itemStyle: {
-                    normal: {
-                        borderWidth: 1,
-                        borderColor: '#aaa'
-                    }
+                tooltip: {
+                    trigger: 'item',
+                    triggerOn: 'mousemove'
+
                 },
-                lineStyle: {
-                    normal: {
-                        curveness: 0.5
+                series: [
+                    {
+                        type: 'sankey',
+                        layout:'none',
+                        data: data.nodes,
+                        links: data.links,
+                        itemStyle: {
+                            normal: {
+                                borderWidth: 1,
+                                borderColor: '#aaa'
+                            }
+                        },
+                        lineStyle: {
+                            normal: {
+                                curveness: 0.5
+                            }
+                        }
                     }
-                }
-            }
-        ]
-    });
-});
+                ]
+            });
+        });
     </script>
 
     <script type="text/javascript">
-    var myChart = echarts.init(document.getElementById('matrix'));
+        var myChart = echarts.init(document.getElementById('matrix'));
 
-    myChart.showLoading();
+        myChart.showLoading();
 
-var household_america_2012 = 113616229;
-$.get('data/asset/data/obama_budget_proposal_2012.json', function (obama_budget_2012) {
-    myChart.hideLoading();
+        $.get('data/world_event_rec_2015.json', function (diskData) {
+            myChart.hideLoading();
 
-    var formatUtil;
-
-    function buildData(mode, originList) {
-        var out = [];
-
-        for (var i = 0; i < originList.length; i++) {
-            var node = originList[i];
-            var newNode = out[i] = cloneNodeInfo(node);
-            var value = newNode.value;
-
-            if (!newNode) {
-                continue;
+            function colorMappingChange(value) {
+                var levelOption = getLevelOption(value);
+                chart.setOption({
+                    series: [{
+                        levels: levelOption
+                    }]
+                });
             }
 
-            // Calculate amount per household.
-            value[3] = value[0] / household_america_2012;
+            var formatUtil = echarts.format;
 
-            // if mode === 0 and mode === 2 do nothing
-            if (mode === 1) {
-                // Set 'Change from 2010' to value[0].
-                var tmp = value[1];
-                value[1] = value[0];
-                value[0] = tmp;
-            }
-
-            if (node.children) {
-                newNode.children = buildData(mode, node.children);
-            }
-        }
-
-        return out;
-    }
-
-    function cloneNodeInfo(node) {
-        if (!node) {
-            return;
-        }
-
-        var newNode = {};
-        newNode.name = node.name;
-        newNode.id = node.id;
-        newNode.discretion = node.discretion;
-        newNode.value = (node.value || []).slice();
-        return newNode;
-    }
-
-    function getLevelOption(mode) {
-        return [
-            {
-                color: mode === 2
-                    ? [
-                        '#c23531', '#314656', '#61a0a8', '#dd8668',
-                        '#91c7ae', '#6e7074', '#61a0a8', '#bda29a',
-                        '#44525d', '#c4ccd3'
-                    ]
-                    : null,
-                colorMappingBy: 'id',
-                itemStyle: {
-                    normal: {
-                        borderWidth: 3,
-                        gapWidth: 3
+            function getLevelOption() {
+                return [
+                    {
+                        itemStyle: {
+                            normal: {
+                                borderWidth: 0,
+                                gapWidth: 5
+                            }
+                        }
+                    },
+                    {
+                        itemStyle: {
+                            normal: {
+                                gapWidth: 1
+                            }
+                        }
+                    },
+                    {
+                        colorSaturation: [0.35, 0.5],
+                        itemStyle: {
+                            normal: {
+                                gapWidth: 1,
+                                borderColorSaturation: 0.6
+                            }
+                        }
                     }
-                }
-            },
-            {
-                colorAlpha: mode === 2
-                    ? [0.5, 1] : null,
-                itemStyle: {
-                    normal: {
-                        gapWidth: 1
-                    }
-                }
+                ];
             }
-        ];
-    }
 
-    function isValidNumber(num) {
-        return num != null && isFinite(num);
-    }
+            myChart.setOption(option = {
 
-    function getTooltipFormatter(mode) {
-        var amountIndex = mode === 1 ? 1 : 0;
-        var amountIndex2011 = mode === 1 ? 0 : 1;
+                title: {
+                    text: '2015 Event',
+                    left: 'center'
+                },
 
-        return function (info) {
-            var value = info.value;
+                tooltip: {
+                    formatter: function (info) {
+                        var value = info.value;
+                        var treePathInfo = info.treePathInfo;
+                        var treePath = [];
 
-            var amount = value[amountIndex];
-            amount = isValidNumber(amount)
-                ? formatUtil.addCommas(amount * 1000) + '$'
-                : '-';
+                        for (var i = 1; i < treePathInfo.length; i++) {
+                            treePath.push(treePathInfo[i].name);
+                        }
 
-            var amount2011 = value[amountIndex2011];
-            amount2011 = isValidNumber(amount2011)
-                ? formatUtil.addCommas(amount2011 * 1000) + '$'
-                : '-';
-
-            var perHousehold = value[3];
-            perHousehold = isValidNumber(perHousehold)
-                ? formatUtil.addCommas((+perHousehold.toFixed(4)) * 1000) + '$'
-                : '-';
-
-            var change = value[2];
-            change = isValidNumber(change)
-                ? change.toFixed(2) + '%'
-                : '-';
-
-            return [
-                '<div class="tooltip-title">' + formatUtil.encodeHTML(info.name) + '</div>',
-                '2012 Amount: &nbsp;&nbsp;' + amount + '<br>',
-                'Per Household: &nbsp;&nbsp;' + perHousehold + '<br>',
-                '2011 Amount: &nbsp;&nbsp;' + amount2011 + '<br>',
-                'Change From 2011: &nbsp;&nbsp;' + change
-            ].join('');
-        };
-    }
-
-    function createSeriesCommon() {
-        return {
-            type: 'treemap',
-            label: {
-                show: true,
-                formatter: "{b}",
-                normal: {
-                    textStyle: {
-                        ellipsis: true
+                        return [
+                            '<div class="tooltip-title">' + formatUtil.encodeHTML(treePath.join('/')) + '</div>',
+                            'Event Num: ' + formatUtil.addCommas(value) ,
+                        ].join('');
                     }
-                }
-            },
-            itemStyle: {
-                normal: {
-                    borderColor: 'black'
-                }
-            },
-            levels: getLevelOption(0)
-        };
-    }
+                },
 
-    formatUtil = echarts.format;
-    var modes = ['2012Budget', '2011Budget', 'Growth'];
-
-    myChart.setOption(option = {
-        title: {
-            left: 'center',
-            text: 'How $3.7 Trillion is Spent',
-            subtext: 'Obama’s 2012 Budget Proposal'
-        },
-
-        legend: {
-            data: modes,
-            selectedMode: 'single',
-            top: 50,
-            itemGap: 5
-        },
-
-        tooltip: {
-            formatter: getTooltipFormatter(0)
-        },
-
-        series: modes.map(function (mode, idx) {
-            var seriesOpt = createSeriesCommon();
-            seriesOpt.name = mode;
-            seriesOpt.top = 80;
-            seriesOpt.visualDimension = idx === 2 ? 2 : null;
-            seriesOpt.data = buildData(idx, obama_budget_2012);
-            seriesOpt.levels = getLevelOption(idx);
-            return seriesOpt;
-        })
-    });
-});
-</script>
+                series: [
+                    {
+                        name:'2015 Event',
+                        type:'treemap',
+                        visibleMin: 300,
+                        label: {
+                            show: true,
+                            formatter: '{b}'
+                        },
+                        itemStyle: {
+                            normal: {
+                                borderColor: '#fff'
+                            }
+                        },
+                        levels: getLevelOption(),
+                        data: diskData
+                    }
+                ]
+            });
+        });
+    </script>
 
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
