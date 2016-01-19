@@ -1,0 +1,74 @@
+ <section class="invoice">
+        <!-- title row -->
+        <div class="row">
+          <div class="col-xs-12">
+            <h2 class="page-header">
+              <i class="fa fa-globe"></i>
+              计算传播网, Inc.
+              <small class="pull-right">Date: 11/01/2016</small>
+            </h2>
+          </div>
+          <!-- /.col --> </div>
+        <!-- info row -->
+        <div class="row invoice-info"></div>
+        <!-- /.row -->
+
+        <!-- Table row -->
+        <div class="row">
+          <div class="col-xs-4">
+            <b>简介</b>
+            <br>
+            新闻地图建立在 cartogram.js (一个应用 算法构建连续性区域统计地图的javascript库 ©1985)、 d3.js 和 colorbrewer 。它综合了 TopoJSON 和国家统计局的 分省统计数据 来按比例调整各个省份的大小。新闻地图是由王成军和陈志聪搭建，©南京大学新闻传播学院， 计算传播学实验中心.
+            <br>
+            <b>About Us</b>
+            <br>
+            News Map is built upon cartogram.js (a JavaScript implementation of an algoritm to construct continuous area cartograms ©1985), d3.js and colorbrewer . This visualization combines TopoJSON -encoded boundaries of the Chinese provinces with GDP data from National Bureau Statistics of the People's Republic of China to size each province proportionally. Designed and built by Chengjun Wang and Zhicong Chen at Computational Communication Collaboratory , School of Journalism and Communication, Nanjing University.
+          </div>
+          <div class="col-xs-8 table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>NO</th>
+                  <th>引用来源</th>
+                  <th>链接</th>
+                  <th>类型</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>gdelt</td>
+                  <td>
+                    <a href="http://data.gdeltproject.org/events/index.html">http://data.gdeltproject.org/events/index.html</a>
+                  </td>
+                  <td>数据源</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Echarts</td>
+                  <td>
+                    <a href="http://echarts.baidu.com/index.html">http://echarts.baidu.com/index.html</a>
+                  </td>
+                  <td>数据可视化</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Highcharts</td>
+                  <td>
+                    <a href="http://www.highcharts.com">http://www.highcharts.com</a>
+                  </td>
+                  <td>数据可视化</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>d3.js</td>
+                  <td>
+                    <a href="http://d3js.org">http://d3js.org</a>
+                  </td>
+                  <td>扭曲地图</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.col --> </div>
+        <!-- /.row --> </section>

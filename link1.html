@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>新闻地图|数量分析</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.5 -->
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+          page. However, you can choose any other skin. Make sure you
+          apply the skin class to the body tag so the changes take effect.
+    -->
+  <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+  <!--
+  BODY TAG OPTIONS:
+  =================
+  Apply one or more of the following classes to get the
+  desired effect
+  |---------------------------------------------------------|
+  | SKINS         | skin-blue                               |
+  |               | skin-black                              |
+  |               | skin-purple                             |
+  |               | skin-yellow                             |
+  |               | skin-red                                |
+  |               | skin-green                              |
+  |---------------------------------------------------------|
+  |LAYOUT OPTIONS | fixed                                   |
+  |               | layout-boxed                            |
+  |               | layout-top-nav                          |
+  |               | sidebar-collapse                        |
+  |               | sidebar-mini                            |
+  |---------------------------------------------------------|
+  -->
+<body class="hold-transition skin-blue sidebar-mini">
+
+  <div class="wrapper">
+
+    <!-- Main Header -->
+    <header class="main-header">
+
+      <!-- Logo -->
+      <a href="index2.html" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"> <b>A</b>
+          LT
+        </span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"> <b>News</b>
+          MAP
+        </span>
+      </a>
+
+      <!-- Header Navbar -->
+      <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+          <span class="sr-only">Toggle navigation</span>
+        </a>
+        <!-- Navbar Right Menu -->
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+
+            <!-- /.messages-menu -->
+
+            <!-- Control Sidebar Toggle Button -->
+            <li>
+              <a href="#" data-toggle="control-sidebar"> <i class="fa fa-gears"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+
+      <!-- sidebar: style can be found in sidebar.less -->
+      <section class="sidebar">
+
+        <!-- search form (Optional) -->
+        <form action="#" method="get" class="sidebar-form">
+          <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="Search...">
+            <span class="input-group-btn">
+              <button type="submit" name="search" id="search-btn" class="btn btn-flat"> <i class="fa fa-search"></i>
+              </button>
+            </span>
+          </div>
+        </form>
+        <!-- /.search form -->
+
+        <!-- Sidebar Menu -->
+        <ul class="sidebar-menu">
+          <li class="header">HEADER</li>
+          <!-- Optionally, you can add icons to the links -->
+          <li>
+            <a href="index.html">
+              <i class="fa fa-link"></i>
+              <span>首页</span>
+            </a>
+          </li>
+          <li class="active">
+            <a href="#">
+              <i class="fa fa-link"></i>
+              <span>数量分析</span>
+            </a>
+          </li>
+          <li>
+            <a href="link2.html">
+              <i class="fa fa-link"></i>
+              <span>事件分析</span>
+            </a>
+          </li>
+          <li>
+            <a href="link3.html">
+              <i class="fa fa-link"></i>
+              <span>影响力分析</span>
+            </a>
+          </li>
+          <li>
+            <a href="link4.html">
+              <i class="fa fa-link"></i>
+              <span>全球分析</span>
+            </a>
+          </li>
+         
+        </ul>
+        <!-- /.sidebar-menu --> </section>
+      <!-- /.sidebar --> </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1>
+          新闻地图|数量分析
+          <small>区域事件发生数目的统计</small>
+        </h1>
+        <ol class="breadcrumb">
+          <li>
+            <a href="#">
+              <i class="fa fa-dashboard"></i>
+              Level
+            </a>
+          </li>
+          <li class="active">Here</li>
+        </ol>
+      </section>
+
+      <!-- Main content -->
+      <section class="content">
+        <div class="row">
+          <!-- main row -->
+          <div class="col-md-8">
+            <!-- Custom Tabs -->
+            <div class="nav-tabs-custom">
+              <ul class="nav nav-tabs">
+                <li class="active">
+                  <a href="#tab_1" data-toggle="tab">热点省市上月新闻数量</a>
+                </li>
+                <li>
+                  <a href="#tab_2" data-toggle="tab"></a>
+                </li>
+              </ul>
+              
+              <div class="tab-content">
+                <div class="tab-pane active" id="tab_1">
+                  <div id="piechart" style="min-width: 310px; max-width: 1600px; height: 400px; margin: 0 auto"></div>
+
+                </div>
+                <!-- /.tab-pane -->
+                <div class="tab-pane" id="tab_2">
+                    <table class="table table-condensed">
+                    <tr>
+                      <th style="width: 10px">NO</th>
+                      <th>省市</th>
+                      <th>数量</th>
+                      <th style="width: 40px">百分比</th>
+                    </tr>
+                    <tr>
+                      <td>1.</td>
+                      <td>北京</td>
+                      <td>
+                        <div class="progress progress-xs">
+                          <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+                        </div>
+                      </td>
+                      <td><span class="badge bg-red">40%</span></td>
+                    </tr>
+                    <tr>
+                      <td>2.</td>
+                      <td>广东</td>
+                      <td>
+                        <div class="progress progress-xs">
+                          <div class="progress-bar progress-bar-yellow" style="width: 35%"></div>
+                        </div>
+                      </td>
+                      <td><span class="badge bg-yellow">20%</span></td>
+                    </tr>
+                    <tr>
+                      <td>3.</td>
+                      <td>上海</td>
+                      <td>
+                        <div class="progress progress-xs progress-striped active">
+                          <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
+                        </div>
+                      </td>
+                      <td><span class="badge bg-light-blue">15%</span></td>
+                    </tr>
+                    <tr>
+                      <td>4.</td>
+                      <td>江苏</td>
+                      <td>
+                        <div class="progress progress-xs progress-striped active">
+                          <div class="progress-bar progress-bar-success" style="width: 24%"></div>
+                        </div>
+                      </td>
+                      <td><span class="badge bg-green">13%</span></td>
+                    </tr>
+                    <tr>
+                      <td>5.</td>
+                      <td></td>
+                      <td>
+                        <div class="progress progress-xs progress-striped active">
+                          <div class="progress-bar progress-bar-success" style="width: 20%"></div>
+                        </div>
+                      </td>
+                      <td><span class="badge bg-green">12%</span></td>
+                    </tr>
+                  </table>
+                </div>
+                <!-- /.tab-pane -->
+                
+                <!-- /.tab-pane --> 
+                </div>
+              <!-- /.tab-content --> </div>
+            <!-- nav-tabs-custom -->
+
+            <!-- /.box --> </div>
+          <div class="col-md-4">
+               <div class="box box-widget">
+                    <div class='box-header with-border'>
+                      <div class='user-block'>
+                        <img class='img-circle' src='dist/img/user1-128x128.jpg' alt='user image'>
+                        <span class='username'><a href="#">Jonathan Burke Jr.</a></span>
+                        <span class='description'>Shared publicly </span>
+                      </div><!-- /.user-block -->
+                      <div class='box-tools'>
+                        <button class='btn btn-box-tool' data-toggle='tooltip' title='Mark as read'><i class='fa fa-circle-o'></i></button>
+                        <button class='btn btn-box-tool' data-widget='collapse'><i class='fa fa-minus'></i></button>
+                        <button class='btn btn-box-tool' data-widget='remove'><i class='fa fa-times'></i></button>
+                      </div><!-- /.box-tools -->
+                    </div><!-- /.box-header -->
+                    <div class='box-body'>
+                      <!-- post text -->
+                          <p>gdelt提供的数据中有一项:ActionGeo_ADM1Code，它标识了该事件的行政区划地理信息。</p>
+                          <p>通过对这个字段进行筛选，可以得到每个月中国地区每个省市的所有的新闻条目。</p>
+                          <p>对数量的统计可以看出某些热门省市可能存在突发或持续性事件。</p>
+                          <br>
+             
+
+                  <!-- Social sharing buttons -->
+                  
+                    </div><!-- /.box-body -->
+                
+              </div><!-- /.box -->
+        </div>
+
+        </div>
+        <div class="row">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">2015年度中国新闻数量</h3>
+              <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse">
+                  <i class="fa fa-minus"></i>
+                </button>
+              </div>
+              <!-- /.box-tools --> </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div id="ebarchart" style="min-width: 310px; max-width: 1600px; height: 400px; margin: 0 auto"></div>
+            </div>
+            <!-- /.box-body --> </div>
+
+        </div>
+        <!-- main row end--> </section>
+
+      <!-- Your Page Content Here -->
+
+      <!-- /.content --> </div>
+    <!-- /.content-wrapper -->
+
+    <!-- Main Footer -->
+    <footer class="main-footer">
+      <!-- To the right -->
+      <div class="pull-right hidden-xs">Anything you want</div>
+      <!-- Default to the left --> <strong>Copyright &copy; 2016
+        <a href="http://computational-communication.com">计算传播网</a>
+        .</strong> 
+      All rights reserved.
+    </footer>
+    <!-- jQuery 2.1.4 -->
+    <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="js/echarts.min.js"></script>
+    
+    <script type="text/javascript" id="init">
+         $(document).ready(function() { 
+             setData();
+         });
+        
+         function setData(){
+            $.get("admin/getdata.php?type=monthpie",function(data){
+                var jsondata = $.parseJSON(data);
+                setPie(jsondata);
+            });
+         }
+    </script>
+    
+    <script type="text/javascript">
+        
+        var myChart = echarts.init(document.getElementById('ebarchart'));
+        myChart.showLoading();
+        $.get('data/china_2015.json', function (data) {
+            myChart.hideLoading();
+            myChart.setOption({
+                tooltip : {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:['北京','江苏','上海','浙江','广东','天津','重庆','河北','山西','辽宁','吉林','黑龙江','安徽','福建','江西','山东','河南','湖北','湖南','海南','四川','贵州','云南','陕西','甘肃','青海','内蒙古','新疆','宁夏','西藏','广西','香港','澳门','台湾'],
+                    selected:{'北京':false,'江苏':true,'上海':true,'浙江':true,'广东':true,'天津':false,'重庆':false,'河北':false,'山西':false,'辽宁':false,'吉林':false,'黑龙江':false,'安徽':false,'福建':false,'江西':false,'山东':false,'河南':false,'湖北':false,'湖南':false,'海南':false,'四川':false,'贵州':false,'云南':false,'陕西':false,'甘肃':false,'青海':false,'内蒙古':false,'新疆':false,'宁夏':false,'西藏':false,'广西':false,'香港':false,'澳门':false,'台湾':false}
+                        
+                },
+                toolbox: {
+                    show : false,
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: false},
+                        magicType : {show: true, type: ['line', 'bar']},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                calculable : true,
+                xAxis : [
+                    {
+                        type : 'category',
+                        data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+                        splitArea : {show : true}
+                    }
+                ],
+                series : [
+                    {
+                        name:'北京',
+                        type:'bar',
+                        data:data.beijing
+                    },
+                    {
+                        name:'江苏',
+                        type:'bar',
+                        data:data.jiangsu
+                    },
+                    {
+                        name:'上海',
+                        type:'bar',
+                        data:data['shanghai']
+                    },
+                    {
+                        name:'浙江',
+                        type:'bar',
+                        data:data.zhejiang
+                    },
+                    {
+                        name:'广东',
+                        type:'bar',
+                        data:data.guangdong
+                    },
+                    {
+                        name:'天津',
+                        type:'bar',
+                        data:data['tianjin']
+                    },
+                    {
+                        name:'重庆',
+                        type:'bar',
+                        data:data['chongqing'] 
+                    },
+                    {
+                        name:'河北',
+                        type:'bar',
+                        data:data['hebei'] 
+                    },
+                    {
+                        name:'山西',
+                        type:'bar',
+                        data:data['shanxi'] 
+                    },
+                    {
+                        name:'辽宁',
+                        type:'bar',
+                        data:data['liaoning'] 
+                    },
+                    {
+                        name:'吉林',
+                        type:'bar',
+                        data:data['jilin'] 
+                    },
+                    {
+                        name:'黑龙江',
+                        type:'bar',
+                        data:data['heilongjiang'] 
+                    },
+                    {
+                        name:'安徽',
+                        type:'bar',
+                        data:data['anhui'] 
+                    },
+                    {
+                        name:'福建',
+                        type:'bar',
+                        data:data['fujian'] 
+                    },
+                    {
+                        name:'江西',
+                        type:'bar',
+                        data:data['jiangxi'] 
+                    },
+                    {
+                        name:'山东',
+                        type:'bar',
+                        data:data['shandong'] 
+                    },
+                    {
+                        name:'河南',
+                        type:'bar',
+                        data:data['henan'] 
+                    },
+                    {
+                        name:'湖北',
+                        type:'bar',
+                        data:data['hubei'] 
+                    },
+                    {
+                        name:'湖南',
+                        type:'bar',
+                        data:data['hunan'] 
+                    },
+                    {
+                        name:'海南',
+                        type:'bar',
+                        data:data['hainan'] 
+                    },
+                    {
+                        name:'四川',
+                        type:'bar',
+                        data:data['sichuan'] 
+                    },
+                    {
+                        name:'贵州',
+                        type:'bar',
+                        data:data['guizhou'] 
+                    },
+                    {
+                        name:'云南',
+                        type:'bar',
+                        data:data['yunnan'] 
+                    },
+                    {
+                        name:'陕西',
+                        type:'bar',
+                        data:data['shaanxi'] 
+                    },
+                    {
+                        name:'甘肃',
+                        type:'bar',
+                        data:data['gansu'] 
+                    },
+                    {
+                        name:'青海',
+                        type:'bar',
+                        data:data['qinghai'] 
+                    },
+                    {
+                        name:'内蒙古',
+                        type:'bar',
+                        data:data['neimeng'] 
+                    },
+                    {
+                        name:'新疆',
+                        type:'bar',
+                        data:data['xinjiang'] 
+                    },
+                    {
+                        name:'宁夏',
+                        type:'bar',
+                        data:data['ningxia'] 
+                    },
+                    {
+                        name:'西藏',
+                        type:'bar',
+                        data:data['xizang'] 
+                    },
+                    {
+                        name:'广西',
+                        type:'bar',
+                        data:data['guangxi'] 
+                    },
+                    {
+                        name:'香港',
+                        type:'bar',
+                        data:data['hongkong'] 
+                    },
+                    {
+                        name:'澳门',
+                        type:'bar',
+                        data:data['macau'] 
+                    },
+                    {
+                        name:'台湾',
+                        type:'bar',
+                        data:data['taiwan'] 
+                    }
+                ]
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        function setPie(data){
+        // Step:3 echarts & zrender as a Global Interface by the echarts-plain.js.
+        // Step:3 echarts和zrender被echarts-plain.js写入为全局接口
+            var pieChart = echarts.init(document.getElementById('piechart'));
+      
+            var myDate = new Date();
+            var month = myDate.getMonth()+1;
+            var year = myDate.getFullYear();
+            var province = data['province'].split(",");
+            var pdata = data['data'].split(",");
+            var sum = parseInt(data['sum'],10);
+            pieChart.setOption({
+                backgroundColor: '#2c343c',
+
+                title: {
+                    text: year+'年'+month+'月',
+                    left: 'center',
+                    top: 20,
+                    textStyle: {
+                        color: '#ccc'
+                    }
+                },
+
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                calculable : true,
+                series : [
+                    {
+                        name:'新闻事件',
+                        type:'pie',
+                        radius : [30, 110],
+                        center : ['50%', '50%'],
+                        roseType : 'area',
+                        data:[
+                            {value:parseInt(pdata[0],10), name:province[0]},
+                            {value:parseInt(pdata[1],10), name:province[1]},
+                            {value:parseInt(pdata[2],10), name:province[2]},
+                            {value:parseInt(pdata[3],10), name:province[3]},
+                            {value:parseInt(pdata[4],10), name:province[4]},
+                            {value:sum-(parseInt(pdata[0],10)+parseInt(pdata[1],10)+parseInt(pdata[2],10)+parseInt(pdata[3],10)+parseInt(pdata[4],10)), name:'其他'}
+                        ]
+                    }
+                ]
+            });
+        }
+        
+    </script>
+
+
+    
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+      <!-- Create the tabs -->
+      <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+        <li class="active">
+          <a href="#control-sidebar-home-tab" data-toggle="tab">
+            <i class="fa fa-home"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#control-sidebar-settings-tab" data-toggle="tab">
+            <i class="fa fa-gears"></i>
+          </a>
+        </li>
+      </ul>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <!-- Home tab content -->
+        <div class="tab-pane active" id="control-sidebar-home-tab">
+          <h3 class="control-sidebar-heading">Recent Activity</h3>
+          <ul class="control-sidebar-menu">
+            <li>
+              <a href="javascript::;">
+                <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+                <div class="menu-info">
+                  <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+                  <p>Will be 23 on April 24th</p>
+                </div>
+              </a>
+            </li>
+          </ul>
+          <!-- /.control-sidebar-menu -->
+
+          <h3 class="control-sidebar-heading">Tasks Progress</h3>
+          <ul class="control-sidebar-menu">
+            <li>
+              <a href="javascript::;">
+                <h4 class="control-sidebar-subheading">
+                  Custom Template Design
+                  <span class="label label-danger pull-right">70%</span>
+                </h4>
+                <div class="progress progress-xxs">
+                  <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                </div>
+              </a>
+            </li>
+          </ul>
+          <!-- /.control-sidebar-menu --> </div>
+        <!-- /.tab-pane -->
+        <!-- Stats tab content -->
+        <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+        <!-- /.tab-pane -->
+        <!-- Settings tab content -->
+        <div class="tab-pane" id="control-sidebar-settings-tab">
+          <form method="post">
+            <h3 class="control-sidebar-heading">General Settings</h3>
+            <div class="form-group">
+              <label class="control-sidebar-subheading">
+                Report panel usage
+                <input type="checkbox" class="pull-right" checked></label>
+              <p>Some information about this general settings option</p>
+            </div>
+            <!-- /.form-group --> </form>
+        </div>
+        <!-- /.tab-pane --> </div>
+    </aside>
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+           immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+  </div>
+  <!-- ./wrapper -->
+
+  <!-- REQUIRED JS SCRIPTS -->
+
+  
+  <!-- Bootstrap 3.3.5 -->
+  <script src="bootstrap/js/bootstrap.min.js"></script>
+
+  <!-- Optionally, you can add Slimscroll and FastClick plugins.
+         Both of these plugins are recommended to enhance the
+         user experience. Slimscroll is required when using the
+         fixed layout. -->
+</body>
+</html>
