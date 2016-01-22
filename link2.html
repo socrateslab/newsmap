@@ -30,6 +30,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+    <script src="admin/year.js"></script>
 </head>
   <!--
   BODY TAG OPTIONS:
@@ -143,45 +144,45 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <span>全球分析</span>
             </a>
           </li>
-          <li class="treeview">
+          <li class="treeview active">
             <a href="#">
               <i class="fa fa-calendar"></i>
               <span>选择年份</span>
               <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
-              <li class="active">
-                <a href="#">
+              <li id="tag2015" class="">
+                <a href="#" onclick="setYear('2015')">
                   <i class="fa fa-circle-o"></i>
                   2015
                 </a>
               </li>
-              <li>
-                <a href="#">
+              <li id="tag2014" >
+                <a href="#" onclick="setYear('2014')">
                   <i class="fa fa-circle-o"></i>
                   2014
                 </a>
               </li>
-              <li>
-                <a href="#">
+              <li id="tag2013" >
+                <a href="#" onclick="setYear('2013')">
                   <i class="fa fa-circle-o"></i>
                   2013
                 </a>
               </li>
-              <li>
-                <a href="#">
+              <li id="tag2012" >
+                <a href="#" onclick="setYear('2012')">
                   <i class="fa fa-circle-o"></i>
                   2012
                 </a>
               </li>
-              <li>
-                <a href="#">
+              <li id="tag2011" >
+                <a href="#" onclick="setYear('2011')">
                   <i class="fa fa-circle-o"></i>
                   2011
                 </a>
               </li>
-              <li>
-                <a href="#">
+              <li id="tag2010" >
+                <a href="#" onclick="setYear('2010')">
                   <i class="fa fa-circle-o"></i>
                   2010
                 </a>
@@ -222,7 +223,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="nav-tabs-custom">
               <ul class="nav nav-tabs">
                 <li class="active">
-                  <a href="#tab_1" data-toggle="tab">2015年主要分类事件变化趋势</a>
+                  <a href="#tab_1" data-toggle="tab" id="typeline">2015年主要分类事件变化趋势</a>
                 </li>
                 <li>
                   <a href="#tab_2" data-toggle="tab"></a>
@@ -301,7 +302,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             
             <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">2015详细事件类型矩阵图</h3>
+              <h3 class="box-title" id="typerec">2015详细事件类型矩阵图</h3>
               <div class="box-tools pull-right">
                 <button class="btn btn-box-tool" data-widget="collapse">
                   <i class="fa fa-minus"></i>
@@ -334,77 +335,95 @@ scratch. This page gets rid of all links and provides the needed markup only.
     
     <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <script src="js/echarts.min.js"></script>
-
     <script type="text/javascript">
-        // Step:3 echarts & zrender as a Global Interface by the echarts-plain.js.
-        // Step:3 echarts和zrender被echarts-plain.js写入为全局接口
-        var lineChart = echarts.init(document.getElementById('typechart'));
-        $.get('data/world_event_class_2015.json', function (data) {
-            lineChart.setOption(option = {
-                tooltip : {
-                    trigger: 'axis'
-                },
-                legend: {
-                    data:['Verbal Cooperation','Material Cooperation','Verbal Conflict','Material Conflict']
-                },
-                toolbox: {
-                    feature: {
-                        saveAsImage: {}
-                    }
-                },
-                grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '3%',
-                    containLabel: true
-                },
-                xAxis : [
-                    {
-                        type : 'category',
-                        boundaryGap : false,
-                        data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
-                    }
-                ],
-                yAxis : [
-                    {
-                        type : 'value'
-                    }
-                ],
-                series : [
-                    {
-                        name:'Verbal Cooperation',
-                        type:'line',
-                        stack: '总量',
-                        areaStyle: {normal: {}},
-                        data:data["Verbal Cooperation"]
-                    },
-                    {
-                        name:'Material Cooperation',
-                        type:'line',
-                        stack: '总量',
-                        areaStyle: {normal: {}},
-                        data:data['Material Cooperation']
-                    },
-                    {
-                        name:'Verbal Conflict',
-                        type:'line',
-                        stack: '总量',
-                        areaStyle: {normal: {}},
-                        data:data['Verbal Conflict']
-                    },
-                    {
-                        name:'Material Conflict',
-                        type:'line',
-                        stack: '总量',
-                        areaStyle: {normal: {}},
-                        data:data['Material Conflict']
-                    }
-                ]
+        function ReDraw(){
+            $.get("admin/yearchoose.php?type=get",function(data){
+                setTag(data); 
+                setRec(data);
+                setTypeLine(data);
             });
-        });
+        } 
     </script>
-
-
+    <script type="text/javascript" id="init">
+         $(document).ready(function() { 
+             $.get("admin/yearchoose.php?type=get",function(data){
+                setTag(data); 
+                setRec(data);
+                setTypeLine(data);
+            });
+         });
+    </script>
+    <script type="text/javascript">
+        function setTypeLine(year){
+            document.getElementById("typeline").innerHTML=year+"年主要分类事件变化趋势";
+            // Step:3 echarts & zrender as a Global Interface by the echarts-plain.js.
+            // Step:3 echarts和zrender被echarts-plain.js写入为全局接口
+            var lineChart = echarts.init(document.getElementById('typechart'));
+            $.get('data/world_event_class_'+year+'.json', function (data) {
+                lineChart.setOption(option = {
+                    tooltip : {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data:['Verbal Cooperation','Material Cooperation','Verbal Conflict','Material Conflict']
+                    },
+                    toolbox: {
+                        feature: {
+                            saveAsImage: {}
+                        }
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis : [
+                        {
+                            type : 'category',
+                            boundaryGap : false,
+                            data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value'
+                        }
+                    ],
+                    series : [
+                        {
+                            name:'Verbal Cooperation',
+                            type:'line',
+                            stack: '总量',
+                            areaStyle: {normal: {}},
+                            data:data["Verbal Cooperation"]
+                        },
+                        {
+                            name:'Material Cooperation',
+                            type:'line',
+                            stack: '总量',
+                            areaStyle: {normal: {}},
+                            data:data['Material Cooperation']
+                        },
+                        {
+                            name:'Verbal Conflict',
+                            type:'line',
+                            stack: '总量',
+                            areaStyle: {normal: {}},
+                            data:data['Verbal Conflict']
+                        },
+                        {
+                            name:'Material Conflict',
+                            type:'line',
+                            stack: '总量',
+                            areaStyle: {normal: {}},
+                            data:data['Material Conflict']
+                        }
+                    ]
+                });
+            });
+        }
+    </script>
 
     <script type="text/javascript">
 
@@ -444,97 +463,100 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </script>
 
     <script type="text/javascript">
-        var myChart = echarts.init(document.getElementById('matrix'));
+        function setRec(year){
+            document.getElementById("typerec").innerHTML=year+"详细事件类型矩阵图";
+            var myChart = echarts.init(document.getElementById('matrix'));
 
-        myChart.showLoading();
+            myChart.showLoading();
 
-        $.get('data/world_event_rec_2015.json', function (diskData) {
-            myChart.hideLoading();
+            $.get('data/world_event_rec_'+year+'.json', function (diskData) {
+                myChart.hideLoading();
 
-            function colorMappingChange(value) {
-                var levelOption = getLevelOption(value);
-                chart.setOption({
-                    series: [{
-                        levels: levelOption
-                    }]
+                function colorMappingChange(value) {
+                    var levelOption = getLevelOption(value);
+                    chart.setOption({
+                        series: [{
+                            levels: levelOption
+                        }]
+                    });
+                }
+
+                var formatUtil = echarts.format;
+
+                function getLevelOption() {
+                    return [
+                        {
+                            itemStyle: {
+                                normal: {
+                                    borderWidth: 0,
+                                    gapWidth: 5
+                                }
+                            }
+                        },
+                        {
+                            itemStyle: {
+                                normal: {
+                                    gapWidth: 1
+                                }
+                            }
+                        },
+                        {
+                            colorSaturation: [0.35, 0.5],
+                            itemStyle: {
+                                normal: {
+                                    gapWidth: 1,
+                                    borderColorSaturation: 0.6
+                                }
+                            }
+                        }
+                    ];
+                }
+
+                myChart.setOption(option = {
+
+                    title: {
+                        text: '2015 Event',
+                        left: 'center'
+                    },
+
+                    tooltip: {
+                        formatter: function (info) {
+                            var value = info.value;
+                            var treePathInfo = info.treePathInfo;
+                            var treePath = [];
+
+                            for (var i = 1; i < treePathInfo.length; i++) {
+                                treePath.push(treePathInfo[i].name);
+                            }
+
+                            return [
+                                '<div class="tooltip-title">' + formatUtil.encodeHTML(treePath.join('/')) + '</div>',
+                                'Event Num: ' + formatUtil.addCommas(value) ,
+                            ].join('');
+                        }
+                    },
+
+                    series: [
+                        {
+                            name:'2015 Event',
+                            type:'treemap',
+                            visibleMin: 300,
+                            label: {
+                                show: true,
+                                formatter: '{b}'
+                            },
+                            itemStyle: {
+                                normal: {
+                                    borderColor: '#fff'
+                                }
+                            },
+                            levels: getLevelOption(),
+                            data: diskData
+                        }
+                    ]
                 });
-            }
-
-            var formatUtil = echarts.format;
-
-            function getLevelOption() {
-                return [
-                    {
-                        itemStyle: {
-                            normal: {
-                                borderWidth: 0,
-                                gapWidth: 5
-                            }
-                        }
-                    },
-                    {
-                        itemStyle: {
-                            normal: {
-                                gapWidth: 1
-                            }
-                        }
-                    },
-                    {
-                        colorSaturation: [0.35, 0.5],
-                        itemStyle: {
-                            normal: {
-                                gapWidth: 1,
-                                borderColorSaturation: 0.6
-                            }
-                        }
-                    }
-                ];
-            }
-
-            myChart.setOption(option = {
-
-                title: {
-                    text: '2015 Event',
-                    left: 'center'
-                },
-
-                tooltip: {
-                    formatter: function (info) {
-                        var value = info.value;
-                        var treePathInfo = info.treePathInfo;
-                        var treePath = [];
-
-                        for (var i = 1; i < treePathInfo.length; i++) {
-                            treePath.push(treePathInfo[i].name);
-                        }
-
-                        return [
-                            '<div class="tooltip-title">' + formatUtil.encodeHTML(treePath.join('/')) + '</div>',
-                            'Event Num: ' + formatUtil.addCommas(value) ,
-                        ].join('');
-                    }
-                },
-
-                series: [
-                    {
-                        name:'2015 Event',
-                        type:'treemap',
-                        visibleMin: 300,
-                        label: {
-                            show: true,
-                            formatter: '{b}'
-                        },
-                        itemStyle: {
-                            normal: {
-                                borderColor: '#fff'
-                            }
-                        },
-                        levels: getLevelOption(),
-                        data: diskData
-                    }
-                ]
             });
-        });
+        }
     </script>
 
     <!-- Control Sidebar -->
