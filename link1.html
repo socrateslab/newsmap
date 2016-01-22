@@ -143,7 +143,53 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <span>全球分析</span>
             </a>
           </li>
-         
+          <li class="treeview">
+            <a href="#">
+              <i class="fa fa-calendar"></i>
+              <span>选择年份</span>
+              <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+              <li class="active">
+                <a href="#">
+                  <i class="fa fa-circle-o"></i>
+                  2015
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="fa fa-circle-o"></i>
+                  2014
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="fa fa-circle-o"></i>
+                  2013
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="fa fa-circle-o"></i>
+                  2012
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="fa fa-circle-o"></i>
+                  2011
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="fa fa-circle-o"></i>
+                  2010
+                </a>
+              </li>
+
+            </ul>
+          </li>
+
         </ul>
         <!-- /.sidebar-menu --> </section>
       <!-- /.sidebar --> </aside>
@@ -182,7 +228,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <a href="#tab_2" data-toggle="tab"></a>
                 </li>
               </ul>
-              
+
               <div class="tab-content">
                 <div class="tab-pane active" id="tab_1">
                   <div id="piechart" style="min-width: 310px; max-width: 1600px; height: 400px; margin: 0 auto"></div>
@@ -190,7 +236,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
                 <!-- /.tab-pane -->
                 <div class="tab-pane" id="tab_2">
-                    <table class="table table-condensed">
+                  <table class="table table-condensed">
                     <tr>
                       <th style="width: 10px">NO</th>
                       <th>省市</th>
@@ -205,7 +251,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
                         </div>
                       </td>
-                      <td><span class="badge bg-red">40%</span></td>
+                      <td>
+                        <span class="badge bg-red">40%</span>
+                      </td>
                     </tr>
                     <tr>
                       <td>2.</td>
@@ -215,7 +263,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           <div class="progress-bar progress-bar-yellow" style="width: 35%"></div>
                         </div>
                       </td>
-                      <td><span class="badge bg-yellow">20%</span></td>
+                      <td>
+                        <span class="badge bg-yellow">20%</span>
+                      </td>
                     </tr>
                     <tr>
                       <td>3.</td>
@@ -225,7 +275,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
                         </div>
                       </td>
-                      <td><span class="badge bg-light-blue">15%</span></td>
+                      <td>
+                        <span class="badge bg-light-blue">15%</span>
+                      </td>
                     </tr>
                     <tr>
                       <td>4.</td>
@@ -235,7 +287,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           <div class="progress-bar progress-bar-success" style="width: 24%"></div>
                         </div>
                       </td>
-                      <td><span class="badge bg-green">13%</span></td>
+                      <td>
+                        <span class="badge bg-green">13%</span>
+                      </td>
                     </tr>
                     <tr>
                       <td>5.</td>
@@ -245,46 +299,53 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           <div class="progress-bar progress-bar-success" style="width: 20%"></div>
                         </div>
                       </td>
-                      <td><span class="badge bg-green">12%</span></td>
+                      <td>
+                        <span class="badge bg-green">12%</span>
+                      </td>
                     </tr>
                   </table>
                 </div>
                 <!-- /.tab-pane -->
-                
-                <!-- /.tab-pane --> 
-                </div>
+
+                <!-- /.tab-pane --> </div>
               <!-- /.tab-content --> </div>
             <!-- nav-tabs-custom -->
 
             <!-- /.box --> </div>
           <div class="col-md-4">
-               <div class="box box-widget">
-                    <div class='box-header with-border'>
-                      <div class='user-block'>
-                        <img class='img-circle' src='dist/img/user1-128x128.jpg' alt='user image'>
-                        <span class='username'><a href="#">Jonathan Burke Jr.</a></span>
-                        <span class='description'>Shared publicly </span>
-                      </div><!-- /.user-block -->
-                      <div class='box-tools'>
-                        <button class='btn btn-box-tool' data-toggle='tooltip' title='Mark as read'><i class='fa fa-circle-o'></i></button>
-                        <button class='btn btn-box-tool' data-widget='collapse'><i class='fa fa-minus'></i></button>
-                        <button class='btn btn-box-tool' data-widget='remove'><i class='fa fa-times'></i></button>
-                      </div><!-- /.box-tools -->
-                    </div><!-- /.box-header -->
-                    <div class='box-body'>
-                      <!-- post text -->
-                          <p>gdelt提供的数据中有一项:ActionGeo_ADM1Code，它标识了该事件的行政区划地理信息。</p>
-                          <p>通过对这个字段进行筛选，可以得到每个月中国地区每个省市的所有的新闻条目。</p>
-                          <p>对数量的统计可以看出某些热门省市可能存在突发或持续性事件。</p>
-                          <br>
-             
+            <div class="box box-widget">
+              <div class='box-header with-border'>
+                <div class='user-block'>
+                  <img class='img-circle' src='dist/img/user1-128x128.jpg' alt='user image'>
+                  <span class='username'>
+                    <a href="#">Jonathan Burke Jr.</a>
+                  </span>
+                  <span class='description'>Shared publicly</span>
+                </div>
+                <!-- /.user-block -->
+                <div class='box-tools'>
+                  <button class='btn btn-box-tool' data-toggle='tooltip' title='Mark as read'>
+                    <i class='fa fa-circle-o'></i>
+                  </button>
+                  <button class='btn btn-box-tool' data-widget='collapse'>
+                    <i class='fa fa-minus'></i>
+                  </button>
+                  <button class='btn btn-box-tool' data-widget='remove'>
+                    <i class='fa fa-times'></i>
+                  </button>
+                </div>
+                <!-- /.box-tools --> </div>
+              <!-- /.box-header -->
+              <div class='box-body'>
+                <!-- post text -->
+                <p>gdelt提供的数据中有一项:ActionGeo_ADM1Code，它标识了该事件的行政区划地理信息。</p>
+                <p>通过对这个字段进行筛选，可以得到每个月中国地区每个省市的所有的新闻条目。</p>
+                <p>对数量的统计可以看出某些热门省市可能存在突发或持续性事件。</p>
+                <br>
 
-                  <!-- Social sharing buttons -->
-                  
-                    </div><!-- /.box-body -->
-                
-              </div><!-- /.box -->
-        </div>
+                <!-- Social sharing buttons --> </div>
+              <!-- /.box-body --> </div>
+            <!-- /.box --> </div>
 
         </div>
         <div class="row">
@@ -323,7 +384,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- jQuery 2.1.4 -->
     <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <script src="js/echarts.min.js"></script>
-    
+
     <script type="text/javascript" id="init">
          $(document).ready(function() { 
              setData();
@@ -336,7 +397,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             });
          }
     </script>
-    
+
     <script type="text/javascript">
         
         var myChart = echarts.init(document.getElementById('ebarchart'));
@@ -602,9 +663,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
         
     </script>
 
-
-    
-
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
       <!-- Create the tabs -->
@@ -680,9 +738,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- REQUIRED JS SCRIPTS -->
 
-  
+  <!-- jQuery 2.1.4 -->
+  <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
   <!-- Bootstrap 3.3.5 -->
   <script src="bootstrap/js/bootstrap.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="dist/js/app.min.js"></script>
 
   <!-- Optionally, you can add Slimscroll and FastClick plugins.
          Both of these plugins are recommended to enhance the
