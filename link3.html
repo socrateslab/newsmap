@@ -352,6 +352,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         </div>
         <div class="row">
+          <div class="box box-primary">
+           <div class="box-header with-border">
+              <h3 class="box-title" id="dottitle">2015年各省市新闻数量与影响力关系图</h3>
+              <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse">
+                  <i class="fa fa-minus"></i>
+                </button>
+              </div>
+              <!-- /.box-header -->
+            <div class="box-body">
+              <div id="fullchart" style="min-width: 310px; max-width: 1600px; height: 600px; margin: 0 auto"></div>
+            </div>
+            <!-- /.box-body --> </div>
+              <!-- /.box-tools --> </div>
+              <!--
             <div class="nav-tabs-custom">
               <ul class="nav nav-tabs">
                 <li class="active">
@@ -369,13 +384,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                 </div>
                 <!-- /.tab-pane -->
-                <div class="tab-pane" id="tab_2">
+                <!--<div class="tab-pane" id="tab_2">
                                     
                 </div>
                 <!-- /.tab-pane -->
                 
-                <!-- /.tab-pane --> </div>
-              <!-- /.tab-content --> </div>
+                <!-- /.tab-pane --> <!--</div>
+              <!-- /.tab-content --> <!--</div>-->
 
             <div class="box box-primary">
             <div class="box-header with-border">
@@ -425,6 +440,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 setMap(data);
                  $('#container').html('<script src="js/echarts.min.js" type="text\/javascript"><\/script>');
                 setDot(data);
+                
             });
         } 
     </script>
@@ -436,6 +452,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 setMap(data);
                  $('#container').html('<script src="js/echarts.min.js" type="text\/javascript"><\/script>');
                 setDot(data);
+                 setDot2();
             });
          });
     </script>
@@ -944,7 +961,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
             });  
         }
     </script>
-        <script type="text/javascript">
+    
+    <script type="text/javascript">
+        function setDot2(){
         var myChart2 = echarts.init(document.getElementById('dynamicgraph'));
         myChart2.showLoading();
 
@@ -1159,6 +1178,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         myChart2.setOption(option);
 
     });
+        }
         
 
     </script>
