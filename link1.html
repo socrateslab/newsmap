@@ -425,7 +425,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </div>
             <!-- /.box-body --> </div>
 
-            <div class="box box-primary">
+          <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title" id="yeartitle">新闻数量与提及数量动态变化图</h3>
               <div class="box-tools pull-right">
@@ -783,13 +783,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
         }
         
     </script>
-      <script type="text/javascript">
-        // Step:3 echarts & zrender as a Global Interface by the echarts-plain.js.
-        // Step:3 echarts和zrender被echarts-plain.js写入为全局接口
-        var mychart2 = echarts.init(document.getElementById('dynamicgraph'));
-        mychart2.showLoading();
-        $.get('data/asset/data/life-expectancy.json', function (data) {
-    mychart2.hideLoading();
+    <script type="text/javascript">
+        var myChart2 = echarts.init(document.getElementById('dynamicgraph'));
+        myChart2.showLoading();
+
+$.get('data/life-expectancy.json', function (data) {
+    myChart2.hideLoading();
 
     var itemStyle = {
         normal: {
@@ -812,7 +811,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
         {name: 'Population', index: 2, text: '总人口', unit: ''},
         {name: 'Country', index: 3, text: '国家', unit: ''}
     ];
-
 
     option = {
         baseOption: {
@@ -1000,11 +998,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
         });
     }
 
-    mychart2.setOption(option);
+    myChart2.setOption(option);
+
+});
+        
+
     </script>
 
     <!-- Control Sidebar -->
-  
+
     <!-- /.control-sidebar -->
     <!-- Add the sidebar's background. This div must be placed
            immediately after the control sidebar -->
