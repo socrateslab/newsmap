@@ -21,6 +21,8 @@
         }
         else
             $month = $month-1;
+        if($month<10)
+            $month = '0'.$month;
         $monthyear= $year.$month;
         $sql="Select ActionGeo_ADM1Code as province,count(*) as newsnum from chinadata where ActionGeo_CountryCode='CH' and MonthYear = '$monthyear' group by ActionGeo_ADM1Code union Select ActionGeo_CountryCode as province,count(*) as newsnum from chinadata where (ActionGeo_CountryCode='MC' or ActionGeo_CountryCode='HK' or ActionGeo_CountryCode='TW') and MonthYear>='$monthyear' group by ActionGeo_CountryCode order by newsnum desc";
         $result = mysql_query($sql);
