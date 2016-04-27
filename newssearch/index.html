@@ -14,12 +14,11 @@
                 }
                 return Length;
             }
-            function searchnews(){
-                
+            function searchnews(page){
                 var keyword = document.getElementById("inputfield").value;
                 var element = document.getElementById("results");
                 element.innerHTML="";
-                $.get("search.php?word="+keyword,function(data){
+                $.get("search.php?word="+keyword+"&page="+page,function(data){
                     var jsondata = $.parseJSON(data);
                     for (var i=0; i<getJsonObjLength(jsondata); i++){
                         var node=document.createElement("div");
@@ -27,16 +26,38 @@
                         element.appendChild(node);
                     }
                 });
+                document.getElementById('nextpage').style.visibility = '';
             }
             
             $(function(){
                 $('#inputfield').bind('keypress',function(event){
                     if(event.keyCode == "13")    
                     {
-                        searchnews();
+                        searchnews(0);
                     }
                 });
             });
+        </script>
+        
+        <script type="text/javascript">
+            var page = 0;
+            
+            function pageBack(){
+                page = page-1;
+                searchnews(page);
+                if(page==0){
+                    document.getElementById('lastpage').style.visibility = 'hidden';
+                }
+            }
+            
+            function pageForward(){
+                page = page+1;
+                searchnews(page);
+                if(page>0){
+                    document.getElementById('lastpage').style.visibility = '';
+                }
+            }
+            
         </script>
         
         <style type="text/css">
@@ -84,10 +105,9 @@
             #results{
                 margin-top: 30px;
                 text-align: left;
-                width: 70%;
-                position: relative;
-                width:59%;position:relative;left:25%;
-                margin-bottom: 100px;
+                width:59%;
+                position:relative;left:25%;
+                margin-bottom: 30px;
             }
             #results a{
                 text-decoration: none;
@@ -105,12 +125,19 @@
         <img id='icon' src='../dist/img/ccc.png' alt='user image'>
         <div style="width:59%;position:relative;left:25%;margin-top:10px;overflow:hidden;">
             <input id="inputfield"/>
-            <a id="searchBtn" href="#" onclick="searchnews()">搜&nbsp;索</a>
+            <a id="searchBtn" href="#" onclick="searchnews(0)">搜&nbsp;索</a>
             
         </div>
         <div id="results">
             
         </div>
-        
+        <div id="results" style="margin-top:0px;margin-bottom:130px;">
+            <a id="lastpage" style="display:block;float:left;visibility:hidden;" href="#" onclick="pageBack()">
+               上一页 
+            </a>
+            <a id="nextpage" style="display:block;float:right;margin-right:18%;visibility:hidden;" href="#" onclick="pageForward()">
+                下一页
+            </a>
+        </div>
     </body>
 </html>
