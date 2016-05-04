@@ -22,7 +22,7 @@
                     var jsondata = $.parseJSON(data);
                     for (var i=0; i<getJsonObjLength(jsondata); i++){
                         var node=document.createElement("div");
-                        node.innerHTML = "<a href="+jsondata[i].url+" target='_blank'>"+jsondata[i].title+"</a>";
+                        node.innerHTML = "<a href="+jsondata[i].url+" target='_blank'>"+jsondata[i].title+"<span>"+jsondata[i].date+"</span></a>";
                         element.appendChild(node);
                     }
                 });
@@ -116,6 +116,10 @@
                 color:#367FA9;
                 display: block;
                 margin-top: 20px;
+            }
+            #results a span{
+                text-align: right;
+                float: right;
             }
         </style>
         
