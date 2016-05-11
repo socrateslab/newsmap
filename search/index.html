@@ -17,8 +17,9 @@
             function searchnews(page){
                 var keyword = document.getElementById("inputfield").value;
                 var element = document.getElementById("results");
+                var type=$('input:radio[name="type"]:checked').val();
                 element.innerHTML="";
-                $.get("search.php?word="+keyword+"&page="+page,function(data){
+                $.get("search.php?word="+keyword+"&page="+page+"&type="+type,function(data){
                     var jsondata = $.parseJSON(data);
                     for (var i=0; i<getJsonObjLength(jsondata); i++){
                         var node=document.createElement("div");
@@ -27,6 +28,9 @@
                     }
                 });
                 document.getElementById('nextpage').style.visibility = '';
+                $("#icon").hide();
+                $("#search-panel").attr("class","panel");
+                $("#select-panel").attr("class","panel");
             }
             
             $(function(){
@@ -77,6 +81,8 @@
                 color: #333;
                 font-size: 18px;
                 padding-left: 10px;
+                
+                margin-bottom: 20px;
             }
             #searchBtn{
                 text-decoration: none;
@@ -102,13 +108,16 @@
                 
             }
             
-            #results{
-                margin-top: 30px;
+            .panel{
+                margin-top: 10px;
                 text-align: left;
                 width:59%;
-                position:relative;left:25%;
-                margin-bottom: 30px;
+                position:relative;
+                left:5%;
+                margin-bottom: 10px;
+                overflow:hidden;
             }
+            
             #results a{
                 text-decoration: none;
                 font-family: 黑体;
@@ -121,25 +130,35 @@
                 text-align: right;
                 float: right;
             }
+            .panel-1{
+                width:59%;position:relative;left:25%;margin-top:10px;overflow:hidden;
+            }
         </style>
         
     </head>
     
     <body style="text-align:center">
         <img id='icon' src='../dist/img/ccc.png' alt='user image'>
-        <div style="width:59%;position:relative;left:25%;margin-top:10px;overflow:hidden;">
+        <div id="search-panel" class="panel-1" style="text-align:center">
             <input id="inputfield"/>
             <a id="searchBtn" href="#" onclick="searchnews(0)">搜&nbsp;索</a>
+        </div>
+        
+        <div id="select-panel" class="panel-1">
+            <label><input name="type" type="radio" value="cn" checked/>中文站点</label> 
+            <label><input name="type" type="radio" value="hk" />香港</label>
+
+        </div>
+        
+
+        <div id="results" class="panel">
             
         </div>
-        <div id="results">
-            
-        </div>
-        <div id="results" style="margin-top:0px;margin-bottom:130px;">
+        <div id="results" class="panel" style="margin-top:0px;margin-bottom:130px;">
             <a id="lastpage" style="display:block;float:left;visibility:hidden;" href="#" onclick="pageBack()">
                上一页 
             </a>
-            <a id="nextpage" style="display:block;float:right;margin-right:18%;visibility:hidden;" href="#" onclick="pageForward()">
+            <a id="nextpage" style="display:block;float:right;visibility:hidden;" href="#" onclick="pageForward()">
                 下一页
             </a>
         </div>
