@@ -28,8 +28,9 @@ function searchhk($word,$page){
     $i=0;
     foreach ( $list as $key => $value ) {  
         $info=$list[$key]["_source"];
+        unset($info["content"]); 
         foreach ( $info as $key => $value ) {  
-            $info[$key] = urlencode ( str_replace(array("\r\n", "\r", "\n"), "", $value) );  
+            $info[$key] = urlencode ( str_replace(array("\r\n", "\r", "\n"), "", $value) ); 
         } 
         
         $output[$i] = $info;
