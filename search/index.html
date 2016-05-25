@@ -1,72 +1,122 @@
 <!DOCTYPE html>
-<html class="fsvs demo" lang="zh">
-    <head>
-        <meta charset="UTF-8">
-        <title></title>
-        <meta name="viewport" content="width=device-width, user-scalable=no">
-        <script type="text/javascript" src="../plugins/jQuery/jQuery-2.1.4.min.js"></script>
-        
-        <script type="text/javascript">
-            function getJsonObjLength(jsonObj) {
-                var Length = 0;
-                for (var item in jsonObj) {
-                    Length++;
+<!--[if lt IE 7 ]> <html class="ie ie6 no-js" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie ie7 no-js" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie ie8 no-js" lang="en"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie ie9 no-js" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>新闻搜索</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--main style-->
+<link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.css">
+<link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
+<!--background slider style-->
+<link rel="stylesheet" type="text/css" href="css/slideshow.css" />
+<!--google font style-->
+<link href='http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,600,700,800,300' rel='stylesheet' type='text/css'>
+<!--font-family: 'Open Sans', sans-serif;-->
+<!-- font css style-->
+<link rel="stylesheet" href="css/font-awesome.css">
+<!--for slider style-->
+
+<noscript>
+<link rel="stylesheet" type="text/css" href="css/fallback.css" />
+</noscript>
+    <script type="text/javascript">
+        function getJsonObjLength(jsonObj) {
+            var Length = 0;
+            for (var item in jsonObj) {
+                Length++;
+            }
+            return Length;
+        }
+
+        function searchnews(page,num){
+            var keyword = document.getElementById("inputfield"+num).value;
+            var element = document.getElementById("results");
+            var type=$('input:radio[name="type"]:checked').val();
+            element.innerHTML="";
+            setPercentage(keyword,type);
+            $.get("search.php?word="+keyword+"&page="+page+"&type="+type,function(data){
+                var jsondata = $.parseJSON(data);
+                for (var i=0; i<getJsonObjLength(jsondata); i++){
+                    var node=document.createElement("div");
+                    node.innerHTML = "<a href="+jsondata[i].url+" target='_blank'>"+jsondata[i].title+"<span>"+jsondata[i].date+"</span></a>";
+                    element.appendChild(node);
                 }
-                return Length;
-            }
-            function searchnews(page){
-                var keyword = document.getElementById("inputfield").value;
-                var element = document.getElementById("results");
-                var type=$('input:radio[name="type"]:checked').val();
-                element.innerHTML="";
-                $.get("search.php?word="+keyword+"&page="+page+"&type="+type,function(data){
-                    var jsondata = $.parseJSON(data);
-                    for (var i=0; i<getJsonObjLength(jsondata); i++){
-                        var node=document.createElement("div");
-                        node.innerHTML = "<a href="+jsondata[i].url+" target='_blank'>"+jsondata[i].title+"<span>"+jsondata[i].date+"</span></a>";
-                        element.appendChild(node);
-                    }
-                });
-                document.getElementById('nextpage').style.visibility = '';
-                $("#icon").hide();
-                $("#search-panel").attr("class","panel");
-                $("#select-panel").attr("class","panel");
-            }
-            
-            $(function(){
-                $('#inputfield').bind('keypress',function(event){
-                    if(event.keyCode == "13")    
-                    {
-                        searchnews(0);
-                    }
-                });
+                
             });
-        </script>
+            document.getElementById('nextpage').style.visibility = '';
+            //$("#search-panel").attr("class","panel");
+            //$("#select-panel").attr("class","panel");
+            
+            if(num==0)
+                document.getElementById("inputfield"+(num+1)).value=document.getElementById("inputfield"+num).value;
+            else
+                document.getElementById("inputfield"+(num-1)).value=document.getElementById("inputfield"+num).value;
+            
+        }
         
-        <script type="text/javascript">
-            var page = 0;
-            
-            function pageBack(){
-                page = page-1;
-                searchnews(page);
-                if(page==0){
-                    document.getElementById('lastpage').style.visibility = 'hidden';
-                }
+        function setPercentage(keyword,source_type){
+                $.get("statistic.php?word="+keyword+"&source_type="+source_type+"&type=source_percent",function(data){
+                    var jsondata = $.parseJSON(data);
+                    var sum = jsondata["sum"];
+                    var element = document.getElementById("source-stat");
+                    element.innerHTML=""
+                    for (var i=0; i<getJsonObjLength(jsondata)-1; i++){
+                        var site = jsondata[i].source;
+                        var num = jsondata[i].num;
+                        var per = Math.round(num/sum*100);
+                        var node= "<div class=' col-xs-12 col-sm-4 col-md-4 col-lg-4 skillsArea'>"+
+                            "<div class=' col-xs-12 col-sm-6 col-md-6 col-lg-6 skills'>"+
+                            "<span class='chart skilBg' data-percent='"+90+"'>"+
+                            " <span class='percent'></span> </span>"+
+                            "<h4>"+site+"</h4>"+
+                            "</div></div>";
+                        $("#source-stat").append(node);
+                        
+                    }
+                });
+                
             }
-            
-            function pageForward(){
-                page = page+1;
-                searchnews(page);
-                if(page>0){
-                    document.getElementById('lastpage').style.visibility = '';
+
+        $(function(){
+            $('.inputfield').bind('keypress',function(event){
+                if(event.keyCode == "13")    
+                {
+                    searchnews(0,1);
                 }
+            });
+        });
+        
+    </script>
+
+    <script type="text/javascript">
+        var page = 0;
+
+        function pageBack(){
+            page = page-1;
+            searchnews(page,1);
+            if(page==0){
+                document.getElementById('lastpage').style.visibility = 'hidden';
             }
-            
-        </script>
+        }
+
+        function pageForward(){
+            page = page+1;
+            searchnews(page,1);
+            if(page>0){
+                document.getElementById('lastpage').style.visibility = '';
+            }
+        }
+
+    </script>
         
         <style type="text/css">
         
-            #inputfield{
+            .inputfield{
                 width: 82%;
                 height: 30px;
                 display: block;
@@ -84,7 +134,7 @@
                 
                 margin-bottom: 20px;
             }
-            #searchBtn{
+            .searchBtn{
                 text-decoration: none;
                 display: block;
                 position: relative;
@@ -108,12 +158,12 @@
                 
             }
             
-            .panel{
+            .panel-set{
                 margin-top: 10px;
                 text-align: left;
                 width:59%;
                 position:relative;
-                left:5%;
+                left:15%;
                 margin-bottom: 10px;
                 overflow:hidden;
             }
@@ -131,36 +181,266 @@
                 float: right;
             }
             .panel-1{
-                width:59%;position:relative;left:25%;margin-top:10px;overflow:hidden;
+                width:59%;position:relative;left:15%;overflow:hidden;
             }
+            .search-div{
+                width:0;height:0;position:relative;left:50%;rigth:50%;top:50%;bottom:50%;
+                
+            }
+            .panel-0{
+                width:600px;height:200px;margin-left:-300px;margin-top:-100px
+            }
+            .banner{
+              z-index: 0;
+                background-image: url(images/bg2.jpg);
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+            }
+           
+
         </style>
-        
-    </head>
+<!--[if lt IE 9]>
+			<link rel="stylesheet" type="text/css" href="css/fallback.css" />
+		<![endif]-->
+</head><body>
+<!--wrapper start-->
+<div class="wrapper" id="wrapper">
+  <header id="head">
+    <!--banner start-->
+    <div class="banner row" id="banner">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 noPadd" style="height:100%">
+        <!--background slide show start-->
+
+            <div class= "search-div">
+                <div id="search-panel" class="panel-0" style="text-align:center">
+                    <input class="inputfield" id="inputfield0"/>
+                    <a class="searchBtn" href="#result" onclick="searchnews(0,0)">搜&nbsp;索</a>
+                    
+                    <div id="select-panel" class="panel-1">
+                        <label><input name="type" type="radio" value="cn" checked/>中文站点</label> 
+                        <label><input name="type" type="radio" value="hk" />香港</label>
+
+                    </div>
+                </div>
+                
+            </div>
+        <!--background slide show end-->
+      </div>
+    </div>
+    <!--banner end-->
     
-    <body style="text-align:center">
-        <img id='icon' src='../dist/img/ccc.png' alt='user image'>
-        <div id="search-panel" class="panel-1" style="text-align:center">
-            <input id="inputfield"/>
-            <a id="searchBtn" href="#" onclick="searchnews(0)">搜&nbsp;索</a>
+    <!--menu start-->
+    <div class="menu">
+      <div class="navbar-wrapper" id="nav-menu">
+        <div class="container">
+          <div class="navwrapper">
+            <div class="navbar navbar-inverse navbar-static-top">
+              <div class="container">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                  <a class="navbar-brand" href="#">Menu</a> </div>
+                <div class="navbar-collapse collapse">
+                  <ul class="nav navbar-nav">
+                    <li class="menuItem active"><a href="#wrapper">首页</a></li>
+                    <li class="menuItem"><a href="#result">搜索结果</a></li>
+                    <li class="menuItem"><a href="#statistics">内容统计</a></li>
+                    <li class="menuItem"><a href="#wordcloud">词云分析</a></li>
+                    <li class="menuItem"><a href="#contact">关于本站</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End Navbar -->
+        </div>
+      </div>
+    </div>
+    <!--menu end-->
+  </header>
+  
+  <!--result start-->
+  <section class="exprience" id="result">
+    <div class="container">
+        <div id="search-panel" class="panel-1" style="text-align:center;color:#4d4d4d">
+            <input class="inputfield" id="inputfield1"/>
+            <a class="searchBtn" href="#result" onclick="searchnews(0,1)">搜&nbsp;索</a>
+
+            <div id="select-panel" class="panel-1">
+                <label><input name="type" type="radio" value="cn"/>中文站点</label> 
+                <label><input name="type" type="radio" value="hk" />香港</label>
+
+            </div>
         </div>
         
-        <div id="select-panel" class="panel-1">
-            <label><input name="type" type="radio" value="cn" checked/>中文站点</label> 
-            <label><input name="type" type="radio" value="hk" />香港</label>
 
-        </div>
-        
-
-        <div id="results" class="panel">
+        <div id="results" class="panel-set">
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
             
         </div>
-        <div id="results" class="panel" style="margin-top:0px;margin-bottom:130px;">
-            <a id="lastpage" style="display:block;float:left;visibility:hidden;" href="#" onclick="pageBack()">
+        <div id="results" class="panel-set" style="margin-top:0px;margin-bottom:130px;">
+            <a id="lastpage" style="display:block;float:left;visibility:hidden;" href="#result" onclick="pageBack()">
                上一页 
             </a>
-            <a id="nextpage" style="display:block;float:right;visibility:hidden;" href="#" onclick="pageForward()">
+            <a id="nextpage" style="display:block;float:right;visibility:hidden;" href="#result" onclick="pageForward()">
                 下一页
             </a>
         </div>
-    </body>
+      
+      
+    </div>
+  </section>
+  <!--result end-->
+   <!--statistics start-->
+  <section class="technical" id="statistics">
+    <div class="container">
+      <div class="heading">
+        <h2>来源统计</h2>
+        <p>Where news mostly comes from</p>
+      </div>
+      <div id="source-stat" class="row">
+        <div class=" col-xs-12 col-sm-4 col-md-4 col-lg-4 skillsArea"><div class=" col-xs-12 col-sm-6 col-md-6 col-lg-6 skills"><span class="chart skilBg" data-percent="90"> <span class="percent"></span> </span><h4>huatu.com</h4></div></div>
+        
+      </div>
+    </div>
+  </section>
+  <!--statistics end-->
+  <!--wordcloud start-->
+  <section class="education" id="wordcloud">
+    <div class="container">
+      <div class="heading">
+        <h2>词云分析</h2>
+        <p>What I have done in my academic career</p>
+      </div>
+      <div id="piechart" style="min-width: 310px; max-width: 1600px; height: 400px; margin: 0 auto"></div>
+     
+     
+    </div>
+  </section>
+  <!--wordcloud end-->
+  
+  <!--contact start-->
+  <section class="contact" id="contact">
+    <div class="container topCon">
+      <div class="heading">
+        <h2>关于本站</h2>
+        <p>Please feel free if you would like to have a chat.</p>
+      </div>
+    </div>
+    <div class="row mapArea">
+      map
+    </div>
+  </section>
+  <section class="contactDetails">
+    <div class="container">
+      <!--contact info start-->
+      <div class="col-xs-12 col-sm-3 col-md-4 col-lg-4">
+        <h4>Contact details</h4>
+<p> <i class="fa fa-map-marker fa-lg"></i> Collins Street West Victoria 8007 Australia</p>
+        <p> <i class="fa fa-mobile fa-lg"></i> +1800 1234 56789</p>
+        <p> <i class="fa fa-envelope-o "></i> <a href="mailto:support@websitename.com">support@websitename.com</a></p>
+        <p> <i class="fa fa-link "></i> <a href="www.websitename.com">www.websitename.com</a></p>
+      </div>
+      <!--contact info end-->
+      <!--contact form start-->
+      <div class="col-xs-12 col-sm-9 col-md-8 col-lg-8 conForm">
+        <h4>Shoot a message!</h4>
+        <div id="message"></div>
+        <form method="post" action="php/contact.php" name="cform" id="cform">
+          <input name="name" id="name" type="text" class="col-xs-12 col-sm-6 col-md-6 col-lg-6" placeholder="Your name..." >
+          <input name="email" id="email" type="email" class=" col-xs-12 col-sm-6 col-md-6 col-lg-6 noMarr" placeholder="Your email..." >
+          <textarea name="comments" id="comments" cols="" rows="" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" placeholder="Your message..."></textarea>
+          <input type="submit" id="submit" name="send" class="submitBnt" value="Send message">
+          <div id="simple-msg"></div>
+        </form>
+      </div>
+      <!--contact form end-->
+    </div>
+  </section>
+  <!--contact end-->
+  <!--footer start-->
+  <section class="footer" id="footer">
+    <div class="container">
+      <ul>
+        <li><a href="#"><i class="fa fa-twitter fa-2x"></i></a></li>
+        <li><a href="#"><i class="fa fa-facebook fa-2x"></i></a></li>
+        <li><a href="#"><i class="fa fa-linkedin fa-2x"></i></a></li>
+        <li><a href="#"><i class="fa fa-pinterest fa-2x"></i></a></li>
+        <li><a href="#"><i class="fa fa-dribbble fa-2x"></i></a></li>
+        <li><a href="#"><i class="fa fa-rss fa-2x"></i></a></li>
+      </ul>
+    </div>
+  </section>
+  <!--footer end-->
+</div>
+<!--wrapper end-->
+
+<script src="js/echarts.min.js"></script>
+
+  
+
+<!--modernizr js-->
+<script type="text/javascript" src="js/modernizr.custom.26633.js"></script>
+<!--jquary min js-->
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/jquery.gridrotator.js"></script>
+<!--for custom jquary-->
+<script src="js/custom.js"></script>
+<!--for placeholder jquary-->
+<script type="text/javascript" src="js/jquery.placeholder.js"></script>
+<!--for menu jquary-->
+<script type="text/javascript" src="js/stickUp.js"></script>
+<script type="text/javascript">
+jQuery(function($) {
+$(document).ready( function() {
+  //enabling stickUp on the '.navbar-wrapper' class
+  $('.navbar-wrapper').stickUp({
+				parts: {
+				  0: 'banner',
+				  1: 'result',
+				  2: 'statistics',
+				  3: 'wordcloud',
+				  4: 'contact'
+				},
+				itemClass: 'menuItem',
+				itemHover: 'active',
+				topMargin: 'auto'
+			  });
+});
+
+$( ".navbar.navbar-inverse.navbar-static-top a" ).click(function() {
+  $( ".navbar-collapse" ).addClass( "hideClass" );
+});
+
+
+$( ".navbar.navbar-inverse.navbar-static-top a" ).click(function() {
+  $( ".navbar-collapse" ).addClass( "collapse" );
+});
+
+
+$( ".navbar.navbar-inverse.navbar-static-top a" ).click(function() {
+  $( ".navbar-collapse" ).removeClass( "in" );
+});
+
+$( ".navbar-toggle" ).click(function() {
+  $( ".navbar-collapse" ).removeClass( "hideClass" );
+});
+
+
+});
+</script>
+<!--for portfoli filter jquary-->
+<script src="js/jquery.isotope.js" type="text/javascript"></script>
+<!--for portfoli lightbox -->
+<link type="text/css" rel="stylesheet" id="theme" href="css/jquery-ui-1.8.16.custom.css">
+<link type="text/css" rel="stylesheet" href="css/lightbox.min.css">
+<script type="text/javascript" src="js/jquery.ui.widget.min.js"></script>
+<script type="text/javascript" src="js/jquery.ui.rlightbox.js"></script>
+<!--for skill chat jquary-->
+<script src="js/jquery.easing.min.js"></script>
+<script src="js/jquery.easypiechart.js"></script>
+<!--contact form js-->
+<script type="text/javascript" src="js/jquery.contact.js"></script>
+</body>
 </html>

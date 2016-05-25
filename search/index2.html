@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html class="fsvs demo" lang="zh">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <meta name="viewport" content="width=device-width, user-scalable=no">
+        <script type="text/javascript" src="../plugins/jQuery/jQuery-2.1.4.min.js"></script>
+        
+        <script type="text/javascript">
+            function getJsonObjLength(jsonObj) {
+                var Length = 0;
+                for (var item in jsonObj) {
+                    Length++;
+                }
+                return Length;
+            }
+            function searchnews(page){
+                var keyword = document.getElementById("inputfield").value;
+                var element = document.getElementById("results");
+                var type=$('input:radio[name="type"]:checked').val();
+                element.innerHTML="";
+                $.get("search.php?word="+keyword+"&page="+page+"&type="+type,function(data){
+                    var jsondata = $.parseJSON(data);
+                    for (var i=0; i<getJsonObjLength(jsondata); i++){
+                        var node=document.createElement("div");
+                        node.innerHTML = "<a href="+jsondata[i].url+" target='_blank'>"+jsondata[i].title+"<span>"+jsondata[i].date+"</span></a>";
+                        element.appendChild(node);
+                    }
+                });
+                
+                console.log(keyword);
+
+                setPercentage(keyword,type);
+                document.getElementById('nextpage').style.visibility = '';
+                $("#icon").hide();
+                $("#search-panel").attr("class","panel");
+                $("#select-panel").attr("class","panel");
+            }
+            
+            function setPercentage(keyword,source_type){
+                alert(keyword);
+                /*$.get("statistic.php?word="+keyword+"&source_type="+source_type+"type=source_percent",function(data){
+                    var jsondata = $.parseJSON(data);
+                    alert(jsondata);
+                    for (var i=0; i<getJsonObjLength(jsondata); i++){
+                        
+                    }
+                });*/
+                
+            }
+            
+            $(function(){
+                $('#inputfield').bind('keypress',function(event){
+                    if(event.keyCode == "13")    
+                    {
+                        searchnews(0,1);
+                    }
+                });
+            });
+        </script>
+        
+        <script type="text/javascript">
+            var page = 0;
+            
+            function pageBack(){
+                page = page-1;
+                searchnews(page);
+                if(page==0){
+                    document.getElementById('lastpage').style.visibility = 'hidden';
+                }
+            }
+            
+            function pageForward(){
+                page = page+1;
+                searchnews(page);
+                if(page>0){
+                    document.getElementById('lastpage').style.visibility = '';
+                }
+            }
+            
+        </script>
+        
+        <style type="text/css">
+        
+            #inputfield{
+                width: 82%;
+                height: 30px;
+                display: block;
+                position: relative;
+                float: left;
+                border: 1px solid #cdcdcd;
+                -moz-border-radius: 3px;      /* Gecko browsers */
+                -webkit-border-radius: 3px;   /* Webkit browsers */
+                border-radius:3px;            /* W3C syntax */
+                
+                font-family: 微软雅黑;
+                color: #333;
+                font-size: 18px;
+                padding-left: 10px;
+                
+                margin-bottom: 20px;
+            }
+            #searchBtn{
+                text-decoration: none;
+                display: block;
+                position: relative;
+                width: 15%;
+                float: right;
+                height: 35px;
+                line-height: 36px;
+                color: white;
+                background-color: #3C8DBC;
+                border: 0px;
+                -moz-border-radius: 3px;      /* Gecko browsers */
+                -webkit-border-radius: 3px;   /* Webkit browsers */
+                border-radius:3px;            /* W3C syntax */
+                font-family: 黑体;
+                font-size: 18px;
+            }
+            
+            #icon{
+                width: 200px;
+                height: 200px;
+                
+            }
+            
+            .panel{
+                margin-top: 10px;
+                text-align: left;
+                width:59%;
+                position:relative;
+                left:5%;
+                margin-bottom: 10px;
+                overflow:hidden;
+            }
+            
+            #results a{
+                text-decoration: none;
+                font-family: 黑体;
+                font-size: 19px;
+                color:#367FA9;
+                display: block;
+                margin-top: 20px;
+            }
+            #results a span{
+                text-align: right;
+                float: right;
+            }
+            .panel-1{
+                width:59%;position:relative;left:25%;margin-top:10px;overflow:hidden;
+            }
+        </style>
+        
+    </head>
+    
+    <body style="text-align:center">
+        <img id='icon' src='../dist/img/ccc.png' alt='user image'>
+        <div id="search-panel" class="panel-1" style="text-align:center">
+            <input id="inputfield"/>
+            <a id="searchBtn" href="#" onclick="searchnews(0)">搜&nbsp;索</a>
+        </div>
+        
+        <div id="select-panel" class="panel-1">
+            <label><input name="type" type="radio" value="cn" checked/>中文站点</label> 
+            <label><input name="type" type="radio" value="hk" />香港</label>
+
+        </div>
+        
+
+        <div id="results" class="panel">
+            
+        </div>
+        <div id="results" class="panel" style="margin-top:0px;margin-bottom:130px;">
+            <a id="lastpage" style="display:block;float:left;visibility:hidden;" href="#" onclick="pageBack()">
+               上一页 
+            </a>
+            <a id="nextpage" style="display:block;float:right;visibility:hidden;" href="#" onclick="pageForward()">
+                下一页
+            </a>
+        </div>
+    </body>
+</html>
